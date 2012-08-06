@@ -1,0 +1,36 @@
+
+/* ****************************************************************************************************************************************
+* Global Styles
+* div clearing
+**************************************************************************************************************************************** */
+/* Ensure the DIV completely encompasses the contained content */
+.clear		{ clear: both; }
+
+/* ****************************************************************************************************************************************
+* Custom Styles
+* Headings, forms, columns (public page), popups, spans (footer and video gallery)
+**************************************************************************************************************************************** */
+.public	img		{ margin-top: 10px; margin-bottom: 10px; border: dashed 1px silver; }
+
+#PopUpError	{ overflow: scroll; position: fixed; right: 20px; bottom: 20px; border: 1px solid silver;
+			padding: 10px; background-color: white; text-align: justify; width: 500px; height: 300px; }
+#PopUpError h2	{ color: black; }
+#PopUpError p	{ color: black; }
+p[type="psulink"] { text-decoration:underline; }
+#PopUpNotice	{  position: fixed; right: 20px; bottom: 0px; }
+
+.three_col	{ -moz-column-count:3; -webkit-column-count:3; column-count:3; }
+.two_col	{ -moz-column-count:2; -webkit-column-count:2; column-count:2; }
+
+.basic_div a	{ text-align: center; text-decoration: none; border: solid 1px silver;
+	padding: 10px; font-size: 14px; display: inline-block; margin: 5px; }
+
+/* ****************************************************************************************************************************************
+* Main Styles
+* body, containers
+**************************************************************************************************************************************** */
+body		{ font: 11px "proxima-nova-1","proxima-nova-2","Helvetica Neue","Arial",sans-serif;  background-attachment: fixed; }
+#content	{ text-align: center; top: 0px; width: 100%; height: 100%;  padding: 10px 0px 10px 0px; position: relative; }
+#content_in_0	{ text-align: left; padding-bottom: 10px; }
+.container	{ text-align: left; }
+.container-fluid	{ text-align: left; }
