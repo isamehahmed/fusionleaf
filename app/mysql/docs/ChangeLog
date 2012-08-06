@@ -1,0 +1,130 @@
+------------------------------------------------------------
+revno: 3820 [merge]
+tags: clone-5.5.25-build
+committer: Annamalai Gurusami <annamalai.gurusami@oracle.com>
+branch nick: mysql-5.5
+timestamp: Thu 2012-05-10 10:33:16 +0530
+message:
+  Merging from mysql-5.1 to mysql-5.5. 
+    ------------------------------------------------------------
+    revno: 2661.810.8
+    committer: Annamalai Gurusami <annamalai.gurusami@oracle.com>
+    branch nick: mysql-5.1
+    timestamp: Thu 2012-05-10 10:18:31 +0530
+    message:
+      Bug #14007649 65111: INNODB SOMETIMES FAILS TO UPDATE ROWS INSERTED 
+      BY A CONCURRENT TRANSACTIO
+      
+      The member function QUICK_RANGE_SELECT::init_ror_merged_scan() performs
+      a table handler clone. Innodb does not provide a clone operation.  
+      The ha_innobase::clone() is not there. The handler::clone() does not 
+      take care of the ha_innobase->prebuilt->select_lock_type.  Because of 
+      this what happens is that for one index we do a locking read, and 
+      for the other index we were doing a non-locking (consistent) read. 
+      The patch introduces ha_innobase::clone() member function.  
+      It is implemented similar to ha_myisam::clone().  It calls the 
+      base class handler::clone() and then does any additional operation 
+      required.  I am setting the ha_innobase->prebuilt->select_lock_type 
+      correctly. 
+      
+      rb://1060 approved by Marko
+------------------------------------------------------------
+revno: 3819 [merge]
+committer: Georgi Kodinov <Georgi.Kodinov@Oracle.com>
+branch nick: merge-5.5
+timestamp: Wed 2012-05-09 17:08:44 +0300
+message:
+  merge
+    ------------------------------------------------------------
+    revno: 2661.810.7 [merge]
+    committer: Sunanda Menon <sunanda.menon@oracle.com>
+    branch nick: mysql-5.1
+    timestamp: Tue 2012-05-08 07:19:14 +0200
+    message:
+      Merge from mysql-5.1.63-release
+    ------------------------------------------------------------
+    revno: 2661.810.6
+    committer: Venkata Sidagam <venkata.sidagam@oracle.com>
+    branch nick: mysql-5.1-bug-45740
+    timestamp: Mon 2012-05-07 16:46:44 +0530
+    message:
+      Bug #11754178 45740: MYSQLDUMP DOESN'T DUMP GENERAL_LOG AND SLOW_QUERY 
+                           CAUSES RESTORE PROBLEM
+      Problem Statement:
+      ------------------
+      mysqldump is not having the dump stmts for general_log and slow_log
+      tables. That is because of the fix for Bug#26121. Hence, after 
+      dropping the mysql database, and applying the dump by enabling the 
+      logging, "'general_log' table not found" errors are logged into the 
+      server log file.
+      
+      Analysis:
+      ---------
+      As part of the fix for Bug#26121, we skipped the dumping of tables 
+      for general_log and slow_log, because the data dump of those tables 
+      are taking LOCKS, which is not allowed for log tables.
+      
+      Fix:
+      ----
+      We came up with an approach that instead of taking both meta data 
+      and data dump information for those tables, take only the meta data 
+      dump which doesn't need LOCKS.
+      As part of fixing the issue we came up with below algorithm.
+      Design before fix:
+      1) mysql database is having tables like db, event,... general_log,
+         ... slow_log...
+      2) Skip general_log and slow_log while preparing the tables list
+      3) Take the TL_READ lock on tables which are present in the table 
+         list and do 'show create table'.
+      4) Release the lock.
+      
+      Design with the fix:
+      1) mysql database is having tables like db, event,... general_log,
+         ... slow_log...
+      2) Skip general_log and slow_log while preparing the tables list
+      3) Explicitly call the 'show create table' for general_log and 
+         slow_log
+      3) Take the TL_READ lock on tables which are present in the table 
+         list and do 'show create table'.
+      4) Release the lock.
+      
+      While taking the meta data dump for general_log and slow_log the 
+      "CREATE TABLE" is replaced with "CREATE TABLE IF NOT EXISTS". 
+      This is because we skipped "DROP TABLE" for those tables, 
+      "DROP TABLE" fails for these tables if logging is enabled. 
+      Customer is applying the dump by enabling logging so, if the dump 
+      has "DROP TABLE" it will fail. Hence, removed the "DROP TABLE" 
+      stmts for those tables.
+        
+      After the fix we could observe "Table 'mysql.general_log' 
+      doesn't exist" errors initially that is because in the customer 
+      scenario they are dropping the mysql database by enabling the 
+      logging, Hence, those errors are expected. Once we apply the 
+      dump which is taken before the "drop database mysql", the errors 
+      will not be there.
+------------------------------------------------------------
+revno: 3818 [merge]
+committer: Joerg Bruehe <joerg.bruehe@oracle.com>
+branch nick: mysql-5.5
+timestamp: Mon 2012-05-07 22:20:42 +0200
+message:
+  Merge 5.5.24 back into main 5.5.
+  This is a weave merge, but without any conflicts.
+  In 14 source files, the copyright year needed to be updated to 2012.
+    ------------------------------------------------------------
+    revno: 3097.17.30
+    tags: mysql-5.5.24, clone-5.5.24-build
+    committer: Tor Didriksen <tor.didriksen@oracle.com>
+    branch nick: 5.5-security
+    timestamp: Thu 2012-04-12 15:04:22 +0200
+    message:
+      Bug#13871079 RQG_MYISAM_DML_ALTER_VALGRIND FAILS ON VALGRIND PN PB2
+      
+      The class Copy_field contains a String tmp, 
+      which may allocate memory on the heap.
+      That means that all instances of Copy_field
+      must be properly destroyed. Alas they are not.
+      
+      Solution: don't use Copy_field::tmp for copying
+      from_field => tmp => to_field
+      in do_field_string()

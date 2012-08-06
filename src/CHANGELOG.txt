@@ -1,0 +1,7 @@
+FusionLeaf Studio v1.0.3.0 (2012-07-02)
+---------------------------------------
+* FusionLeaf Studio.exe - updated to v1.0.3.0 (2012-07-02), added support for Memcached, fixed Shutdown problems with Nginx
+
+FusionLeaf Studio v1.0.2.0 (2012-06-20)
+---------------------------------------
+* FusionLeaf Studio.exe - v1.0.2.0 (2012-06-20)

@@ -1,0 +1,23 @@
+FusionLeaf Studio v1.0.4.0 (2012-08-04)
+---------------------------------------
+* FusionLeaf Studio.exe - no change
+* FusionLeaf CMS - added the CMS code
+* PHP v5.4.4 - disabled xCache
+* MySQL 5.5.25 - no change
+* Nginx 1.2.1 - no change
+* Memcached - add msvcr71.dll to the folder
+
+FusionLeaf Studio v1.0.3.0 (2012-07-02)
+---------------------------------------
+* FusionLeaf Studio.exe - updated to v1.0.3.0 (2012-07-02), added support for Memcached, fixed Shutdown problems with Nginx
+* PHP v5.4.4 - added php_apc.dll, php_memcache.dll, php_pdo_mysql.dll, php_xcache.dll
+* MySQL 5.5.25 - no change
+* Nginx 1.2.1 - no change
+* Memcached - Code by Danga, Compiled by Abhinavsingh (2008-09-24)
+
+FusionLeaf Studio v1.0.2.0 (2012-06-20)
+---------------------------------------
+* FusionLeaf Studio.exe - v1.0.2.0 (2012-06-20)
+* PHP v5.4.4 - VC9 x86 Non Thread Safe (2012-06-13)
+* MySQL 5.5.25 - Community Server (2012-05-30)
+* Nginx 1.2.1 - Stable (2012-06-05)
