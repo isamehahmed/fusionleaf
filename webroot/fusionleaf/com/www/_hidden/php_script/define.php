@@ -191,6 +191,9 @@ function db_prepare()
 		//die('ok');
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"drop database ".DB_DATABASE.";\"");
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"create database ".DB_DATABASE.";\"");
+
+		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"DROP USER '".DB_WRITE_USERNAME."'@'localhost';\"");
+		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"DROP USER '".DB_READ_USERNAME."'@'localhost';\"");
 		
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"CREATE USER '".DB_WRITE_USERNAME."'@'localhost' IDENTIFIED BY '".DB_WRITE_PASSWORD."';\"");
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"CREATE USER '".DB_READ_USERNAME."'@'localhost' IDENTIFIED BY '".DB_READ_PASSWORD."';\"");
