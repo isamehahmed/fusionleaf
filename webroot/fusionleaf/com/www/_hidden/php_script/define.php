@@ -84,7 +84,6 @@ $levels = count(explode('.',$_SERVER['HTTP_HOST']));
 define("FLS_ROOT", dirname(nav_up(CMS_ROOT,$levels)));
 
 // Folders
-//define("FLS_ROOT", dirname(dirname(dirname(dirname(CMS_ROOT)))));
 define("CMS_HIDDEN",CMS_ROOT.DIR_SEP."_hidden");
 define("CMS_THEME",CMS_ROOT.DIR_SEP."theme");
 define("CMS_PHP_SCRIPT",CMS_HIDDEN.DIR_SEP."php_script");
@@ -184,23 +183,21 @@ function db_prepare()
 		}
 	
 		// Reset the password to blank
-		//if ($mysqli->connect_error)
-		//{
-		    exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -p".DB_ROOT_PASSWORD." -h 127.0.0.1 -e \"use mysql; update user set password=PASSWORD('') where User='".DB_ROOT_USERNAME."'; FLUSH PRIVILEGES;\"");
-		//}	
-		//die('ok');
+		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -p".DB_ROOT_PASSWORD." -h 127.0.0.1 -e \"use mysql; update user set password=PASSWORD('') where User='".DB_ROOT_USERNAME."'; FLUSH PRIVILEGES;\"");
+
+		// Add a new database
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"drop database ".DB_DATABASE.";\"");
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"create database ".DB_DATABASE.";\"");
 
+		// Add new accounts
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"DROP USER '".DB_WRITE_USERNAME."'@'localhost';\"");
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"DROP USER '".DB_READ_USERNAME."'@'localhost';\"");
-		
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"CREATE USER '".DB_WRITE_USERNAME."'@'localhost' IDENTIFIED BY '".DB_WRITE_PASSWORD."';\"");
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"CREATE USER '".DB_READ_USERNAME."'@'localhost' IDENTIFIED BY '".DB_READ_PASSWORD."';\"");
 		
+		// Grant permissions to the accounts
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"GRANT ALL ON ".DB_DATABASE.".* TO '".DB_WRITE_USERNAME."'@'localhost';\"");
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"GRANT SELECT ON ".DB_DATABASE.".* TO '".DB_READ_USERNAME."'@'localhost';\"");
-		
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 -e \"FLUSH PRIVILEGES;\"");
 		
 		// Get the newest file (at the bottom)
@@ -208,8 +205,6 @@ function db_prepare()
 		
 		exec("\"".$exe_path."mysql".$exe_ext."\" --user ".DB_ROOT_USERNAME." -h 127.0.0.1 ".DB_DATABASE." < \"$r\"");
 		exec("\"".$exe_path."mysqladmin".$exe_ext."\" -u ".DB_ROOT_USERNAME." password ".DB_ROOT_PASSWORD);
-		
-		//echo "Database restored: <a href='http://".$_SERVER['HTTP_HOST']."'>Continue</a>";
 	
 		// Mark the install as complete
 		$set->add('setup',CMS_OS);
@@ -220,7 +215,7 @@ function db_prepare()
 	}
 }
 
-function dbExecute($stmt, $verbose, $dbconnection)
+function dbExecute($stmt, $verbose, $mysqli)
 {// Executes a mySQL statement and handles errors, return false in an error
 	try
 	{
@@ -228,7 +223,7 @@ function dbExecute($stmt, $verbose, $dbconnection)
     	if (!@mysqli_stmt_execute($stmt))
     	{
     		// If the statement caused an error, throw an error
-    		throw new Exception (mysqli_errno($dbconnection).": ".mysqli_error($dbconnection));
+    		throw new Exception (mysqli_errno($mysqli).": ".mysqli_error($mysqli));
     	}
     	
     	return true;
@@ -265,53 +260,52 @@ function simpleDB($qry, $verbose, $write=false)
 		}
 	}
 
-	if ($write) $dbconnection = mysqli_connect(DB_HOST,DB_WRITE_USERNAME,DB_WRITE_PASSWORD,DB_DATABASE,DB_PORT) or die("Problem connecting: ".mysqli_error());
-	else $dbconnection = mysqli_connect(DB_HOST,DB_READ_USERNAME,DB_READ_PASSWORD,DB_DATABASE,DB_PORT) or die("Problem connecting: ".mysqli_error());
+	// Connect to the database with the READ or WRITE account
+	if ($write) $mysqli = @new mysqli(DB_HOST,DB_WRITE_USERNAME,DB_WRITE_PASSWORD,DB_DATABASE,DB_PORT);
+	else $mysqli = @new mysqli(DB_HOST,DB_READ_USERNAME,DB_READ_PASSWORD,DB_DATABASE,DB_PORT);
 
-  	//echo mysqli_info($dbconnection);
-  	//echo mysql_error($dbconnection);
-  	//echo mysqli_connect_errno;
+	// If there is an error in the database connection, prevent the page from loading
+	//if ($mysqli->connect_error) die("Database is offline for maintenance: ".$mysqli->connect_error);
+	if ($mysqli->connect_error) die("Database is offline for maintenance.");
 
-  	//print_r($dbconnection);
-
-  	// Prepare the SQL statement
-  	$stmt = mysqli_prepare($dbconnection, $qry);
-
-  	$return = false;
+	// Prepare the SQL statement
+	$stmt = $mysqli->prepare($qry);
+	
+	$return = false;
   	
-  	// Execute the statement	    
-  	if (dbExecute($stmt, $verbose, $dbconnection))
-  	{
-  		// Store the result
-	    mysqli_stmt_store_result($stmt);
-	    
-	    // Count the number of rows
-	    $rowcount = mysqli_stmt_num_rows($stmt);
-	    
-	    // If SQL is using SELECT, return the results
-	    if (strpos($qry,'ELECT'))
-	    {
-		    try
-		    {
-			    // Bind the result
-			    if (!@mysqli_stmt_bind_result($stmt, $a))
-			    {
-	        		// If the statement caused an error, throw an error
-	    			throw new Exception (mysqli_errno($dbconnection).": ".mysqli_error($dbconnection));
-			    }
-			    
+	// Execute the statement
+	if (dbExecute($stmt, $verbose, $mysqli))
+	{
+		// Store the result
+		$stmt->store_result();
+		
+		// Count the number of rows before binding
+		$rowcount = $mysqli->affected_rows;
+		
+		// If SQL is using SELECT, return the results
+		if (!$write)
+		{
+			try
+			{
+				// Bind the result
+				if (!@$stmt->bind_result($a))
+				{
+					// If the statement caused an error, throw an error
+					throw new Exception (mysqli_errno($mysqli).": ".mysqli_error($mysqli));
+				}
+				
 				// If a record is returned
-			    if ( $rowcount > 0 )
-			  	{
+				if ( $rowcount > 0 )
+				{
 					while ($stmt->fetch())
 					{
-			        	// Return the first variable
+						// Return the first variable
 						$return = stripslashes($a);
 					}
 				}
 				else $return = false;
-		    }
-	  		catch (Exception $e)
+			}
+			catch (Exception $e)
 			{
 				// If the output should be verbose
 				if ($verbose)
@@ -320,11 +314,11 @@ function simpleDB($qry, $verbose, $write=false)
 					print_r($output);
 				} 
 			}
-	    }
-  	}
+		}
+	}
 
 	// Close the connection
-  	mysqli_close($dbconnection);
+  	$stmt->close();
   	
 	// Handle memcache
 	if (isset($memcache) && !$write)
