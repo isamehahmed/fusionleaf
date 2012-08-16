@@ -40,8 +40,16 @@ function final_action()
 			else $site_n = $_SERVER['HTTP_HOST'];
 		}
 
-		if (strlen(str_replace('.','',$site_n))>=16) $db_name = substr(str_replace('.','',$site_n),0,15);
-		else $db_name = str_replace('.','',$site_n);
+
+		// Remove any periods
+		$site_n = str_replace('.','',$site_n);
+
+		// If the database name is too long (SQL usernames are limited to 16 chars), take a substring
+		if (strlen($site_n)>=12) $db_name = substr($site_n,0,11);
+		else $db_name = $site_n;
+
+		// Append a random character to make it hard to brute force the SQL accounts
+		$db_name = $db_name.rand(1,9999);
 		$set->add('db_database',$db_name);
 
 		$set->add('db_write_username',$db_name.'w');
