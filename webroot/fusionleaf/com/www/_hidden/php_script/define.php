@@ -248,7 +248,7 @@ function simpleDB($qry, $verbose, $write=false)
 	if (isset($memcache) && !$write)
 	{
 		// Create a lookup key for memcache
-		$memcache_key = md5($qry);
+		$memcache_key = md5(DB_DATABASE.$qry);
 		
 		// Lookup value in memcache
 		$result = $memcache->get($memcache_key);
@@ -342,7 +342,7 @@ function method_retrieve($name, $like=false, $table='php_methods', $post=false)
 	if (isset($memcache))
 	{
 		// Create a lookup key for memcache
-		$memcache_key = md5($qry.implode($params));
+		$memcache_key = md5(DB_DATABASE.$qry.implode($params));
 		
 		// Lookup value in memcache
 		$result = $memcache->get($memcache_key);
