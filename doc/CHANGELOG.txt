@@ -4,8 +4,8 @@ FusionLeaf Stack v0.4.5 (2012-08-22)
 * FusionLeaf CMS - updated the code
 * PHP v5.4.6 - new version (no update to php_apc.dll, php_memcache.dll, php_xcache.dll)
 * MySQL 5.5.27 - new version
-* Nginx 1.2.1 - no change
-* Memcached - add msvcr71.dll to the folder
+* Nginx 1.2.3 - new version
+* Memcached - no change
 
 -----Changelog.txt was not maintained-----
 
