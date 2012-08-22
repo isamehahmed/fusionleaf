@@ -1,3 +1,14 @@
+FusionLeaf Stack v0.4.5 (2012-08-22)
+---------------------------------------
+* FusionLeaf Studio.exe - no change
+* FusionLeaf CMS - updated the code
+* PHP v5.4.6 - new version (no update to php_apc.dll, php_memcache.dll, php_xcache.dll)
+* MySQL 5.5.27 - new version
+* Nginx 1.2.1 - no change
+* Memcached - add msvcr71.dll to the folder
+
+-----Changelog.txt was not maintained-----
+
 FusionLeaf Studio v1.0.4.0 (2012-08-04)
 ---------------------------------------
 * FusionLeaf Studio.exe - no change
@@ -21,3 +32,20 @@ FusionLeaf Studio v1.0.2.0 (2012-06-20)
 * PHP v5.4.4 - VC9 x86 Non Thread Safe (2012-06-13)
 * MySQL 5.5.25 - Community Server (2012-05-30)
 * Nginx 1.2.1 - Stable (2012-06-05)
+
+Stack Application Update Process:
+---------------------------------
+PHP
+* Copy all files/folders, remove files/folders not included in the previous version
+* Check for new version of php_memcache.dll
+* Just copy over php_apc.dll and php_xcache.dll from old version
+* Check php.ini-production for differences
+
+Nginx
+* Copy all files/folders
+* Check nginx.conf for differences
+
+MySQL
+* Copy all files/folders
+* Remove the folders: include, lib, mysql-test, scripts, sql-bench, data\test
+* Remove all files/folders in bin EXCEPT: mysql.exe, mysqladmin.exe, mysqld.exe, mysqldump.exe
