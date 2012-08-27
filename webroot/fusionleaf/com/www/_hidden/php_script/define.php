@@ -67,16 +67,18 @@ else
 	define('CMS_OS','linux');
 }
 
+define('CMS_FILE_INDEX','index.php');
+
 /* ****** Webserver Variables ****** */
 if (isset($_SERVER['ORIG_SCRIPT_FILENAME'])) // Available in Lighttp
 {
 	// Default home path
-	define("HOMEPATH",str_replace('index.php','',$_SERVER['ORIG_SCRIPT_FILENAME']));
+	define("HOMEPATH",str_replace(CMS_FILE_INDEX,'',$_SERVER['ORIG_SCRIPT_FILENAME']));
 }
 else
 {
 	// Default home path
-	define("HOMEPATH",str_replace('index.php','',$_SERVER['SCRIPT_FILENAME']));
+	define("HOMEPATH",str_replace(CMS_FILE_INDEX,'',$_SERVER['SCRIPT_FILENAME']));
 }
 
 
