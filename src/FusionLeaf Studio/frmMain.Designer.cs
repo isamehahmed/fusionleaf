@@ -32,21 +32,19 @@
         	System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
         	this.chbHide = new System.Windows.Forms.CheckBox();
         	this.msTop = new System.Windows.Forms.MenuStrip();
-        	this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.tsmMySQL = new System.Windows.Forms.ToolStripMenuItem();
-        	this.tsmWeb = new System.Windows.Forms.ToolStripMenuItem();
-        	this.tsmPHP = new System.Windows.Forms.ToolStripMenuItem();
-        	this.tsmIndex = new System.Windows.Forms.ToolStripMenuItem();
-        	this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-        	this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.theseOverwriteTheConfigurationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.databaseConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.webServerConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.pHPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.theseOverwriteTheConfigurationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.tsmMySQL = new System.Windows.Forms.ToolStripMenuItem();
+        	this.tsmWeb = new System.Windows.Forms.ToolStripMenuItem();
+        	this.tsmPHP = new System.Windows.Forms.ToolStripMenuItem();
         	this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.indexphpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.editIndexphpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.exploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.databaseFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.webServerFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +52,12 @@
         	this.memcachedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.sessionsAndPHPLogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.webRootwwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.scriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.installPEARForPHPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.removePEARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.installPHPUnitForPHPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.uninstallPHPUnitForPHPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.authorJoeSpurrierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.fusionLeafOnSourceForgeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -144,10 +148,11 @@
         	// msTop
         	// 
         	this.msTop.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        	        	        	this.editToolStripMenuItem,
         	        	        	this.templatesToolStripMenuItem,
+        	        	        	this.editToolStripMenuItem,
         	        	        	this.viewToolStripMenuItem,
         	        	        	this.exploreToolStripMenuItem,
+        	        	        	this.scriptsToolStripMenuItem,
         	        	        	this.aboutToolStripMenuItem});
         	this.msTop.Location = new System.Drawing.Point(0, 0);
         	this.msTop.Name = "msTop";
@@ -155,112 +160,91 @@
         	this.msTop.TabIndex = 5;
         	this.msTop.Text = "menuStrip1";
         	// 
-        	// editToolStripMenuItem
-        	// 
-        	this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        	        	        	this.tsmMySQL,
-        	        	        	this.tsmWeb,
-        	        	        	this.tsmPHP,
-        	        	        	this.tsmIndex,
-        	        	        	this.toolStripSeparator1,
-        	        	        	this.optionsToolStripMenuItem});
-        	this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-        	this.editToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
-        	this.editToolStripMenuItem.Text = "Configuration";
-        	// 
-        	// tsmMySQL
-        	// 
-        	this.tsmMySQL.Name = "tsmMySQL";
-        	this.tsmMySQL.Size = new System.Drawing.Size(133, 22);
-        	this.tsmMySQL.Text = "Database";
-        	this.tsmMySQL.Click += new System.EventHandler(this.tsmMySQL_Click);
-        	// 
-        	// tsmWeb
-        	// 
-        	this.tsmWeb.Name = "tsmWeb";
-        	this.tsmWeb.Size = new System.Drawing.Size(133, 22);
-        	this.tsmWeb.Text = "Web Server";
-        	this.tsmWeb.Click += new System.EventHandler(this.tsmWeb_Click);
-        	// 
-        	// tsmPHP
-        	// 
-        	this.tsmPHP.Name = "tsmPHP";
-        	this.tsmPHP.Size = new System.Drawing.Size(133, 22);
-        	this.tsmPHP.Text = "PHP";
-        	this.tsmPHP.Click += new System.EventHandler(this.tsmPHP_Click);
-        	// 
-        	// tsmIndex
-        	// 
-        	this.tsmIndex.Name = "tsmIndex";
-        	this.tsmIndex.Size = new System.Drawing.Size(133, 22);
-        	this.tsmIndex.Text = "Index.php";
-        	this.tsmIndex.Click += new System.EventHandler(this.tsmIndex_Click);
-        	// 
-        	// toolStripSeparator1
-        	// 
-        	this.toolStripSeparator1.Name = "toolStripSeparator1";
-        	this.toolStripSeparator1.Size = new System.Drawing.Size(130, 6);
-        	// 
-        	// optionsToolStripMenuItem
-        	// 
-        	this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        	        	        	this.restoreToolStripMenuItem});
-        	this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-        	this.optionsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-        	this.optionsToolStripMenuItem.Text = "Quick Fix";
-        	// 
-        	// restoreToolStripMenuItem
-        	// 
-        	this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
-        	this.restoreToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-        	this.restoreToolStripMenuItem.Text = "Restore Latest Database";
-        	this.restoreToolStripMenuItem.Click += new System.EventHandler(this.RestoreToolStripMenuItemClick);
-        	// 
         	// templatesToolStripMenuItem
         	// 
         	this.templatesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.theseOverwriteTheConfigurationsToolStripMenuItem,
         	        	        	this.databaseConfigToolStripMenuItem,
         	        	        	this.webServerConfigToolStripMenuItem,
-        	        	        	this.pHPToolStripMenuItem,
-        	        	        	this.theseOverwriteTheConfigurationsToolStripMenuItem});
+        	        	        	this.pHPToolStripMenuItem});
         	this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
-        	this.templatesToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
-        	this.templatesToolStripMenuItem.Text = "Template";
+        	this.templatesToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+        	this.templatesToolStripMenuItem.Text = "Edit";
         	this.templatesToolStripMenuItem.ToolTipText = "All the templates have variables that are replaced when the application is starte" +
         	"d. They replace the Configurations under the Edit menu.";
+        	// 
+        	// theseOverwriteTheConfigurationsToolStripMenuItem
+        	// 
+        	this.theseOverwriteTheConfigurationsToolStripMenuItem.Enabled = false;
+        	this.theseOverwriteTheConfigurationsToolStripMenuItem.Name = "theseOverwriteTheConfigurationsToolStripMenuItem";
+        	this.theseOverwriteTheConfigurationsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+        	this.theseOverwriteTheConfigurationsToolStripMenuItem.Text = "Startup Configurations";
         	// 
         	// databaseConfigToolStripMenuItem
         	// 
         	this.databaseConfigToolStripMenuItem.Name = "databaseConfigToolStripMenuItem";
-        	this.databaseConfigToolStripMenuItem.Size = new System.Drawing.Size(331, 22);
+        	this.databaseConfigToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
         	this.databaseConfigToolStripMenuItem.Text = "Database";
         	this.databaseConfigToolStripMenuItem.Click += new System.EventHandler(this.DatabaseConfigToolStripMenuItemClick);
         	// 
         	// webServerConfigToolStripMenuItem
         	// 
         	this.webServerConfigToolStripMenuItem.Name = "webServerConfigToolStripMenuItem";
-        	this.webServerConfigToolStripMenuItem.Size = new System.Drawing.Size(331, 22);
+        	this.webServerConfigToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
         	this.webServerConfigToolStripMenuItem.Text = "Web Server";
         	this.webServerConfigToolStripMenuItem.Click += new System.EventHandler(this.WebServerConfigToolStripMenuItemClick);
         	// 
         	// pHPToolStripMenuItem
         	// 
         	this.pHPToolStripMenuItem.Name = "pHPToolStripMenuItem";
-        	this.pHPToolStripMenuItem.Size = new System.Drawing.Size(331, 22);
+        	this.pHPToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
         	this.pHPToolStripMenuItem.Text = "PHP";
         	this.pHPToolStripMenuItem.Click += new System.EventHandler(this.PHPToolStripMenuItemClick);
         	// 
-        	// theseOverwriteTheConfigurationsToolStripMenuItem
+        	// editToolStripMenuItem
         	// 
-        	this.theseOverwriteTheConfigurationsToolStripMenuItem.Enabled = false;
-        	this.theseOverwriteTheConfigurationsToolStripMenuItem.Name = "theseOverwriteTheConfigurationsToolStripMenuItem";
-        	this.theseOverwriteTheConfigurationsToolStripMenuItem.Size = new System.Drawing.Size(331, 22);
-        	this.theseOverwriteTheConfigurationsToolStripMenuItem.Text = "These overwrite the configurations when started.";
+        	this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem,
+        	        	        	this.tsmMySQL,
+        	        	        	this.tsmWeb,
+        	        	        	this.tsmPHP});
+        	this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+        	this.editToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+        	this.editToolStripMenuItem.Text = "View";
+        	// 
+        	// theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem
+        	// 
+        	this.theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem.Enabled = false;
+        	this.theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem.Name = "theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem";
+        	this.theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+        	this.theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem.Text = "Running Configurations";
+        	// 
+        	// tsmMySQL
+        	// 
+        	this.tsmMySQL.Name = "tsmMySQL";
+        	this.tsmMySQL.Size = new System.Drawing.Size(201, 22);
+        	this.tsmMySQL.Text = "Database";
+        	this.tsmMySQL.Click += new System.EventHandler(this.tsmMySQL_Click);
+        	// 
+        	// tsmWeb
+        	// 
+        	this.tsmWeb.Name = "tsmWeb";
+        	this.tsmWeb.Size = new System.Drawing.Size(201, 22);
+        	this.tsmWeb.Text = "Web Server";
+        	this.tsmWeb.Click += new System.EventHandler(this.tsmWeb_Click);
+        	// 
+        	// tsmPHP
+        	// 
+        	this.tsmPHP.Name = "tsmPHP";
+        	this.tsmPHP.Size = new System.Drawing.Size(201, 22);
+        	this.tsmPHP.Text = "PHP";
+        	this.tsmPHP.Click += new System.EventHandler(this.tsmPHP_Click);
         	// 
         	// viewToolStripMenuItem
         	// 
         	this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        	        	        	this.indexphpToolStripMenuItem});
+        	        	        	this.indexphpToolStripMenuItem,
+        	        	        	this.editIndexphpToolStripMenuItem});
         	this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
         	this.viewToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
         	this.viewToolStripMenuItem.Text = "Browser";
@@ -272,6 +256,13 @@
         	this.indexphpToolStripMenuItem.Text = "http://localhost";
         	this.indexphpToolStripMenuItem.Click += new System.EventHandler(this.indexphpToolStripMenuItem_Click);
         	// 
+        	// editIndexphpToolStripMenuItem
+        	// 
+        	this.editIndexphpToolStripMenuItem.Name = "editIndexphpToolStripMenuItem";
+        	this.editIndexphpToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+        	this.editIndexphpToolStripMenuItem.Text = "Edit Index.php";
+        	this.editIndexphpToolStripMenuItem.Click += new System.EventHandler(this.EditIndexphpToolStripMenuItemClick);
+        	// 
         	// exploreToolStripMenuItem
         	// 
         	this.exploreToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -282,8 +273,8 @@
         	        	        	this.sessionsAndPHPLogsToolStripMenuItem,
         	        	        	this.webRootwwwToolStripMenuItem});
         	this.exploreToolStripMenuItem.Name = "exploreToolStripMenuItem";
-        	this.exploreToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-        	this.exploreToolStripMenuItem.Text = "Folder";
+        	this.exploreToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+        	this.exploreToolStripMenuItem.Text = "Open Folder";
         	// 
         	// databaseFolderToolStripMenuItem
         	// 
@@ -327,6 +318,53 @@
         	this.webRootwwwToolStripMenuItem.Text = "Web Root (www)";
         	this.webRootwwwToolStripMenuItem.Click += new System.EventHandler(this.webRootwwwToolStripMenuItem_Click);
         	// 
+        	// scriptsToolStripMenuItem
+        	// 
+        	this.scriptsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.installPEARForPHPToolStripMenuItem,
+        	        	        	this.removePEARToolStripMenuItem,
+        	        	        	this.installPHPUnitForPHPToolStripMenuItem,
+        	        	        	this.uninstallPHPUnitForPHPToolStripMenuItem,
+        	        	        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem});
+        	this.scriptsToolStripMenuItem.Name = "scriptsToolStripMenuItem";
+        	this.scriptsToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+        	this.scriptsToolStripMenuItem.Text = "Scripts";
+        	// 
+        	// installPEARForPHPToolStripMenuItem
+        	// 
+        	this.installPEARForPHPToolStripMenuItem.Name = "installPEARForPHPToolStripMenuItem";
+        	this.installPEARForPHPToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+        	this.installPEARForPHPToolStripMenuItem.Text = "Install PEAR for PHP";
+        	this.installPEARForPHPToolStripMenuItem.Click += new System.EventHandler(this.InstallPEARForPHPToolStripMenuItemClick);
+        	// 
+        	// removePEARToolStripMenuItem
+        	// 
+        	this.removePEARToolStripMenuItem.Name = "removePEARToolStripMenuItem";
+        	this.removePEARToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+        	this.removePEARToolStripMenuItem.Text = "Uninstall PEAR for PHP";
+        	this.removePEARToolStripMenuItem.Click += new System.EventHandler(this.RemovePEARToolStripMenuItemClick);
+        	// 
+        	// installPHPUnitForPHPToolStripMenuItem
+        	// 
+        	this.installPHPUnitForPHPToolStripMenuItem.Name = "installPHPUnitForPHPToolStripMenuItem";
+        	this.installPHPUnitForPHPToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+        	this.installPHPUnitForPHPToolStripMenuItem.Text = "Install PHPUnit for PHP";
+        	this.installPHPUnitForPHPToolStripMenuItem.Click += new System.EventHandler(this.InstallPHPUnitForPHPToolStripMenuItemClick);
+        	// 
+        	// uninstallPHPUnitForPHPToolStripMenuItem
+        	// 
+        	this.uninstallPHPUnitForPHPToolStripMenuItem.Name = "uninstallPHPUnitForPHPToolStripMenuItem";
+        	this.uninstallPHPUnitForPHPToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+        	this.uninstallPHPUnitForPHPToolStripMenuItem.Text = "Uninstall PHPUnit for PHP";
+        	this.uninstallPHPUnitForPHPToolStripMenuItem.Click += new System.EventHandler(this.UninstallPHPUnitForPHPToolStripMenuItemClick);
+        	// 
+        	// restoreLatestFusionLeafDatabaseToolStripMenuItem
+        	// 
+        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem.Name = "restoreLatestFusionLeafDatabaseToolStripMenuItem";
+        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem.Text = "Restore Latest FusionLeaf Database";
+        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem.Click += new System.EventHandler(this.RestoreToolStripMenuItemClick);
+        	// 
         	// aboutToolStripMenuItem
         	// 
         	this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -350,7 +388,7 @@
         	// 
         	this.fusionLeafOnSourceForgeToolStripMenuItem.Name = "fusionLeafOnSourceForgeToolStripMenuItem";
         	this.fusionLeafOnSourceForgeToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-        	this.fusionLeafOnSourceForgeToolStripMenuItem.Text = "FusionLeaf on SourceForge";
+        	this.fusionLeafOnSourceForgeToolStripMenuItem.Text = "FusionLeaf on Google Code";
         	this.fusionLeafOnSourceForgeToolStripMenuItem.Click += new System.EventHandler(this.FusionLeafOnSourceForgeToolStripMenuItemClick);
         	// 
         	// apacheV20LicenseToolStripMenuItem
@@ -713,7 +751,7 @@
         	this.numFCGIThreads.Size = new System.Drawing.Size(101, 20);
         	this.numFCGIThreads.TabIndex = 8;
         	this.numFCGIThreads.Value = new decimal(new int[] {
-        	        	        	1,
+        	        	        	2,
         	        	        	0,
         	        	        	0,
         	        	        	0});
@@ -890,7 +928,7 @@
         	// 
         	this.label1.Location = new System.Drawing.Point(6, 3);
         	this.label1.Name = "label1";
-        	this.label1.Size = new System.Drawing.Size(436, 146);
+        	this.label1.Size = new System.Drawing.Size(436, 202);
         	this.label1.TabIndex = 2;
         	this.label1.Text = resources.GetString("label1.Text");
         	// 
@@ -957,6 +995,7 @@
         	this.Name = "frmMain";
         	this.Text = "FusionLeaf Studio";
         	this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
+        	this.Load += new System.EventHandler(this.FrmMainLoad);
         	this.Resize += new System.EventHandler(this.FrmMainResize);
         	this.msTop.ResumeLayout(false);
         	this.msTop.PerformLayout();
@@ -984,6 +1023,14 @@
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem restoreLatestFusionLeafDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editIndexphpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uninstallPHPUnitForPHPToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem installPHPUnitForPHPToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removePEARToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem installPEARForPHPToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scriptsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem memcachedToolStripMenuItem;
         private System.Windows.Forms.Button btnMemcachedStart;
         private System.Windows.Forms.Button btnMemcachedStop;
@@ -996,9 +1043,6 @@
         private System.Windows.Forms.ToolStripMenuItem apacheV20LicenseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pHPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem theseOverwriteTheConfigurationsToolStripMenuItem;
         private System.Windows.Forms.ToolTip tTip;
         private System.Windows.Forms.ToolStripMenuItem databaseConfigToolStripMenuItem;
@@ -1050,7 +1094,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmMySQL;
         private System.Windows.Forms.ToolStripMenuItem tsmWeb;
         private System.Windows.Forms.ToolStripMenuItem tsmPHP;
-        private System.Windows.Forms.ToolStripMenuItem tsmIndex;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem indexphpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exploreToolStripMenuItem;

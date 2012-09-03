@@ -219,9 +219,11 @@ namespace WAMPer
     	string fileMemcached;
     	string folderMemcached;
     	
+    	string folderPear;
+    	
     	string folderConfig;
     	
-        public frmMain()
+    	public frmMain()
         {
             InitializeComponent();
             
@@ -237,15 +239,9 @@ namespace WAMPer
             folderMySQL =  Path.Combine(strHomeDir,@"app\MySQL\bin");
             fileMemcached =  Path.Combine(strHomeDir,@"app\memcached\memcached.exe");
             folderMemcached =  Path.Combine(strHomeDir,@"app\memcached");
+            folderPear =  Path.Combine(strHomeDir,@"app\pear");
             folderConfig =  Path.Combine(strHomeDir,@"config");
             this.MinimumSize = this.Size;
-            
-			string strHidden = Path.Combine(strHomeDir,@"webroot\localhost\_hidden");
-			if (!Directory.Exists(strHidden))
-			{
-				toolStripSeparator1.Visible = false;
-				optionsToolStripMenuItem.Visible = false;
-			}
         }
 
         private bool testPort(int port)
@@ -465,11 +461,6 @@ namespace WAMPer
         	simpleOpen(@"notepad", Path.Combine(strHomeDir,@"app\php\php.ini"));
         }
 
-        private void tsmIndex_Click(object sender, EventArgs e)
-        {
-        	simpleOpen(@"notepad", Path.Combine(strHomeDir,@"webroot\localhost\index.php"));
-        }
-
         private void indexphpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             simpleOpen("http://localhost");
@@ -533,7 +524,11 @@ namespace WAMPer
             	}
             	if (dr==DialogResult.Yes)
             	{
-            		if (blForce) btnStart_Click(null,null);
+            		if (blForce)
+            		{
+            			btnStart.Text = "Stop";
+            			btnStart_Click(null,null);
+            		}
             		this.Hide();
             		while (blNginxThreadRun || blFCGIThreadRun || blMySQLThreadRun || blMemcachedThreadRun)
             		{
@@ -690,12 +685,21 @@ namespace WAMPer
         private void BtnNginxStopClick(object sender, EventArgs e)
         {
         	if (processIsRunning("nginx"))
-        	{
+        	{        		
         		runCmd(fileNginx,"-s stop", folderNginx);
+        		
+        		// Just to make sure Nginx is stopped
+	            Process p = new Process();
+	            p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+	            p.StartInfo.FileName = "taskkill";
+	            p.StartInfo.Arguments = @"/im nginx.exe -f";
+	            p.Start();
+        		
         		txtStatus.Text = "Nginx stopped.";
         		//if (!blNginxThreadRun) txtStatus.Text = "Nginx monitoring thread already stopped.";
         	}
         	else txtStatus.Text = "Nginx is not currently running.";
+        	
         	if (!blFCGIRunning) enableFCGI(true);
         	numNginxPort.Enabled = true;
         }
@@ -781,10 +785,13 @@ namespace WAMPer
         	if (!isReady()) return;
         	if (!processIsRunning("php-cgi"))
         	{
-        		
         		string strTemplate = Path.Combine(folderConfig,@"php.ini");
                 string strOut = Path.Combine(strHomeDir,@"app\php\php.ini");
-    			File.WriteAllText(strOut, File.ReadAllText(strTemplate));
+            
+    			ArrayList alReplace = new ArrayList();
+    			alReplace.Add(new string[]{";%INCLUDE_PATH%", "include_path=\".;"+folderFCGI+"\\pear\""});
+                
+    			File.WriteAllText(strOut, replaceText(File.ReadAllText(strTemplate),alReplace));
         		
         		enableFCGI(false);
         		blFCGIKill=false;
@@ -1005,7 +1012,7 @@ namespace WAMPer
         
         private void FusionLeafOnSourceForgeToolStripMenuItemClick(object sender, EventArgs e)
         {
-        	simpleOpen(@"http://sourceforge.net/projects/fusionleaf");
+        	simpleOpen(@"http://fusionleaf.googlecode.com");
         }
     
         Thread tMemcached;
@@ -1074,6 +1081,162 @@ namespace WAMPer
         private void MemcachedToolStripMenuItemClick(object sender, EventArgs e)
         {
         	simpleOpen(Path.Combine(strHomeDir,@"app\memcached"));
+        }
+        
+        private void InstallPEARForPHPToolStripMenuItemClick(object sender, EventArgs e)
+        {
+    	    Process p = new Process();
+    	    p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.WorkingDirectory = folderFCGI;
+            p.StartInfo.Arguments = @"/C php ..\pear\go-pear.phar";
+            p.Start();
+        }
+        
+        void RemovePEARToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	try
+        	{
+	        	Directory.Delete(Path.Combine(folderFCGI,"cfg"),true);
+	        	Directory.Delete(Path.Combine(folderFCGI,"data"),true);
+	        	Directory.Delete(Path.Combine(folderFCGI,"docs"),true);
+	        	Directory.Delete(Path.Combine(folderFCGI,"pear"),true);
+	        	Directory.Delete(Path.Combine(folderFCGI,"tests"),true);
+	        	Directory.Delete(Path.Combine(folderFCGI,"tmp"),true);
+	        	Directory.Delete(Path.Combine(folderFCGI,"www"),true);
+	        	File.Delete(Path.Combine(folderFCGI,"pear.bat"));
+	        	File.Delete(Path.Combine(folderFCGI,"pear.ini"));
+	        	File.Delete(Path.Combine(folderFCGI,"peardev.bat"));
+	        	File.Delete(Path.Combine(folderFCGI,"pecl.bat"));
+	        	File.Delete(Path.Combine(folderFCGI,"PEAR_ENV.reg"));
+        	} catch{}
+        	try
+        	{
+	        	File.Delete(Path.Combine(folderFCGI,"phpunit"));
+	        	File.Delete(Path.Combine(folderFCGI,"phpunit.bat"));
+        	} catch{}
+        	try
+        	{
+	        	File.Delete(@"C:\windows\pear.ini");
+        	} catch{}
+        	MessageBox.Show("PEAR deleted!");
+        }
+        
+        void InstallPHPUnitForPHPToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	if (!Directory.Exists(Path.Combine(folderFCGI,"pear")))
+        	{
+        		MessageBox.Show("PEAR for PHP is required! Please install it first.");
+        		return;
+        	}
+        	Process p = new Process();
+    	    p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.WorkingDirectory = folderFCGI;
+            p.StartInfo.Arguments = @"/c ..\pear\PHPUnit_install.cmd";
+            p.Start();
+        }
+        
+        void UninstallPHPUnitForPHPToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	if (!Directory.Exists(Path.Combine(folderFCGI,"pear")))
+        	{
+        		MessageBox.Show("PEAR for PHP is not installed!");
+        		return;
+        	}
+        	Process p = new Process();
+    	    p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.WorkingDirectory = folderFCGI;
+            p.StartInfo.Arguments = @"/c ..\pear\PHPUnit_uninstall.cmd";
+            p.Start();
+        }
+        
+        void FrmMainLoad(object sender, EventArgs e)
+        {
+            if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
+			{
+				MessageBox.Show("You can only run once instance of FusionLeaf Studio at a time.");
+				this.Close();
+			}
+            string[] args = Environment.GetCommandLineArgs();
+            
+            string strProblem = "";
+            try
+            {
+	            foreach (string s in args)
+	            {
+	            	string sArgument = s.ToLower();
+	            	if (sArgument.Contains("/minimize")) this.WindowState = FormWindowState.Minimized;
+	            	
+	            	// PHP
+	            	if (sArgument.Contains("/php_thread:"))
+	            	{
+	            		strProblem = "/php_thread:";
+	            		numFCGIThreads.Value = Convert.ToInt32(s.Substring(12));
+	            	}
+	            	if (sArgument.Contains("/php_max_requests:"))
+	            	{
+	            		strProblem = "/php_max_requests:";
+	            		numFCGIRequests.Value = Convert.ToInt32(s.Substring(18));
+	            	}
+	            	if (sArgument.Contains("/php_port:"))
+	            	{
+	            		strProblem = "/php_port:";
+	            		numFCGIPort.Value = Convert.ToInt32(s.Substring(10));
+	            	}
+	            	
+	            	// Ports
+	            	if (sArgument.Contains("/nginx_port:"))
+	            	{
+	            		strProblem = "/nginx_port:";
+	            		numNginxPort.Value = Convert.ToInt32(s.Substring(12));
+	            	}
+	            	if (sArgument.Contains("/mysql_port:"))
+	            	{
+	            		strProblem = "/mysql_port:";
+	            		numMySQLPort.Value = Convert.ToInt32(s.Substring(12));
+	            	}
+	            	if (sArgument.Contains("/memcached_port:"))
+	            	{
+	            		strProblem = "/memcached_port:";
+	            		numMemcachedPort.Value = Convert.ToInt32(s.Substring(16));
+	            	}
+	            	
+	            	// Starting
+	            	if (sArgument.Contains("/startall")) btnStart_Click(sender,e);
+	            	if (sArgument.Contains("/start_nginx")) BtnNginxStartClick(sender,e);
+	            	if (sArgument.Contains("/start_php")) BtnFCGIStartClick(sender,e);
+	            	if (sArgument.Contains("/start_mysql")) BtnMySQLStartClick(sender,e);
+	            	if (sArgument.Contains("/start_memcached")) BtnMemcachedStartClick(sender,e);
+	            	
+	            	if (sArgument.Contains("/help") || sArgument.Contains("/?"))
+	            	{
+	            		MessageBox.Show("/help			Show Help" + Environment.NewLine +
+	            		                "/minimize			Minimize application" + Environment.NewLine +
+   	            		                "/startall			Start all services" + Environment.NewLine +
+	            		                "/php_thread:#		Set PHP with # thread(s)" + Environment.NewLine +
+	            		                "/php_max_requests:#	Set PHP with # of max requests before recycle" + Environment.NewLine +
+	            		                "/php_port:#		Set PHP port" + Environment.NewLine +
+	            		                "/nginx_port:#		Set Nginx port" + Environment.NewLine +
+	            		                "/mysql_port:#		Set MySQL port" + Environment.NewLine +
+	            		                "/memcached_port:#		Set Memcached port" + Environment.NewLine +
+	            		                "/start_nginx		Start Nginx" + Environment.NewLine +
+	            		                "/start_php			Start PHP" + Environment.NewLine +
+	            		                "/start_mysql		Start MySQL" + Environment.NewLine +
+	            		                "/start_memcached		Start Memcached"
+	            		               ,"FusionLeaf Studio Startup Parameters");
+	            		this.Close();
+	            	}
+	            }
+            }
+            catch
+            {
+            	MessageBox.Show("One of the FusionLeaf startup arguments is incorrect: " + strProblem, "Startup Error");
+            	this.Close();
+            }
+        }
+        
+        void EditIndexphpToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(@"notepad", Path.Combine(strHomeDir,@"webroot\localhost\index.php"));
         }
     }
 }
