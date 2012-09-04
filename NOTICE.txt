@@ -18,3 +18,9 @@ Danga Interactive, Inc. (http://danga.com).
 
 This product includes software developed by
 Microsoft Corporation (http://www.microsoft.com).
+
+This product includes software developed by
+The PHP Group (http://pear.php.net).
+
+This product includes software developed by
+Sebastian Bergmann (http://www.phpunit.de).
