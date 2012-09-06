@@ -53,11 +53,17 @@
         	this.sessionsAndPHPLogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.webRootwwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.scriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.installPEARForPHPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.removePEARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.installPHPUnitForPHPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.uninstallPHPUnitForPHPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.pHPToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+        	this.pEARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.installToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.pHPUnitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.installToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+        	this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+        	this.fusionLeafToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.addCMSToLocalhostFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.deleteCMSFromLocalhostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.restoreLatestDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.authorJoeSpurrierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.fusionLeafOnSourceForgeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -321,49 +327,97 @@
         	// scriptsToolStripMenuItem
         	// 
         	this.scriptsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        	        	        	this.installPEARForPHPToolStripMenuItem,
-        	        	        	this.removePEARToolStripMenuItem,
-        	        	        	this.installPHPUnitForPHPToolStripMenuItem,
-        	        	        	this.uninstallPHPUnitForPHPToolStripMenuItem,
-        	        	        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem});
+        	        	        	this.pHPToolStripMenuItem1,
+        	        	        	this.fusionLeafToolStripMenuItem});
         	this.scriptsToolStripMenuItem.Name = "scriptsToolStripMenuItem";
-        	this.scriptsToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-        	this.scriptsToolStripMenuItem.Text = "Scripts";
+        	this.scriptsToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+        	this.scriptsToolStripMenuItem.Text = "Automation";
         	// 
-        	// installPEARForPHPToolStripMenuItem
+        	// pHPToolStripMenuItem1
         	// 
-        	this.installPEARForPHPToolStripMenuItem.Name = "installPEARForPHPToolStripMenuItem";
-        	this.installPEARForPHPToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-        	this.installPEARForPHPToolStripMenuItem.Text = "Install PEAR for PHP";
-        	this.installPEARForPHPToolStripMenuItem.Click += new System.EventHandler(this.InstallPEARForPHPToolStripMenuItemClick);
+        	this.pHPToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.pEARToolStripMenuItem,
+        	        	        	this.pHPUnitToolStripMenuItem});
+        	this.pHPToolStripMenuItem1.Name = "pHPToolStripMenuItem1";
+        	this.pHPToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+        	this.pHPToolStripMenuItem1.Text = "PHP";
         	// 
-        	// removePEARToolStripMenuItem
+        	// pEARToolStripMenuItem
         	// 
-        	this.removePEARToolStripMenuItem.Name = "removePEARToolStripMenuItem";
-        	this.removePEARToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-        	this.removePEARToolStripMenuItem.Text = "Uninstall PEAR for PHP";
-        	this.removePEARToolStripMenuItem.Click += new System.EventHandler(this.RemovePEARToolStripMenuItemClick);
+        	this.pEARToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.installToolStripMenuItem,
+        	        	        	this.removeToolStripMenuItem});
+        	this.pEARToolStripMenuItem.Name = "pEARToolStripMenuItem";
+        	this.pEARToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+        	this.pEARToolStripMenuItem.Text = "PEAR";
         	// 
-        	// installPHPUnitForPHPToolStripMenuItem
+        	// installToolStripMenuItem
         	// 
-        	this.installPHPUnitForPHPToolStripMenuItem.Name = "installPHPUnitForPHPToolStripMenuItem";
-        	this.installPHPUnitForPHPToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-        	this.installPHPUnitForPHPToolStripMenuItem.Text = "Install PHPUnit for PHP";
-        	this.installPHPUnitForPHPToolStripMenuItem.Click += new System.EventHandler(this.InstallPHPUnitForPHPToolStripMenuItemClick);
+        	this.installToolStripMenuItem.Name = "installToolStripMenuItem";
+        	this.installToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+        	this.installToolStripMenuItem.Text = "Install";
+        	this.installToolStripMenuItem.Click += new System.EventHandler(this.InstallPEARForPHPToolStripMenuItemClick);
         	// 
-        	// uninstallPHPUnitForPHPToolStripMenuItem
+        	// removeToolStripMenuItem
         	// 
-        	this.uninstallPHPUnitForPHPToolStripMenuItem.Name = "uninstallPHPUnitForPHPToolStripMenuItem";
-        	this.uninstallPHPUnitForPHPToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-        	this.uninstallPHPUnitForPHPToolStripMenuItem.Text = "Uninstall PHPUnit for PHP";
-        	this.uninstallPHPUnitForPHPToolStripMenuItem.Click += new System.EventHandler(this.UninstallPHPUnitForPHPToolStripMenuItemClick);
+        	this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+        	this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+        	this.removeToolStripMenuItem.Text = "Remove";
+        	this.removeToolStripMenuItem.Click += new System.EventHandler(this.RemovePEARToolStripMenuItemClick);
         	// 
-        	// restoreLatestFusionLeafDatabaseToolStripMenuItem
+        	// pHPUnitToolStripMenuItem
         	// 
-        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem.Name = "restoreLatestFusionLeafDatabaseToolStripMenuItem";
-        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem.Text = "Restore Latest FusionLeaf Database";
-        	this.restoreLatestFusionLeafDatabaseToolStripMenuItem.Click += new System.EventHandler(this.RestoreToolStripMenuItemClick);
+        	this.pHPUnitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.installToolStripMenuItem1,
+        	        	        	this.removeToolStripMenuItem1});
+        	this.pHPUnitToolStripMenuItem.Name = "pHPUnitToolStripMenuItem";
+        	this.pHPUnitToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+        	this.pHPUnitToolStripMenuItem.Text = "PHPUnit";
+        	// 
+        	// installToolStripMenuItem1
+        	// 
+        	this.installToolStripMenuItem1.Name = "installToolStripMenuItem1";
+        	this.installToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+        	this.installToolStripMenuItem1.Text = "Install";
+        	this.installToolStripMenuItem1.Click += new System.EventHandler(this.InstallPHPUnitForPHPToolStripMenuItemClick);
+        	// 
+        	// removeToolStripMenuItem1
+        	// 
+        	this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
+        	this.removeToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+        	this.removeToolStripMenuItem1.Text = "Remove";
+        	this.removeToolStripMenuItem1.Click += new System.EventHandler(this.UninstallPHPUnitForPHPToolStripMenuItemClick);
+        	// 
+        	// fusionLeafToolStripMenuItem
+        	// 
+        	this.fusionLeafToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.addCMSToLocalhostFolderToolStripMenuItem,
+        	        	        	this.deleteCMSFromLocalhostToolStripMenuItem,
+        	        	        	this.restoreLatestDatabaseToolStripMenuItem});
+        	this.fusionLeafToolStripMenuItem.Name = "fusionLeafToolStripMenuItem";
+        	this.fusionLeafToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.fusionLeafToolStripMenuItem.Text = "FusionLeaf";
+        	// 
+        	// addCMSToLocalhostFolderToolStripMenuItem
+        	// 
+        	this.addCMSToLocalhostFolderToolStripMenuItem.Name = "addCMSToLocalhostFolderToolStripMenuItem";
+        	this.addCMSToLocalhostFolderToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+        	this.addCMSToLocalhostFolderToolStripMenuItem.Text = "Install CMS to Localhost Folder";
+        	this.addCMSToLocalhostFolderToolStripMenuItem.Click += new System.EventHandler(this.AddCMSToLocalhostFolderToolStripMenuItemClick);
+        	// 
+        	// deleteCMSFromLocalhostToolStripMenuItem
+        	// 
+        	this.deleteCMSFromLocalhostToolStripMenuItem.Name = "deleteCMSFromLocalhostToolStripMenuItem";
+        	this.deleteCMSFromLocalhostToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+        	this.deleteCMSFromLocalhostToolStripMenuItem.Text = "Remove CMS from Localhost Folder";
+        	this.deleteCMSFromLocalhostToolStripMenuItem.Click += new System.EventHandler(this.DeleteCMSFromLocalhostToolStripMenuItemClick);
+        	// 
+        	// restoreLatestDatabaseToolStripMenuItem
+        	// 
+        	this.restoreLatestDatabaseToolStripMenuItem.Name = "restoreLatestDatabaseToolStripMenuItem";
+        	this.restoreLatestDatabaseToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+        	this.restoreLatestDatabaseToolStripMenuItem.Text = "Restore Latest Database";
+        	this.restoreLatestDatabaseToolStripMenuItem.Click += new System.EventHandler(this.RestoreToolStripMenuItemClick);
         	// 
         	// aboutToolStripMenuItem
         	// 
@@ -1023,13 +1077,19 @@
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
-        private System.Windows.Forms.ToolStripMenuItem restoreLatestFusionLeafDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreLatestDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteCMSFromLocalhostToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addCMSToLocalhostFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fusionLeafToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem installToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem pHPUnitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem installToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pEARToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pHPToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem editIndexphpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem uninstallPHPUnitForPHPToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem installPHPUnitForPHPToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removePEARToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem installPEARForPHPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scriptsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem memcachedToolStripMenuItem;
         private System.Windows.Forms.Button btnMemcachedStart;

@@ -1,3 +1,8 @@
+FusionLeaf Studio v1.0.5.0 (2012-09-06)
+---------------------------------------
+* removed the auto move feature to allow for better compatability with other applications
+* updated the menus
+
 FusionLeaf Studio v1.0.4.0 (2012-09-02)
 ---------------------------------------
 * fixed shutdown problems with Nginx (hopefully the last time)

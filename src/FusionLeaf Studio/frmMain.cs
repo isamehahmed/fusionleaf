@@ -346,11 +346,12 @@ namespace WAMPer
                 if (!Directory.Exists(Path.Combine(strHomeDir,@"app\nginx\temp"))) Directory.CreateDirectory(Path.Combine(strHomeDir,@"app\nginx\temp"));
                 if (!Directory.Exists(Path.Combine(strHomeDir,@"app\nginx\logs"))) Directory.CreateDirectory(Path.Combine(strHomeDir,@"app\nginx\logs"));
                 
-                string strWebRoot = Path.Combine(strHomeDir,@"webroot");
-                string strFL = Path.Combine(strWebRoot,@"fusionleaf");
-                string strFLUp = Path.Combine(strWebRoot,@"fusionleaf\com\www");
-                string strLH = Path.Combine(strWebRoot,@"localhost");
+                //string strWebRoot = Path.Combine(strHomeDir,@"webroot");
+                //string strFL = Path.Combine(strWebRoot,@"fusionleaf");
+                //string strFLUp = Path.Combine(strWebRoot,@"fusionleaf\com\www");
+                //string strLH = Path.Combine(strWebRoot,@"localhost");
                 
+                /*
                 try
                 {
                 	if (Directory.Exists(strFL) && !Directory.Exists(strLH))
@@ -362,7 +363,7 @@ namespace WAMPer
                 {
                 	MessageBox.Show("Please close any open files and folders using this location: "+strFL, "Problem Moving Files");
                 	return;
-                }
+                }*/
 
                 BtnMySQLStartClick(sender,e);
                 BtnFCGIStartClick(sender,e);
@@ -1237,6 +1238,134 @@ namespace WAMPer
         void EditIndexphpToolStripMenuItemClick(object sender, EventArgs e)
         {
         	simpleOpen(@"notepad", Path.Combine(strHomeDir,@"webroot\localhost\index.php"));
+        }
+        
+        void AddCMSToLocalhostFolderToolStripMenuItemClick(object sender, EventArgs e)
+        {
+			string strWebRoot = Path.Combine(strHomeDir,@"webroot");
+        	string strLH = Path.Combine(strWebRoot,@"localhost");
+			string strCMSBackup = Path.Combine(strHomeDir,"cms");
+			
+			if (!Directory.Exists(strCMSBackup))
+			{
+				MessageBox.Show("FusionLeaf CMS source cannot be found. Download it and save it to the folder named: cms");
+				Directory.CreateDirectory(strCMSBackup);
+				return;
+			}
+			
+			string strCheckSource = Path.Combine(strCMSBackup, @"_hidden\php_script");
+			if (!Directory.Exists(strCheckSource))
+			{
+				MessageBox.Show("Fusionleaf CMS does not exist in the cms folder. Download it and save it to the folder.");
+				return;
+			}
+			
+			if (Directory.Exists(strLH)) Directory.Delete(strLH, true);
+			
+			Directory.Move(strCMSBackup,strLH);
+			MessageBox.Show("FusionLeaf is now in the localhost folder. To view, click Browser -> http://localhost");
+        }
+        
+        void DeleteCMSFromLocalhostToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	string strWebRoot = Path.Combine(strHomeDir,@"webroot");
+			string strLH = Path.Combine(strWebRoot,@"localhost");
+			if (!Directory.Exists(strLH))
+			{
+				MessageBox.Show("No localhost folder exists. No need to remove.");
+				return;
+			}
+			
+			string strCheckFolder = Path.Combine(strLH, @"_hidden\php_script");
+			
+			if (!Directory.Exists(strCheckFolder))
+			{
+				MessageBox.Show("Fusionleaf is not installed in the localhost folder. No need to remove.");
+				return;
+			}
+			
+			string strCMSBackup = Path.Combine(strHomeDir,"cms");
+			
+			if (Directory.Exists(strCMSBackup))
+			{
+				Directory.Delete(strCMSBackup, true);
+				//Directory.CreateDirectory(strCMSBackup);
+			}
+			
+			Directory.Move(strLH, strCMSBackup);
+			Directory.CreateDirectory(strLH);
+			
+			string strIndexTmp = @"<?php //If you can read this, PHP is not working correctly :-(
+
+class HTMLOutput
+{
+	private $output;
+	
+	public function write($a)
+	{
+		$this->output .= $a;
+	}
+	public function writeln($a)
+	{
+		$this->output .= $a.PHP_EOL;
+	}
+	public function output()
+	{
+		return nl2br($this->output);
+	}
+} $o = new HTMLOutput;
+
+// Define a few global variables
+define('DB_HOST','127.0.0.1');
+define('DB_ROOT_USERNAME','root');
+define('DB_ROOT_PASSWORD','');
+
+$o->writeln('PHP is working');
+
+// Attempt to connect to MySQL
+$mysqli = @new mysqli(DB_HOST, DB_ROOT_USERNAME, DB_ROOT_PASSWORD);
+
+// If the MySQL connection failed
+if ($mysqli->connect_error)
+{
+	// Output the error
+	$o->writeln('MySQL connection is not working with current credentials');
+}
+// Else the MySQL connection was successful
+else
+{
+	// Output the wonderful news
+	$o->writeln('MySQL connection is successful');
+}
+
+if (@include_once('PEAR.php'))
+{
+	$o->writeln('PEAR is installed');
+}
+else
+{
+	$o->writeln('PEAR is not installed');
+}
+
+$test1 = @include_once('PHPUnit/Autoload.php');
+$test2 = @include_once('PHPUnit/TextUI/TestRunner.php');
+
+if ($test1 && $test2)
+{	
+	$o->writeln('PHPUnit is installed');
+}
+else
+{
+	$o->writeln('PHPUnit is not installed');
+}
+
+echo $o->output();
+
+?>";
+			string strIndexPath = Path.Combine(strLH, "index.php");
+			File.WriteAllText(strIndexPath, strIndexTmp);
+			
+			MessageBox.Show("FusionLeaf saved and removed from the localhost folder.");
         }
     }
 }
