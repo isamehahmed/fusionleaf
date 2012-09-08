@@ -1,3 +1,7 @@
+FusionLeaf Stack v0.4.9 (2012-09-08)
+------------------------------------
+* MySQL 5.5.27 - added the "test" database
+
 FusionLeaf Stack v0.4.8 (2012-09-06)
 ------------------------------------
 * FusionLeaf Studio.exe - updated the code
