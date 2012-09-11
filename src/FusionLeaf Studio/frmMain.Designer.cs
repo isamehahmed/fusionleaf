@@ -60,6 +60,9 @@
         	this.pHPUnitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.installToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
         	this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+        	this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+        	this.editPhpunitxmlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.runTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.fusionLeafToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.addCMSToLocalhostFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.deleteCMSFromLocalhostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,6 +122,7 @@
         	this.tabPage3 = new System.Windows.Forms.TabPage();
         	this.rtxLog = new System.Windows.Forms.RichTextBox();
         	this.tTip = new System.Windows.Forms.ToolTip(this.components);
+        	this.readDocumentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.msTop.SuspendLayout();
         	this.cmsTaskbar.SuspendLayout();
         	this.ssStatus.SuspendLayout();
@@ -348,7 +352,7 @@
         	        	        	this.installToolStripMenuItem,
         	        	        	this.removeToolStripMenuItem});
         	this.pEARToolStripMenuItem.Name = "pEARToolStripMenuItem";
-        	this.pEARToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+        	this.pEARToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         	this.pEARToolStripMenuItem.Text = "PEAR";
         	// 
         	// installToolStripMenuItem
@@ -369,24 +373,47 @@
         	// 
         	this.pHPUnitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
         	        	        	this.installToolStripMenuItem1,
-        	        	        	this.removeToolStripMenuItem1});
+        	        	        	this.removeToolStripMenuItem1,
+        	        	        	this.toolStripSeparator1,
+        	        	        	this.editPhpunitxmlToolStripMenuItem,
+        	        	        	this.runTestsToolStripMenuItem,
+        	        	        	this.readDocumentationToolStripMenuItem});
         	this.pHPUnitToolStripMenuItem.Name = "pHPUnitToolStripMenuItem";
-        	this.pHPUnitToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+        	this.pHPUnitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         	this.pHPUnitToolStripMenuItem.Text = "PHPUnit";
         	// 
         	// installToolStripMenuItem1
         	// 
         	this.installToolStripMenuItem1.Name = "installToolStripMenuItem1";
-        	this.installToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+        	this.installToolStripMenuItem1.Size = new System.Drawing.Size(186, 22);
         	this.installToolStripMenuItem1.Text = "Install";
         	this.installToolStripMenuItem1.Click += new System.EventHandler(this.InstallPHPUnitForPHPToolStripMenuItemClick);
         	// 
         	// removeToolStripMenuItem1
         	// 
         	this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
-        	this.removeToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+        	this.removeToolStripMenuItem1.Size = new System.Drawing.Size(186, 22);
         	this.removeToolStripMenuItem1.Text = "Remove";
         	this.removeToolStripMenuItem1.Click += new System.EventHandler(this.UninstallPHPUnitForPHPToolStripMenuItemClick);
+        	// 
+        	// toolStripSeparator1
+        	// 
+        	this.toolStripSeparator1.Name = "toolStripSeparator1";
+        	this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
+        	// 
+        	// editPhpunitxmlToolStripMenuItem
+        	// 
+        	this.editPhpunitxmlToolStripMenuItem.Name = "editPhpunitxmlToolStripMenuItem";
+        	this.editPhpunitxmlToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+        	this.editPhpunitxmlToolStripMenuItem.Text = "Edit phpunit.xml";
+        	this.editPhpunitxmlToolStripMenuItem.Click += new System.EventHandler(this.EditPhpunitxmlToolStripMenuItemClick);
+        	// 
+        	// runTestsToolStripMenuItem
+        	// 
+        	this.runTestsToolStripMenuItem.Name = "runTestsToolStripMenuItem";
+        	this.runTestsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+        	this.runTestsToolStripMenuItem.Text = "Run Tests";
+        	this.runTestsToolStripMenuItem.Click += new System.EventHandler(this.RunTestsToolStripMenuItemClick);
         	// 
         	// fusionLeafToolStripMenuItem
         	// 
@@ -1034,6 +1061,13 @@
         	this.rtxLog.TabIndex = 0;
         	this.rtxLog.Text = "";
         	// 
+        	// readDocumentationToolStripMenuItem
+        	// 
+        	this.readDocumentationToolStripMenuItem.Name = "readDocumentationToolStripMenuItem";
+        	this.readDocumentationToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+        	this.readDocumentationToolStripMenuItem.Text = "Read Documentation";
+        	this.readDocumentationToolStripMenuItem.Click += new System.EventHandler(this.ReadDocumentationToolStripMenuItemClick);
+        	// 
         	// frmMain
         	// 
         	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1077,6 +1111,10 @@
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem readDocumentationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runTestsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editPhpunitxmlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem restoreLatestDatabaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteCMSFromLocalhostToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addCMSToLocalhostFolderToolStripMenuItem;

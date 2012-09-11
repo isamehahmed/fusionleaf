@@ -638,7 +638,11 @@ namespace WAMPer
 	        		txtNginxStatus.Invoke((MethodInvoker)delegate(){this.txtNginxStatus.Text = "Running";});
 	        		blLoop = false;
 	        	}
-	        	else txtNginxStatus.Invoke((MethodInvoker)delegate(){this.txtNginxStatus.Text = "Stopped";});
+	        	else
+	        	{
+	        		txtNginxStatus.Invoke((MethodInvoker)delegate(){this.txtNginxStatus.Text = "Stopped";});
+	        		blLoop = false;
+	        	}
         		Thread.Sleep(1000);
         	}
         	txtStatus.Text = "Nginx ended.";
@@ -689,17 +693,17 @@ namespace WAMPer
         	{        		
         		runCmd(fileNginx,"-s stop", folderNginx);
         		
-        		// Just to make sure Nginx is stopped
-	            Process p = new Process();
-	            p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-	            p.StartInfo.FileName = "taskkill";
-	            p.StartInfo.Arguments = @"/im nginx.exe -f";
-	            p.Start();
-        		
         		txtStatus.Text = "Nginx stopped.";
         		//if (!blNginxThreadRun) txtStatus.Text = "Nginx monitoring thread already stopped.";
         	}
         	else txtStatus.Text = "Nginx is not currently running.";
+        	
+    		// Just to make sure Nginx is stopped
+            Process p = new Process();
+            p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            p.StartInfo.FileName = "taskkill";
+            p.StartInfo.Arguments = @"/im nginx.exe -f";
+            p.Start();
         	
         	if (!blFCGIRunning) enableFCGI(true);
         	numNginxPort.Enabled = true;
@@ -838,6 +842,7 @@ namespace WAMPer
         Thread tMySQL;
         bool blMySQLThreadRun = false;
         bool blMySQLRunning = false;
+        bool blMySQLKill = false;
         
 		public void monitorMySQL()
         {
@@ -850,7 +855,11 @@ namespace WAMPer
 	        		txtMySQLStatus.Invoke((MethodInvoker)delegate(){this.txtMySQLStatus.Text = "Running";});
 	        		blLoop = false;
 	        	}
-	        	else txtMySQLStatus.Invoke((MethodInvoker)delegate(){this.txtMySQLStatus.Text = "Stopped";});
+	        	else
+	        	{
+	        		txtMySQLStatus.Invoke((MethodInvoker)delegate(){this.txtMySQLStatus.Text = "Stopped";});
+	        		blLoop = false;
+	        	}
     			Thread.Sleep(1000);
         	}
         	txtStatus.Text = "MySQL ended.";
@@ -895,10 +904,19 @@ namespace WAMPer
         	if (processIsRunning("mysqld"))
         	{
         		runCmd("taskkill","/im mysqld.exe /f", "");
+        		
         		txtStatus.Text = "MySQL stopped.";
         		//if (!blMySQLThreadRun) txtStatus.Text = "MySQL monitoring thread already stopped.";
         	}
         	else txtStatus.Text = "MySQL is not currently running.";
+        	
+			// Just to make sure it is stopped
+	        Process p = new Process();
+	        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+	        p.StartInfo.FileName = "taskkill";
+	        p.StartInfo.Arguments = @"/im mysqld.exe -f";
+	        p.Start();
+        	
         	numMySQLPort.Enabled = true;
         }
         
@@ -1031,7 +1049,11 @@ namespace WAMPer
 	        		txtMemcachedStatus.Invoke((MethodInvoker)delegate(){this.txtMemcachedStatus.Text = "Running";});
 	        		blLoop = false;
 	        	}
-	        	else txtMemcachedStatus.Invoke((MethodInvoker)delegate(){this.txtMemcachedStatus.Text = "Stopped";});
+	        	else
+	        	{
+	        		txtMemcachedStatus.Invoke((MethodInvoker)delegate(){this.txtMemcachedStatus.Text = "Stopped";});
+	        		blLoop = false;
+	        	}
         		Thread.Sleep(1000);
         	}
         	txtStatus.Text = "Memcached ended.";
@@ -1134,6 +1156,16 @@ namespace WAMPer
             p.StartInfo.WorkingDirectory = folderFCGI;
             p.StartInfo.Arguments = @"/c ..\pear\PHPUnit_install.cmd";
             p.Start();
+            
+			string strXML = @"<phpunit>
+  <testsuites>
+    <testsuite name=" + "\"" + "All_Tests" + "\"" + @">
+      <directory>..\..\webroot\localhost\tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
+";
+			if (!File.Exists(Path.Combine(folderFCGI,"phpunit.xml"))) File.WriteAllText(Path.Combine(folderFCGI,"phpunit.xml"),strXML);
         }
         
         void UninstallPHPUnitForPHPToolStripMenuItemClick(object sender, EventArgs e)
@@ -1148,6 +1180,8 @@ namespace WAMPer
             p.StartInfo.WorkingDirectory = folderFCGI;
             p.StartInfo.Arguments = @"/c ..\pear\PHPUnit_uninstall.cmd";
             p.Start();
+            
+            if (!File.Exists(Path.Combine(folderFCGI,"phpunit.xml"))) File.Delete(Path.Combine(folderFCGI,"phpunit.xml"));
         }
         
         void FrmMainLoad(object sender, EventArgs e)
@@ -1364,8 +1398,28 @@ echo $o->output();
 ?>";
 			string strIndexPath = Path.Combine(strLH, "index.php");
 			File.WriteAllText(strIndexPath, strIndexTmp);
+			Directory.CreateDirectory(Path.Combine(strLH, "tests"));
 			
 			MessageBox.Show("FusionLeaf saved and removed from the localhost folder.");
+        }
+        
+        void EditPhpunitxmlToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(@"notepad", Path.Combine(folderFCGI,@"phpunit.xml"));
+        }
+        
+        void RunTestsToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	Process p = new Process();
+    	    p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.WorkingDirectory = folderFCGI;
+            p.StartInfo.Arguments = @"/K phpunit --verbose";
+            p.Start();
+        }
+        
+        void ReadDocumentationToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(@"http://www.phpunit.de/manual/3.7/en/writing-tests-for-phpunit.html");
         }
     }
 }
