@@ -1,9 +1,9 @@
 ===== Information about the build process: =====
-Build was run at Fri 07/20/2012 
- on host 'TYR26'
+Build was run at Wed 08/29/2012 
+ on host 'TYR25'
 
 Build was done on  Windows-6.0 using x86
-Build was done using cmake 2.6.4 
+Build was done using cmake 2.8.4 
 
 ===== Compiler / generator used: =====
 Visual Studio 9 2008

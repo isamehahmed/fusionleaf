@@ -1,4 +1,5 @@
-﻿/*                                 
+﻿#region License
+/*
 								Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -191,6 +192,10 @@
    limitations under the License.
 */
 
+#endregion
+
+// Shift + Ctrl + L = Collapse all folding in SharpDevelop
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -205,7 +210,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace WAMPer
+namespace FLS
 {
     public partial class frmMain : Form
     {
@@ -218,10 +223,19 @@ namespace WAMPer
     	string folderMySQL;
     	string fileMemcached;
     	string folderMemcached;
-    	
     	string folderPear;
-    	
     	string folderConfig;
+    	string fileConfig;
+    	
+    	string fileApache;
+    	string folderApache;
+    	string folderAwk;
+    	string fileAwk;
+    	string folderPHPts;
+    	//string filePHPts;
+    	
+    	// Carriage Return
+    	string CR = Environment.NewLine;
     	
     	public frmMain()
         {
@@ -229,21 +243,312 @@ namespace WAMPer
             
             versionToolStripMenuItem.Text = "Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             
-            if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(),@"app\php\php-cgi.exe"))) strHomeDir = @"C:\FLS";
-            else strHomeDir = Directory.GetCurrentDirectory();
-            fileNginx = Path.Combine(strHomeDir,@"app\nginx\nginx.exe");
+            // This is just used so the developer can specify the root path without moving the compiled EXE every time
+            //strHomeDir = @"C:\Users\jspurrier\Downloads\(FusionLeaf)\Apache Build\FusionLeaf_Stack_v0.5.0 Test2";
+            
+            if (strHomeDir==null) strHomeDir = Directory.GetCurrentDirectory();
             folderNginx = Path.Combine(strHomeDir,@"app\nginx");
-            fileFCGI = Path.Combine(strHomeDir,@"app\php\php-cgi.exe");
-            folderFCGI = Path.Combine(strHomeDir,@"app\php");
-            fileMySQL =  Path.Combine(strHomeDir,@"app\MySQL\bin\mysqld.exe");
-            folderMySQL =  Path.Combine(strHomeDir,@"app\MySQL\bin");
-            fileMemcached =  Path.Combine(strHomeDir,@"app\memcached\memcached.exe");
+            fileNginx = Path.Combine(folderNginx,"nginx.exe");
+            folderFCGI = Path.Combine(strHomeDir,@"app\phpnts");
+            fileFCGI = Path.Combine(folderFCGI,"php-cgi.exe");
+            folderMySQL =  Path.Combine(strHomeDir,@"app\MySQL");
+            fileMySQL =  Path.Combine(folderMySQL,@"bin\mysqld.exe");
             folderMemcached =  Path.Combine(strHomeDir,@"app\memcached");
+            fileMemcached =  Path.Combine(folderMemcached,"memcached.exe");
             folderPear =  Path.Combine(strHomeDir,@"app\pear");
             folderConfig =  Path.Combine(strHomeDir,@"config");
-            this.MinimumSize = this.Size;
+            fileConfig =  Path.Combine(folderConfig,@"fls.ini");
+            
+            folderApache = Path.Combine(strHomeDir,@"app\apache");
+            fileApache = Path.Combine(folderApache,@"bin\httpd.exe");
+            txtServerRoot.Text = folderApache;
+            
+            folderAwk = Path.Combine(strHomeDir,@"app\awk");
+            fileAwk = Path.Combine(folderAwk,@"awk.exe");
+            
+            folderPHPts = Path.Combine(strHomeDir,@"app\phpts");
+            
+            this.MinimumSize = this.Size;            
+        }
+    	
+    	private void saveConfig()
+    	{
+            Ini ini = new Ini(fileConfig);
+            
+            ini.IniWriteValue("Global","HideWindows",chbHide.Checked.ToString());
+            ini.IniWriteValue("Global","Apache",radApache.Checked.ToString());
+            ini.IniWriteValue("Global","Nginx",radNginx.Checked.ToString());
+            
+            ini.IniWriteValue("Nginx","Port",numNginxPort.Value.ToString());
+            ini.IniWriteValue("MySQL","Port",numMySQLPort.Value.ToString());
+            ini.IniWriteValue("Memcached","Port",numMemcachedPort.Value.ToString());
+            
+            ini.IniWriteValue("PHP","Port",numFCGIPort.Value.ToString());
+            ini.IniWriteValue("PHP","Threads",numFCGIThreads.Value.ToString());
+            ini.IniWriteValue("PHP","Requests",numFCGIRequests.Value.ToString());
+            
+            ini.IniWriteValue("Apache","DomainName",txtDomainName.Text);
+            ini.IniWriteValue("Apache","ServerName",txtServerName.Text);
+            ini.IniWriteValue("Apache","ServerAdmin",txtServerAdmin.Text);
+            ini.IniWriteValue("Apache","Port",numApachePort.Value.ToString());
+            ini.IniWriteValue("Apache","PortSSL",numApachePortSSL.Value.ToString());
+            ini.IniWriteValue("Apache","SourceRoot",txtSourceRoot.Text);
+    	}
+    	
+    	private void loadConfig()
+    	{
+            Ini ini = new Ini(fileConfig);
+            
+            chbHide.Checked = Convert.ToBoolean(ini.IniReadValue("Global","HideWindows"));
+            radApache.Checked = Convert.ToBoolean(ini.IniReadValue("Global","Apache"));
+            radNginx.Checked = Convert.ToBoolean(ini.IniReadValue("Global","Nginx"));
+            
+            numNginxPort.Value = Convert.ToDecimal(ini.IniReadValue("Nginx","Port"));
+            numMySQLPort.Value = Convert.ToDecimal(ini.IniReadValue("MySQL","Port"));
+            numMemcachedPort.Value = Convert.ToDecimal(ini.IniReadValue("Memcached","Port"));
+            
+            numFCGIPort.Value = Convert.ToDecimal(ini.IniReadValue("PHP","Port"));
+            numFCGIThreads.Value = Convert.ToDecimal(ini.IniReadValue("PHP","Threads"));
+            numFCGIRequests.Value = Convert.ToDecimal(ini.IniReadValue("PHP","Requests"));
+            
+            txtDomainName.Text = Convert.ToString(ini.IniReadValue("Apache","DomainName"));
+            txtServerName.Text = Convert.ToString(ini.IniReadValue("Apache","ServerName"));
+            txtServerAdmin.Text = Convert.ToString(ini.IniReadValue("Apache","ServerAdmin"));
+            numApachePort.Value = Convert.ToDecimal(ini.IniReadValue("Apache","Port"));
+            numApachePortSSL.Value = Convert.ToDecimal(ini.IniReadValue("Apache","PortSSL"));
+            txtSourceRoot.Text = Convert.ToString(ini.IniReadValue("Apache","SourceRoot"));
+    	}
+    	
+        private void BtnSaveClick(object sender, EventArgs e)
+        {
+        	saveConfig();
+        	FileInfo fi = new FileInfo(fileConfig);
+        	
+        	txtStatus.Text = "Default values saved to: " + fi.Directory.Name + @"\" + fi.Name;
+        }
+    	
+        private void FrmMainLoad(object sender, EventArgs e)
+        {
+            rogueAppCheck();
+            commandLineCheck(Environment.GetCommandLineArgs());
+            //saveConfig();
+            loadConfig();
         }
 
+        private void BtnTestClick(object sender, EventArgs e)
+        {
+        	//strHomeDir = @"C:\nginx_2012-06-08_15.35.05";
+        }
+                
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+        	if (!isReady()) return;
+            if (btnStart.Text == "Start")
+            {
+            	// The empty folders should now all have a "placeholder" file in them so there is no need to create them
+                //if (!Directory.Exists(Path.Combine(folderNginx,"temp"))) Directory.CreateDirectory(Path.Combine(folderNginx,"temp"));
+                //if (!Directory.Exists(Path.Combine(folderNginx,"logs"))) Directory.CreateDirectory(Path.Combine(folderNginx,"logs"));
+                
+                btnStart.Text = "Stop";
+                startAll();
+                txtStatus.Text = "FusionLeaf Studio running.";
+            }
+            else
+            {
+            	btnStart.Text = "Start";
+            	stopAll();
+                txtStatus.Text = "FusionLeaf Studio stopping...";
+                
+        		if (!blStopThreadRun)
+        		{
+        			blStopThreadRun = true;
+        			tStop = new Thread(new ThreadStart(monitorStopping));
+        			tStop.IsBackground=true;
+        			tStop.Start();
+        		}
+                
+                enableFCGI(true);
+                numMySQLPort.Enabled = true;
+                numNginxPort.Enabled = true;
+                numMemcachedPort.Enabled = true;
+                gbApache.Enabled = true;
+                gbWebserver.Enabled = true;
+            }
+        }
+        
+        private void startAll()
+        {
+            BtnMySQLStartClick(null, null);
+            
+            if (radNginx.Checked)
+            {
+            	BtnFCGIStartClick(null, null);
+            	BtnNginxStartClick(null, null);
+            }
+            else
+            {
+            	BtnApacheStartClick(null, null);
+            }
+            BtnMemcachedStartClick(null, null);
+        }
+        
+        private void stopAll()
+        {
+        	BtnMySQLStopClick(null, null);
+        	BtnFCGIStopClick(null, null);
+        	BtnNginxStopClick(null, null);
+        	BtnMemcachedStopClick(null, null);
+        	BtnApacheStopClick(null, null);
+        }
+        
+        #region Static Helper Methods
+        
+    	private void rogueAppCheck()
+    	{
+            if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
+			{
+				MessageBox.Show("You can only run once instance of FusionLeaf Studio at a time.","FusionLeaf Studio: Already Running");
+				this.Close();
+			}
+            
+            if (!File.Exists(fileFCGI))
+            {
+            	MessageBox.Show("FLS cannot run because several folders are missing from the home directory.","FusionLeaf Studio: Folders Missing");
+            	this.Close();
+            }
+            
+            string strList = "";
+            if (processIsRunning("Memcached")) strList += "* Memcached (memcached.exe) "+CR;
+            if (processIsRunning("nginx")) strList += "* Nginx (nginx.exe) "+CR;
+            if (processIsRunning("php-cgi")) strList += "* PHP (php-cgi.exe)"+CR;
+            if (processIsRunning("mysqld")) strList += "* MySQL (mysqld.exe)"+CR;
+            
+            if (strList.Length>0)
+            {
+            	DialogResult dr = MessageBox.Show("FLS detected the following running program(s):"+CR+strList+CR+"Force terminate all?","FusionLeaf Studio: Running Processes",MessageBoxButtons.YesNo);
+            	
+            	if (dr== DialogResult.Yes) stopAll();
+            	else this.Close();
+            }
+    	}
+        
+        private bool portDuplication()
+        {
+        	Hashtable htPorts = new Hashtable();
+        	htPorts = portDuplicationCheck(htPorts, numNginxPort.Value);
+        	htPorts = portDuplicationCheck(htPorts, numFCGIPort.Value);
+        	htPorts = portDuplicationCheck(htPorts, numMySQLPort.Value);
+        	htPorts = portDuplicationCheck(htPorts, numMemcachedPort.Value);
+        	
+        	if (htPorts.Count!=4) return true;
+        	else return false;
+        }
+        
+    	private void commandLineCheck(string[] args)
+    	{
+            string strProblem = "";
+            try
+            {
+	            foreach (string s in args)
+	            {
+	            	string sArgument = s.ToLower();
+	            	if (sArgument.Contains("/minimize")) this.WindowState = FormWindowState.Minimized;
+	            	
+	            	// PHP
+	            	if (sArgument.Contains("/php_thread:"))
+	            	{
+	            		strProblem = "/php_thread:";
+	            		numFCGIThreads.Value = Convert.ToInt32(s.Substring(12));
+	            	}
+	            	if (sArgument.Contains("/php_max_requests:"))
+	            	{
+	            		strProblem = "/php_max_requests:";
+	            		numFCGIRequests.Value = Convert.ToInt32(s.Substring(18));
+	            	}
+	            	if (sArgument.Contains("/php_port:"))
+	            	{
+	            		strProblem = "/php_port:";
+	            		numFCGIPort.Value = Convert.ToInt32(s.Substring(10));
+	            	}
+	            	
+	            	// Ports
+	            	if (sArgument.Contains("/nginx_port:"))
+	            	{
+	            		strProblem = "/nginx_port:";
+	            		numNginxPort.Value = Convert.ToInt32(s.Substring(12));
+	            	}
+	            	if (sArgument.Contains("/mysql_port:"))
+	            	{
+	            		strProblem = "/mysql_port:";
+	            		numMySQLPort.Value = Convert.ToInt32(s.Substring(12));
+	            	}
+	            	if (sArgument.Contains("/memcached_port:"))
+	            	{
+	            		strProblem = "/memcached_port:";
+	            		numMemcachedPort.Value = Convert.ToInt32(s.Substring(16));
+	            	}
+	            	
+	            	// Starting
+	            	if (sArgument.Contains("/startall")) btnStart_Click(null, null);
+	            	if (sArgument.Contains("/start_nginx")) BtnNginxStartClick(null, null);
+	            	if (sArgument.Contains("/start_php")) BtnFCGIStartClick(null, null);
+	            	if (sArgument.Contains("/start_mysql")) BtnMySQLStartClick(null, null);
+	            	if (sArgument.Contains("/start_memcached")) BtnMemcachedStartClick(null, null);
+	            	
+	            	if (sArgument.Contains("/help") || sArgument.Contains("/?"))
+	            	{
+	            		MessageBox.Show("/help			Show Help" + Environment.NewLine +
+	            		                "/minimize			Minimize application" + Environment.NewLine +
+   	            		                "/startall			Start all services" + Environment.NewLine +
+	            		                "/php_thread:#		Set PHP with # thread(s)" + Environment.NewLine +
+	            		                "/php_max_requests:#	Set PHP with # of max requests before recycle" + Environment.NewLine +
+	            		                "/php_port:#		Set PHP port" + Environment.NewLine +
+	            		                "/nginx_port:#		Set Nginx port" + Environment.NewLine +
+	            		                "/mysql_port:#		Set MySQL port" + Environment.NewLine +
+	            		                "/memcached_port:#		Set Memcached port" + Environment.NewLine +
+	            		                "/start_nginx		Start Nginx" + Environment.NewLine +
+	            		                "/start_php			Start PHP" + Environment.NewLine +
+	            		                "/start_mysql		Start MySQL" + Environment.NewLine +
+	            		                "/start_memcached		Start Memcached"
+	            		               ,"FusionLeaf Studio Startup Parameters");
+	            		this.Close();
+	            	}
+	            }
+            }
+            catch
+            {
+            	MessageBox.Show("One of the FusionLeaf startup arguments is incorrect: " + strProblem, "Startup Error");
+            	this.Close();
+            }
+    	}
+        
+        #endregion
+        
+		#region Generic Helper Methods
+    			
+        private bool isReady()
+        {
+        	if (!Directory.Exists(strHomeDir))
+        	{
+        		MessageBox.Show("FLS cannot find the home folder: "+ strHomeDir,"FusionLeaf Studio: Home Directory Problem");
+        		return false;
+        	}
+        	
+        	if (portDuplication())
+        	{
+        		MessageBox.Show("Duplicate ports found. None of the ports can be the same.","FusionLeaf Studio: Conflicting Ports");
+        		return false;
+        	}
+        	
+        	return true;
+        }
+		        
+        private Hashtable portDuplicationCheck(Hashtable htPorts, decimal key)
+        {
+        	if (!htPorts.ContainsKey(key)) htPorts.Add(key,"");
+        	return htPorts;
+        }
+        
         private bool testPort(int port)
         {
             try
@@ -261,151 +566,76 @@ namespace WAMPer
             return true;
         }
         
-        private void btnStart_Click_OLD(object sender, EventArgs e)
-        {           
-            if (btnStart.Text == "Start")
-            {
-            	if (!testPort((int)numNginxPort.Value)) return;
-            	if (!testPort((int)numMySQLPort.Value)) return;
-
-                if (!Directory.Exists(Path.Combine(strHomeDir,@"tmp"))) Directory.CreateDirectory(Path.Combine(strHomeDir,@"tmp"));
-                if (!Directory.Exists(Path.Combine(strHomeDir,@"app\nginx\temp"))) Directory.CreateDirectory(Path.Combine(strHomeDir,@"app\nginx\temp"));
-                if (!Directory.Exists(Path.Combine(strHomeDir,@"app\nginx\logs"))) Directory.CreateDirectory(Path.Combine(strHomeDir,@"app\nginx\logs"));
-                
-                string strTemplate = Path.Combine(folderConfig,@"nginx.conf");
-                string strNginxOut = Path.Combine(strHomeDir,@"app\nginx\conf\nginx.conf");
-                string strWebRoot = Path.Combine(strHomeDir,@"webroot");
-                
-                string strFL = Path.Combine(strWebRoot,@"fusionleaf");
-                string strLH = Path.Combine(strWebRoot,@"localhost");
-                
-                if (Directory.Exists(strFL) && !Directory.Exists(strLH)) Directory.Move(strFL,strLH);
-                
-                File.WriteAllText(strNginxOut, File.ReadAllText(strTemplate).Replace("%WEBROOT%",strWebRoot.Replace(@"\","/")));
-                
-                Process p = new Process();
-                if (chbHide.Checked) p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-                p.StartInfo.FileName = Path.Combine(strHomeDir,@"app\MySQL\bin\mysqld.exe");
-                p.StartInfo.Arguments = "--defaults-file=\"" + Path.Combine(strHomeDir,@"app\mysql\my.ini") + "\"";
-                p.Start();
-
-                p.StartInfo.FileName = Path.Combine(strHomeDir,@"app\php\php-cgi.exe");
-                p.StartInfo.Arguments = @"-b 127.0.0.1:1879";
-                p.Start();
-
-                p.StartInfo.FileName =Path.Combine(strHomeDir,@"app\nginx\nginx.exe");
-                p.StartInfo.WorkingDirectory = Path.Combine(strHomeDir,@"app\nginx");
-                p.StartInfo.Arguments = "";
-                p.Start();
-
-                btnStart.Text = "Stop";
-            }
-            else
-            {
-                Process p = new Process();
-                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-                p.StartInfo.FileName = "taskkill";
-                p.StartInfo.Arguments = @"/im nginx.exe -f";
-                p.Start();
-                p.StartInfo.Arguments = @"/im php-cgi.exe -f";
-                p.Start();
-                p.StartInfo.Arguments = @"/im mysqld.exe -f";
-                p.Start();
-
-                btnStart.Text = "Start";
-            }
-        }
-
-        private void btnStart_Click(object sender, EventArgs e)
+        private string replaceText(string text, ArrayList al)
         {
-        	if (!isReady()) return;
-            if (btnStart.Text == "Start")
-            {
-            	/*if (!testPort((int)numNginxPort.Value)) return;
-            	if (!testPort((int)numMySQLPort.Value)) return;*/
-            	
-            	if (numNginxPort.Value == numMySQLPort.Value
-            	    || numFCGIPort.Value == numNginxPort.Value
-            	    || numMySQLPort.Value == numFCGIPort.Value
-            	    || numMemcachedPort.Value == numFCGIPort.Value
-            	    || numMemcachedPort.Value == numNginxPort.Value
-            	    || numMemcachedPort.Value == numMySQLPort.Value)
-            	{
-            		MessageBox.Show("Duplicate ports found. None of the ports can be the same.");
-            		return;
-            	}
-                
-                /*for (int j=(int)numFCGIPort.Value;j<numFCGIPort.Value+numFCGIThreads.Value;j++)
-        		{
-        			if (!testPort(j)) return;
-        		}*/
-
-                //if (!Directory.Exists(Path.Combine(strHomeDir,@"tmp"))) Directory.CreateDirectory(Path.Combine(strHomeDir,@"tmp"));
-                if (!Directory.Exists(Path.Combine(strHomeDir,@"app\nginx\temp"))) Directory.CreateDirectory(Path.Combine(strHomeDir,@"app\nginx\temp"));
-                if (!Directory.Exists(Path.Combine(strHomeDir,@"app\nginx\logs"))) Directory.CreateDirectory(Path.Combine(strHomeDir,@"app\nginx\logs"));
-                
-                //string strWebRoot = Path.Combine(strHomeDir,@"webroot");
-                //string strFL = Path.Combine(strWebRoot,@"fusionleaf");
-                //string strFLUp = Path.Combine(strWebRoot,@"fusionleaf\com\www");
-                //string strLH = Path.Combine(strWebRoot,@"localhost");
-                
-                /*
-                try
-                {
-                	if (Directory.Exists(strFL) && !Directory.Exists(strLH))
-                	{
-                		Directory.Move(strFLUp,strLH);
-                	}
-                }
-                catch (Exception)
-                {
-                	MessageBox.Show("Please close any open files and folders using this location: "+strFL, "Problem Moving Files");
-                	return;
-                }*/
-
-                BtnMySQLStartClick(sender,e);
-                BtnFCGIStartClick(sender,e);
-                BtnNginxStartClick(sender,e);
-                BtnMemcachedStartClick(sender,e);
-
-                btnStart.Text = "Stop";
-                txtStatus.Text = "FusionLeaf Studio running.";
-            }
-            else
-            {
-            	
-            	BtnMySQLStopClick(sender,e);
-            	BtnFCGIStopClick(sender,e);
-            	BtnNginxStopClick(sender,e);
-            	BtnMemcachedStopClick(sender,e);
-
-                btnStart.Text = "Start";
-                
-                txtStatus.Text = "FusionLeaf Studio stopping...";
-                
-        		if (!blStopThreadRun)
-        		{
-        			blStopThreadRun = true;
-        			tStop = new Thread(new ThreadStart(monitorStopping));
-        			tStop.IsBackground=true;
-        			tStop.Start();
-        		}
-                
-                enableFCGI(true);
-                numMySQLPort.Enabled = true;
-                numNginxPort.Enabled = true;
-                numMemcachedPort.Enabled = true;
-            }
+        	string output = text;
+        	for (int j = 0;j<al.Count;j++)
+        	{
+        		string[] s = (string[])al[j];
+        		output = output.Replace(s[0],s[1]);
+        	}
+        	return output;
         }
         
-        bool blStopThreadRun;
-        Thread tStop;
+        private bool processIsRunning(string process)
+        {
+        	return (System.Diagnostics.Process.GetProcessesByName(process).Length != 0);
+        }
         
+        private int processIsRunningCount(string process)
+        {
+        	return System.Diagnostics.Process.GetProcessesByName(process).Length;
+        }
+        
+        private int runCmd(string name, string arguments, string folder)
+        {
+        	    Process p = new Process();
+                if (chbHide.Checked) p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+        	    p.StartInfo.FileName = name;
+                p.StartInfo.WorkingDirectory = folder;
+                p.StartInfo.Arguments = arguments;
+                p.Start();
+                return p.Id;
+        }
+        
+        private void runCmdWait(string name, string arguments, string folder)
+        {
+        	    Process p = new Process();
+                if (chbHide.Checked) p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+        	    p.StartInfo.FileName = name;
+                p.StartInfo.WorkingDirectory = folder;
+                p.StartInfo.Arguments = arguments;
+                p.Start();
+                p.WaitForExit();
+        }
+        
+        private void updateText()
+        {
+    	    if (InvokeRequired)
+    	    {
+		        Invoke(new MethodInvoker(updateText));
+		    }
+    	    else
+        	{
+	    		rtxLog.AppendText(DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt") + " - " + txtStatus.Text + Environment.NewLine);
+		    }
+        }
+        
+        private void TxtStatusTextChanged(object sender, EventArgs e)
+        {
+        	updateText();
+        }
+        
+		#endregion
+		
+		#region Exit
+		
+		bool blStopThreadRun;
+        Thread tStop;
+		
         public void monitorStopping()
         {
-        	while(blNginxThreadRun || blFCGIThreadRun || blMySQLThreadRun)
+        	while(blNginxThreadRun || blFCGIThreadRun || blMySQLThreadRun || blMemcachedThreadRun || blApacheThreadRun)
         	{
         		Thread.Sleep(1000);
         	}
@@ -413,14 +643,66 @@ namespace WAMPer
         	blStopThreadRun = false;
         }
         
-        private bool isReady()
-        {
-        	if (!Directory.Exists(strHomeDir))
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {        	
+        	/*
+        	if (e.CloseReason== CloseReason.ApplicationExitCall
+        	    || e.CloseReason==CloseReason.TaskManagerClosing
+        	    || e.CloseReason==CloseReason.WindowsShutDown)
         	{
-        		MessageBox.Show("FLS cannot find the home folder: "+ strHomeDir,"Problem");
-        		return false;
-        	}else return true;
+        		blResult = true;
+        	}else blResult = closeProgram();*/
+        	
+        	if (e.CloseReason== CloseReason.UserClosing) e.Cancel = !closeProgram();
+        	else if (e.CloseReason==CloseReason.TaskManagerClosing
+        	        || e.CloseReason==CloseReason.WindowsShutDown
+        	        || e.CloseReason==CloseReason.ApplicationExitCall
+        			|| e.CloseReason== CloseReason.None
+        	       ) stopAll();
         }
+        
+        private bool closeProgram()
+        {
+            if (blNginxThreadRun || blFCGIThreadRun || blMySQLThreadRun || blMemcachedThreadRun || blApacheThreadRun)
+            {
+            	DialogResult dr = DialogResult.Yes;
+            	bool blForce = false;
+            	if (!blStopThreadRun)
+            	{
+            		dr = MessageBox.Show("Do you want to exit and completely shutdown FusionLeaf?","Exit Confirmation",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            		blForce = true;
+            	}
+            	if (dr==DialogResult.Yes)
+            	{
+            		if (blForce)
+            		{
+            			btnStart.Text = "Stop";
+            			btnStart_Click(null,null);
+            		}
+            		this.Hide();
+            		while (blNginxThreadRun || blFCGIThreadRun || blMySQLThreadRun || blMemcachedThreadRun || blApacheThreadRun)
+            		{
+            			Thread.Sleep(100);
+            			Application.DoEvents();
+            		}
+            		return true;
+            	}
+            	else return false;
+            }else
+            {
+            	return true;
+            }
+        }
+        
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        	bool blResult = closeProgram();
+        	if (blResult) this.Close();
+        }
+		
+		#endregion
+
+		#region Open Files and Folders
         
         private void simpleOpen(string strProcess)
         {
@@ -447,19 +729,19 @@ namespace WAMPer
         	}
         }
         
-        private void tsmMySQL_Click(object sender, EventArgs e)
+		private void tsmMySQL_Click(object sender, EventArgs e)
         {
-        	simpleOpen(@"notepad", Path.Combine(strHomeDir,@"app\mysql\my.ini"));
+        	simpleOpen(@"notepad", Path.Combine(folderMySQL,"my.ini"));
         }
 
         private void tsmWeb_Click(object sender, EventArgs e)
         {
-        	simpleOpen(@"notepad", Path.Combine(strHomeDir,@"app\nginx\conf\nginx.conf"));
+        	simpleOpen(@"notepad", Path.Combine(folderFCGI,@"conf\nginx.conf"));
         }
 
         private void tsmPHP_Click(object sender, EventArgs e)
         {
-        	simpleOpen(@"notepad", Path.Combine(strHomeDir,@"app\php\php.ini"));
+        	simpleOpen(@"notepad", Path.Combine(folderFCGI,"php.ini"));
         }
 
         private void indexphpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -469,17 +751,17 @@ namespace WAMPer
 
         private void databaseFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        	simpleOpen(Path.Combine(strHomeDir,@"app\mysql"));
+        	simpleOpen(folderMySQL);
         }
 
         private void webServerFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        	simpleOpen(Path.Combine(strHomeDir,@"app\nginx"));
+        	simpleOpen(folderNginx);
         }
 
         private void pHPFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        	simpleOpen(Path.Combine(strHomeDir,@"app\php"));
+        	simpleOpen(folderFCGI);
         }
 
         private void sessionsAndPHPLogsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -496,62 +778,47 @@ namespace WAMPer
         {
             simpleOpen(@"http://www.fusionleaf.com");
         }
-
-        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        
+        private void WebServerConfigToolStripMenuItemClick(object sender, EventArgs e)
         {
-        	bool blResult;
-        	
-        	if (e.CloseReason== CloseReason.ApplicationExitCall
-        	    || e.CloseReason==CloseReason.TaskManagerClosing
-        	    || e.CloseReason==CloseReason.WindowsShutDown)
-        	{
-        		blResult = true;
-        	}else blResult = closeProgram();
-        	
-        	
-        	e.Cancel = !blResult;
-        }
-
-        private bool closeProgram()
-        {
-            if (blNginxThreadRun || blFCGIThreadRun || blMySQLThreadRun || blMemcachedThreadRun)
-            {
-            	DialogResult dr = DialogResult.Yes;
-            	bool blForce = false;
-            	if (!blStopThreadRun)
-            	{
-            		dr = MessageBox.Show("Do you want to exit and completely shutdown FusionLeaf?","Exit Confirmation",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-            		blForce = true;
-            	}
-            	if (dr==DialogResult.Yes)
-            	{
-            		if (blForce)
-            		{
-            			btnStart.Text = "Stop";
-            			btnStart_Click(null,null);
-            		}
-            		this.Hide();
-            		while (blNginxThreadRun || blFCGIThreadRun || blMySQLThreadRun || blMemcachedThreadRun)
-            		{
-            			Thread.Sleep(100);
-            			Application.DoEvents();
-            		}
-            		return true;
-            	}
-            	else return false;
-            }else
-            {
-            	return true;
-            }
+        	simpleOpen(@"notepad", Path.Combine(folderConfig,@"nginx.conf"));
         }
         
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DatabaseConfigToolStripMenuItemClick(object sender, EventArgs e)
         {
-        	bool blResult = closeProgram();
-        	if (blResult) this.Close();
+        	simpleOpen(@"notepad", Path.Combine(folderConfig,@"my.ini"));
         }
-
-        private void maximizeForm()
+        
+        private void PHPToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(@"notepad", Path.Combine(folderConfig,@"php.ini"));
+        }
+        
+        private void ApacheV20LicenseToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(@"http://www.apache.org/licenses/LICENSE-2.0.html");
+        }
+        
+        private void FusionLeafOnSourceForgeToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(@"http://fusionleaf.googlecode.com");
+        }
+        
+        private void MemcachedToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(folderMemcached);
+        }
+        
+        private void EditIndexphpToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(@"notepad", Path.Combine(strHomeDir,@"webroot\localhost\index.php"));
+        }
+        
+        #endregion
+        
+        #region Taskbar Controls
+        
+		private void maximizeForm()
         {
         	if ( WindowState == FormWindowState.Minimized )
 		    {
@@ -581,6 +848,14 @@ namespace WAMPer
         	}
         }
         
+        #endregion
+        
+        #region Nginx
+        
+        Thread tNginx;
+        bool blNginxThreadRun = false;
+        bool blNginxRunning = false;
+        
         private string buildFarm(int count)
         {
         	string output = "";
@@ -590,42 +865,6 @@ namespace WAMPer
         	}
         	return output;
         }
-        
-        private string replaceText(string text, ArrayList al)
-        {
-        	string output = text;
-        	for (int j = 0;j<al.Count;j++)
-        	{
-        		string[] s = (string[])al[j];
-        		output = output.Replace(s[0],s[1]);
-        	}
-        	return output;
-        }
-        
-        private bool processIsRunning(string process)
-        {
-        	return (System.Diagnostics.Process.GetProcessesByName(process).Length != 0);
-        }
-        
-        private int processIsRunningCount(string process)
-        {
-        	return System.Diagnostics.Process.GetProcessesByName(process).Length;
-        }
-       
-        private int runCmd(string name, string arguments, string folder)
-        {
-        	    Process p = new Process();
-                if (chbHide.Checked) p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-        	    p.StartInfo.FileName = name;
-                p.StartInfo.WorkingDirectory = folder;
-                p.StartInfo.Arguments = arguments;
-                p.Start();
-                return p.Id;
-        }
-        
-        Thread tNginx;
-        bool blNginxThreadRun = false;
-        bool blNginxRunning = false;
         
         public void monitorNginx()
         {
@@ -638,11 +877,7 @@ namespace WAMPer
 	        		txtNginxStatus.Invoke((MethodInvoker)delegate(){this.txtNginxStatus.Text = "Running";});
 	        		blLoop = false;
 	        	}
-	        	else
-	        	{
-	        		txtNginxStatus.Invoke((MethodInvoker)delegate(){this.txtNginxStatus.Text = "Stopped";});
-	        		blLoop = false;
-	        	}
+	        	else txtNginxStatus.Invoke((MethodInvoker)delegate(){this.txtNginxStatus.Text = "Stopped";});
         		Thread.Sleep(1000);
         	}
         	txtStatus.Text = "Nginx ended.";
@@ -657,10 +892,11 @@ namespace WAMPer
         	{
 	        	if (!testPort((int)numNginxPort.Value)) return;
         		enableFCGI(false);
+        		gbWebserver.Enabled = false;
         		numNginxPort.Enabled = false;
         		
                 string strTemplate = Path.Combine(folderConfig,@"nginx.conf");
-                string strNginxOut = Path.Combine(strHomeDir,@"app\nginx\conf\nginx.conf");
+                string strNginxOut = Path.Combine(folderNginx,@"conf\nginx.conf");
                 string strWebRoot = Path.Combine(strHomeDir,@"webroot");
             
     			ArrayList alReplace = new ArrayList();
@@ -693,17 +929,18 @@ namespace WAMPer
         	{        		
         		runCmd(fileNginx,"-s stop", folderNginx);
         		
+        		// Just to make sure Nginx is stopped
+	            Process p = new Process();
+	            p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+	            p.StartInfo.FileName = "taskkill";
+	            p.StartInfo.Arguments = @"/im nginx.exe -f";
+	            p.Start();
+        		
         		txtStatus.Text = "Nginx stopped.";
+        		gbWebserver.Enabled = true;
         		//if (!blNginxThreadRun) txtStatus.Text = "Nginx monitoring thread already stopped.";
         	}
         	else txtStatus.Text = "Nginx is not currently running.";
-        	
-    		// Just to make sure Nginx is stopped
-            Process p = new Process();
-            p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            p.StartInfo.FileName = "taskkill";
-            p.StartInfo.Arguments = @"/im nginx.exe -f";
-            p.Start();
         	
         	if (!blFCGIRunning) enableFCGI(true);
         	numNginxPort.Enabled = true;
@@ -729,11 +966,14 @@ namespace WAMPer
         	else txtStatus.Text = "Nginx is not currently running.";
         }
         
+        #endregion
+        
+        #region PHP (FCGI)
+        
         Thread tFCGI;
         bool blFCGIThreadRun = false;
         bool blFCGIRunning = false;
         bool blFCGIKill = false;
-        
         Hashtable htFCGI;
         
 		public void monitorFCGI()
@@ -790,17 +1030,11 @@ namespace WAMPer
         	if (!isReady()) return;
         	if (!processIsRunning("php-cgi"))
         	{
-        		string strTemplate = Path.Combine(folderConfig,@"php.ini");
-                string strOut = Path.Combine(strHomeDir,@"app\php\php.ini");
-            
-    			ArrayList alReplace = new ArrayList();
-    			alReplace.Add(new string[]{";%INCLUDE_PATH%", "include_path=\".;"+folderFCGI+"\\pear\""});
-                
-    			File.WriteAllText(strOut, replaceText(File.ReadAllText(strTemplate),alReplace));
+
+        		configPHP();
         		
         		enableFCGI(false);
         		blFCGIKill=false;
-        		Environment.SetEnvironmentVariable("PHP_FCGI_MAX_REQUESTS",numFCGIRequests.Value.ToString());
         		
         		htFCGI = new Hashtable();
         		
@@ -839,10 +1073,20 @@ namespace WAMPer
         	if (!blNginxRunning) enableFCGI(true);
         }
         
+        private void enableFCGI(bool blVal)
+        {
+        	numFCGIThreads.Enabled=blVal;
+        	numFCGIRequests.Enabled=blVal;
+        	numFCGIPort.Enabled=blVal;
+        }
+        
+        #endregion
+        
+        #region MySQL
+        
         Thread tMySQL;
         bool blMySQLThreadRun = false;
         bool blMySQLRunning = false;
-        bool blMySQLKill = false;
         
 		public void monitorMySQL()
         {
@@ -855,11 +1099,7 @@ namespace WAMPer
 	        		txtMySQLStatus.Invoke((MethodInvoker)delegate(){this.txtMySQLStatus.Text = "Running";});
 	        		blLoop = false;
 	        	}
-	        	else
-	        	{
-	        		txtMySQLStatus.Invoke((MethodInvoker)delegate(){this.txtMySQLStatus.Text = "Stopped";});
-	        		blLoop = false;
-	        	}
+	        	else txtMySQLStatus.Invoke((MethodInvoker)delegate(){this.txtMySQLStatus.Text = "Stopped";});
     			Thread.Sleep(1000);
         	}
         	txtStatus.Text = "MySQL ended.";
@@ -874,14 +1114,14 @@ namespace WAMPer
         		if (!testPort((int)numMySQLPort.Value)) return;
         		numMySQLPort.Enabled = false;
                 string strTemplate = Path.Combine(folderConfig,@"my.ini");
-                string strOut = Path.Combine(strHomeDir,@"app\mysql\my.ini");
+                string strOut = Path.Combine(folderMySQL,"my.ini");
                 string strWebRoot = Path.Combine(strHomeDir,@"webroot");
             
     			ArrayList alReplace = new ArrayList();
     			alReplace.Add(new string[]{"%MYSQLPORT%", numMySQLPort.Value.ToString()});
     			File.WriteAllText(strOut, replaceText(File.ReadAllText(strTemplate),alReplace));
         		
-        		string arguments = "--defaults-file=\"" + Path.Combine(strHomeDir,@"app\mysql\my.ini") + "\"";
+        		string arguments = "--defaults-file=\"" + Path.Combine(folderMySQL,"my.ini") + "\"";
         		runCmd(fileMySQL,arguments, folderMySQL);
         		
         		txtStatus.Text = "MySQL started on port " + numMySQLPort.Value + ".";
@@ -904,70 +1144,92 @@ namespace WAMPer
         	if (processIsRunning("mysqld"))
         	{
         		runCmd("taskkill","/im mysqld.exe /f", "");
-        		
         		txtStatus.Text = "MySQL stopped.";
         		//if (!blMySQLThreadRun) txtStatus.Text = "MySQL monitoring thread already stopped.";
         	}
         	else txtStatus.Text = "MySQL is not currently running.";
-        	
-			// Just to make sure it is stopped
-	        Process p = new Process();
-	        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-	        p.StartInfo.FileName = "taskkill";
-	        p.StartInfo.Arguments = @"/im mysqld.exe -f";
-	        p.Start();
-        	
         	numMySQLPort.Enabled = true;
         }
         
-        private void updateText()
+        #endregion
+   
+        #region Memcached
+        
+        Thread tMemcached;
+        bool blMemcachedThreadRun = false;
+        bool blMemcachedRunning = false;
+
+        public void monitorMemcached()
         {
-    	    if (InvokeRequired)
-    	    {
-		        Invoke(new MethodInvoker(updateText));
-		    }
-    	    else
+        	bool blLoop = true;
+        	while(blMemcachedRunning || blLoop)
         	{
-	    		rtxLog.AppendText(DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt") + " - " + txtStatus.Text + Environment.NewLine);
-		    }
+	        	blMemcachedRunning = processIsRunning("Memcached");
+	        	if (blMemcachedRunning)
+	        	{
+	        		txtMemcachedStatus.Invoke((MethodInvoker)delegate(){this.txtMemcachedStatus.Text = "Running";});
+	        		blLoop = false;
+	        	}
+	        	else txtMemcachedStatus.Invoke((MethodInvoker)delegate(){this.txtMemcachedStatus.Text = "Stopped";});
+        		Thread.Sleep(1000);
+        	}
+        	txtStatus.Text = "Memcached ended.";
+        	blMemcachedThreadRun = false;
+        	//txtMemcachedStatus.Invoke((MethodInvoker)delegate(){this.txtMemcachedStatus.Text = "Done";});
         }
         
-        private void TxtStatusTextChanged(object sender, EventArgs e)
+        private void BtnMemcachedStartClick(object sender, EventArgs e)
         {
-        	updateText();
+        	if (!isReady()) return;
+        	if (!processIsRunning("Memcached"))
+        	{
+	        	if (!testPort((int)numMemcachedPort.Value)) return;
+        		//enableFCGI(false);
+        		numMemcachedPort.Enabled = false;
+        		
+        		runCmd(fileMemcached,"-p "+numMemcachedPort.Value, folderMemcached);
+        		txtStatus.Text = "Memcached started on port " + numMemcachedPort.Value.ToString() + ".";
+        		if (!blMemcachedThreadRun)
+        		{
+        			blMemcachedThreadRun = true;
+        			tMemcached = new Thread(new ThreadStart(monitorMemcached));
+        			tMemcached.IsBackground=true;
+        			tMemcached.Start();
+        			
+        			//txtStatus.Text = "Memcached monitoring thread started.";
+        		}
+        		//else txtStatus.Text = "Memcached monitoring thread already started.";
+        	}
+        	else txtStatus.Text = "Memcached is already running.";
         }
         
-        private void enableFCGI(bool blVal)
+        private void BtnMemcachedStopClick(object sender, EventArgs e)
         {
-        	numFCGIThreads.Enabled=blVal;
-        	numFCGIRequests.Enabled=blVal;
-        	numFCGIPort.Enabled=blVal;
+        	if (processIsRunning("Memcached"))
+        	{
+        		//runCmd(fileMemcached,"-s stop", folderMemcached);
+        		runCmd("taskkill","/im memcached.exe /f", "");
+        		txtStatus.Text = "Memcached stopped.";
+        		//if (!blMemcachedThreadRun) txtStatus.Text = "Memcached monitoring thread already stopped.";
+        	}
+        	else txtStatus.Text = "Memcached is not currently running.";
+        	//if (!blFCGIRunning) enableFCGI(true);
+        	numMemcachedPort.Enabled = true;
         }
+    
+        #endregion
+        
+        #region Menu Automated Tasks
         
         private string grabValue(string strFile, string strKey)
         {
-        		string strText = File.ReadAllText(strFile).Replace("\"","");
-        		string[] strLines = strText.Split(',');
-        		foreach(string s in strLines)
-        		{
-        			if (s.StartsWith(strKey)) return s.Substring(strKey.Length+1);
-        		}
-        		return "";
-        }
-        
-        void BtnTestClick(object sender, EventArgs e)
-        {
-        	//strHomeDir = @"C:\nginx_2012-06-08_15.35.05";
-        }
-        
-        private void WebServerConfigToolStripMenuItemClick(object sender, EventArgs e)
-        {
-        	simpleOpen(@"notepad", Path.Combine(folderConfig,@"nginx.conf"));
-        }
-        
-        private void DatabaseConfigToolStripMenuItemClick(object sender, EventArgs e)
-        {
-        	simpleOpen(@"notepad", Path.Combine(folderConfig,@"my.ini"));
+    		string strText = File.ReadAllText(strFile).Replace("\"","");
+    		string[] strLines = strText.Split(',');
+    		foreach(string s in strLines)
+    		{
+    			if (s.StartsWith(strKey)) return s.Substring(strKey.Length+1);
+    		}
+    		return "";
         }
         
         private void RestoreToolStripMenuItemClick(object sender, EventArgs e)
@@ -1018,94 +1280,7 @@ namespace WAMPer
             }
             else MessageBox.Show("Cannot read site info","File Problem");
         }
-        
-        private void PHPToolStripMenuItemClick(object sender, EventArgs e)
-        {
-        	simpleOpen(@"notepad", Path.Combine(folderConfig,@"php.ini"));
-        }
-        
-        private void ApacheV20LicenseToolStripMenuItemClick(object sender, EventArgs e)
-        {
-        	simpleOpen(@"http://www.apache.org/licenses/LICENSE-2.0.html");
-        }
-        
-        private void FusionLeafOnSourceForgeToolStripMenuItemClick(object sender, EventArgs e)
-        {
-        	simpleOpen(@"http://fusionleaf.googlecode.com");
-        }
-    
-        Thread tMemcached;
-        bool blMemcachedThreadRun = false;
-        bool blMemcachedRunning = false;
 
-        public void monitorMemcached()
-        {
-        	bool blLoop = true;
-        	while(blMemcachedRunning || blLoop)
-        	{
-	        	blMemcachedRunning = processIsRunning("Memcached");
-	        	if (blMemcachedRunning)
-	        	{
-	        		txtMemcachedStatus.Invoke((MethodInvoker)delegate(){this.txtMemcachedStatus.Text = "Running";});
-	        		blLoop = false;
-	        	}
-	        	else
-	        	{
-	        		txtMemcachedStatus.Invoke((MethodInvoker)delegate(){this.txtMemcachedStatus.Text = "Stopped";});
-	        		blLoop = false;
-	        	}
-        		Thread.Sleep(1000);
-        	}
-        	txtStatus.Text = "Memcached ended.";
-        	blMemcachedThreadRun = false;
-        	//txtMemcachedStatus.Invoke((MethodInvoker)delegate(){this.txtMemcachedStatus.Text = "Done";});
-        }
-        
-        private void BtnMemcachedStartClick(object sender, EventArgs e)
-        {
-        	if (!isReady()) return;
-        	if (!processIsRunning("Memcached"))
-        	{
-	        	if (!testPort((int)numMemcachedPort.Value)) return;
-        		//enableFCGI(false);
-        		numMemcachedPort.Enabled = false;
-        		
-        		runCmd(fileMemcached,"-p "+numMemcachedPort.Value, folderMemcached);
-        		txtStatus.Text = "Memcached started on port " + numMemcachedPort.Value.ToString() + ".";
-        		if (!blMemcachedThreadRun)
-        		{
-        			blMemcachedThreadRun = true;
-        			tMemcached = new Thread(new ThreadStart(monitorMemcached));
-        			tMemcached.IsBackground=true;
-        			tMemcached.Start();
-        			
-        			//txtStatus.Text = "Memcached monitoring thread started.";
-        		}
-        		//else txtStatus.Text = "Memcached monitoring thread already started.";
-        	}
-        	else txtStatus.Text = "Memcached is already running.";
-        }
-        
-        private void BtnMemcachedStopClick(object sender, EventArgs e)
-        {
-        	if (processIsRunning("Memcached"))
-        	{
-        		//runCmd(fileMemcached,"-s stop", folderMemcached);
-        		runCmd("taskkill","/im memcached.exe /f", "");
-        		txtStatus.Text = "Memcached stopped.";
-        		//if (!blMemcachedThreadRun) txtStatus.Text = "Memcached monitoring thread already stopped.";
-        	}
-        	else txtStatus.Text = "Memcached is not currently running.";
-        	//if (!blFCGIRunning) enableFCGI(true);
-        	numMemcachedPort.Enabled = true;
-        }
-    
-        
-        private void MemcachedToolStripMenuItemClick(object sender, EventArgs e)
-        {
-        	simpleOpen(Path.Combine(strHomeDir,@"app\memcached"));
-        }
-        
         private void InstallPEARForPHPToolStripMenuItemClick(object sender, EventArgs e)
         {
     	    Process p = new Process();
@@ -1115,7 +1290,7 @@ namespace WAMPer
             p.Start();
         }
         
-        void RemovePEARToolStripMenuItemClick(object sender, EventArgs e)
+        private void RemovePEARToolStripMenuItemClick(object sender, EventArgs e)
         {
         	try
         	{
@@ -1144,7 +1319,7 @@ namespace WAMPer
         	MessageBox.Show("PEAR deleted!");
         }
         
-        void InstallPHPUnitForPHPToolStripMenuItemClick(object sender, EventArgs e)
+        private void InstallPHPUnitForPHPToolStripMenuItemClick(object sender, EventArgs e)
         {
         	if (!Directory.Exists(Path.Combine(folderFCGI,"pear")))
         	{
@@ -1156,19 +1331,9 @@ namespace WAMPer
             p.StartInfo.WorkingDirectory = folderFCGI;
             p.StartInfo.Arguments = @"/c ..\pear\PHPUnit_install.cmd";
             p.Start();
-            
-			string strXML = @"<phpunit>
-  <testsuites>
-    <testsuite name=" + "\"" + "All_Tests" + "\"" + @">
-      <directory>..\..\webroot\localhost\tests</directory>
-    </testsuite>
-  </testsuites>
-</phpunit>
-";
-			if (!File.Exists(Path.Combine(folderFCGI,"phpunit.xml"))) File.WriteAllText(Path.Combine(folderFCGI,"phpunit.xml"),strXML);
         }
         
-        void UninstallPHPUnitForPHPToolStripMenuItemClick(object sender, EventArgs e)
+        private void UninstallPHPUnitForPHPToolStripMenuItemClick(object sender, EventArgs e)
         {
         	if (!Directory.Exists(Path.Combine(folderFCGI,"pear")))
         	{
@@ -1180,101 +1345,9 @@ namespace WAMPer
             p.StartInfo.WorkingDirectory = folderFCGI;
             p.StartInfo.Arguments = @"/c ..\pear\PHPUnit_uninstall.cmd";
             p.Start();
-            
-            if (!File.Exists(Path.Combine(folderFCGI,"phpunit.xml"))) File.Delete(Path.Combine(folderFCGI,"phpunit.xml"));
         }
         
-        void FrmMainLoad(object sender, EventArgs e)
-        {
-            if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
-			{
-				MessageBox.Show("You can only run once instance of FusionLeaf Studio at a time.");
-				this.Close();
-			}
-            string[] args = Environment.GetCommandLineArgs();
-            
-            string strProblem = "";
-            try
-            {
-	            foreach (string s in args)
-	            {
-	            	string sArgument = s.ToLower();
-	            	if (sArgument.Contains("/minimize")) this.WindowState = FormWindowState.Minimized;
-	            	
-	            	// PHP
-	            	if (sArgument.Contains("/php_thread:"))
-	            	{
-	            		strProblem = "/php_thread:";
-	            		numFCGIThreads.Value = Convert.ToInt32(s.Substring(12));
-	            	}
-	            	if (sArgument.Contains("/php_max_requests:"))
-	            	{
-	            		strProblem = "/php_max_requests:";
-	            		numFCGIRequests.Value = Convert.ToInt32(s.Substring(18));
-	            	}
-	            	if (sArgument.Contains("/php_port:"))
-	            	{
-	            		strProblem = "/php_port:";
-	            		numFCGIPort.Value = Convert.ToInt32(s.Substring(10));
-	            	}
-	            	
-	            	// Ports
-	            	if (sArgument.Contains("/nginx_port:"))
-	            	{
-	            		strProblem = "/nginx_port:";
-	            		numNginxPort.Value = Convert.ToInt32(s.Substring(12));
-	            	}
-	            	if (sArgument.Contains("/mysql_port:"))
-	            	{
-	            		strProblem = "/mysql_port:";
-	            		numMySQLPort.Value = Convert.ToInt32(s.Substring(12));
-	            	}
-	            	if (sArgument.Contains("/memcached_port:"))
-	            	{
-	            		strProblem = "/memcached_port:";
-	            		numMemcachedPort.Value = Convert.ToInt32(s.Substring(16));
-	            	}
-	            	
-	            	// Starting
-	            	if (sArgument.Contains("/startall")) btnStart_Click(sender,e);
-	            	if (sArgument.Contains("/start_nginx")) BtnNginxStartClick(sender,e);
-	            	if (sArgument.Contains("/start_php")) BtnFCGIStartClick(sender,e);
-	            	if (sArgument.Contains("/start_mysql")) BtnMySQLStartClick(sender,e);
-	            	if (sArgument.Contains("/start_memcached")) BtnMemcachedStartClick(sender,e);
-	            	
-	            	if (sArgument.Contains("/help") || sArgument.Contains("/?"))
-	            	{
-	            		MessageBox.Show("/help			Show Help" + Environment.NewLine +
-	            		                "/minimize			Minimize application" + Environment.NewLine +
-   	            		                "/startall			Start all services" + Environment.NewLine +
-	            		                "/php_thread:#		Set PHP with # thread(s)" + Environment.NewLine +
-	            		                "/php_max_requests:#	Set PHP with # of max requests before recycle" + Environment.NewLine +
-	            		                "/php_port:#		Set PHP port" + Environment.NewLine +
-	            		                "/nginx_port:#		Set Nginx port" + Environment.NewLine +
-	            		                "/mysql_port:#		Set MySQL port" + Environment.NewLine +
-	            		                "/memcached_port:#		Set Memcached port" + Environment.NewLine +
-	            		                "/start_nginx		Start Nginx" + Environment.NewLine +
-	            		                "/start_php			Start PHP" + Environment.NewLine +
-	            		                "/start_mysql		Start MySQL" + Environment.NewLine +
-	            		                "/start_memcached		Start Memcached"
-	            		               ,"FusionLeaf Studio Startup Parameters");
-	            		this.Close();
-	            	}
-	            }
-            }
-            catch
-            {
-            	MessageBox.Show("One of the FusionLeaf startup arguments is incorrect: " + strProblem, "Startup Error");
-            	this.Close();
-            }
-        }
-        
-        void EditIndexphpToolStripMenuItemClick(object sender, EventArgs e)
-        {
-        	simpleOpen(@"notepad", Path.Combine(strHomeDir,@"webroot\localhost\index.php"));
-        }
-        
-        void AddCMSToLocalhostFolderToolStripMenuItemClick(object sender, EventArgs e)
+        private void AddCMSToLocalhostFolderToolStripMenuItemClick(object sender, EventArgs e)
         {
 			string strWebRoot = Path.Combine(strHomeDir,@"webroot");
         	string strLH = Path.Combine(strWebRoot,@"localhost");
@@ -1300,7 +1373,7 @@ namespace WAMPer
 			MessageBox.Show("FusionLeaf is now in the localhost folder. To view, click Browser -> http://localhost");
         }
         
-        void DeleteCMSFromLocalhostToolStripMenuItemClick(object sender, EventArgs e)
+        private void DeleteCMSFromLocalhostToolStripMenuItemClick(object sender, EventArgs e)
         {
         	string strWebRoot = Path.Combine(strHomeDir,@"webroot");
 			string strLH = Path.Combine(strWebRoot,@"localhost");
@@ -1398,12 +1471,162 @@ echo $o->output();
 ?>";
 			string strIndexPath = Path.Combine(strLH, "index.php");
 			File.WriteAllText(strIndexPath, strIndexTmp);
-			Directory.CreateDirectory(Path.Combine(strLH, "tests"));
 			
 			MessageBox.Show("FusionLeaf saved and removed from the localhost folder.");
         }
         
-        void EditPhpunitxmlToolStripMenuItemClick(object sender, EventArgs e)
+        #endregion
+        
+        #region Apache
+        
+        Thread tApache;
+        bool blApacheThreadRun = false;
+        bool blApacheRunning = false;
+        private void BtnApacheStartClick(object sender, EventArgs e)
+        {
+        	if (!isReady()) return;
+        	if (!processIsRunning("httpd"))
+        	{
+        		gbApache.Enabled = false;
+        		gbWebserver.Enabled = false;
+        		
+        		configPHP();
+        		
+        		// Make either a backup of the conf the first time or restore from a backup
+        		string strConf = Path.Combine(folderApache,@"conf");
+        		string strConfBackup = Path.Combine(folderConfig,@"apache");
+        		if (!Directory.Exists(strConfBackup))
+        		{
+        			runCmdWait("xcopy.exe",@"/E /I " + "\""+ strConf +"\"" + " " + "\""+ strConfBackup +"\"","");
+        		}
+        		else
+        		{
+        			Directory.Delete(strConf, true);
+        			runCmdWait("xcopy.exe",@"/E /I " + "\""+ strConfBackup +"\"" + " " + "\""+ strConf +"\"","");
+        		}
+        		
+        		// Apply the config values from the tab the the config using AWK
+        		string strAwkConfig = Path.Combine(folderApache,@"conf\original\installwinconf.awk");
+        		
+        		string strArgs = "-f ";
+        		strArgs += "\""+ strAwkConfig + "\" ";
+    			strArgs += txtDomainName.Text + " ";
+    			strArgs += txtServerName.Text + " ";
+    			strArgs += txtServerAdmin.Text + " ";
+    			strArgs += numApachePort.Value.ToString() + " ";
+    			strArgs += numApachePortSSL.Value.ToString() + " ";
+    			strArgs += "\""+ txtServerRoot.Text + "\" ";
+    			strArgs += txtSourceRoot.Text;
+    			//File.WriteAllText(Path.Combine(strHomeDir,"test.txt"),strArgs);
+    			runCmdWait(fileAwk,strArgs,folderAwk);
+    			
+    			//C:/Users/Joe/Desktop/FusionLeaf_Stack_v0.4.9/app/php/php5apache2_2.dll
+    			
+    			string strGuessRoot = Path.Combine(folderApache, "htdocs").Replace('\\','/');
+    			string strRealRoot = Path.Combine(strHomeDir, @"webroot\localhost");
+    			
+    			//PHPIniDir "C:/Users/Joe/Desktop/FusionLeaf_Stack_v0.4.9/app/php"
+    			
+    			string strSSLDLL = Path.Combine(folderPHPts, "ssleay32.dll").Replace('\\','/');
+    			
+    			string strApacheConfig = Path.Combine(folderApache,@"conf\httpd.conf");
+    			ArrayList alReplace = new ArrayList();
+    			alReplace.Add(new string[]{"#LoadModule rewrite_module", "LoadModule rewrite_module"});
+    			alReplace.Add(new string[]{"#%PHPMODULE%", "LoadModule php5_module \""
+    			              		+ Path.Combine(folderPHPts,"php5apache2_2.dll").Replace('\\','/') + "\""});
+    			alReplace.Add(new string[]{"#%SSLDLL%", "LoadFile \""+ strSSLDLL +"\""});
+    			alReplace.Add(new string[]{strGuessRoot, strRealRoot});
+    			alReplace.Add(new string[]{"AllowOverride None", "AllowOverride All"});
+    			alReplace.Add(new string[]{"DirectoryIndex index.html", "DirectoryIndex index.php index.html"});
+    			alReplace.Add(new string[]{"#%PHPADDTYPE%", "AddType application/x-httpd-php .php"});
+    			alReplace.Add(new string[]{"#%PHPDIR%", "PHPIniDir \""+ folderPHPts.Replace('\\','/') +"\""});
+    			
+    			File.WriteAllText(strApacheConfig, replaceText(File.ReadAllText(strApacheConfig),alReplace));
+
+    			//#%PHPADDTYPE%
+    			
+    			//PHPIniDir "C:/Users/Joe/Desktop/FusionLeaf_Stack_v0.4.9/app/php"
+    			//DirectoryIndex index.php index.html
+    			//DirectoryIndex index.html
+    			//AllowOverride None
+    			//#LoadModule rewrite_module modules/mod_rewrite.so
+    			//LoadModule php5_module "C:/Users/Joe/Desktop/FusionLeaf_Stack_v0.4.9/app/php/php5apache2_2.dll"
+    			//LoadFile "C:/Users/Joe/Desktop/FusionLeaf_Stack_v0.4.9/app/php/ssleay32.dll"
+    			
+        		runCmd(fileApache, "", folderApache);
+        		txtStatus.Text = "Apache started on port " + numApachePort.Value.ToString() + ".";
+        		if (!blApacheThreadRun)
+        		{
+        			blApacheThreadRun = true;
+        			tApache = new Thread(new ThreadStart(monitorApache));
+        			tApache.IsBackground=true;
+        			tApache.Start();
+        		}
+        	}
+        	else txtStatus.Text = "Apache is already running.";
+        }
+        
+        private void monitorApache()
+        {
+        	bool blLoop = true;
+        	while(blApacheRunning || blLoop)
+        	{
+	        	blApacheRunning = processIsRunning("httpd");
+	        	if (blApacheRunning)
+	        	{
+	        		txtApacheStatus.Invoke((MethodInvoker)delegate(){this.txtApacheStatus.Text = "Running";});
+	        		blLoop = false;
+	        	}
+	        	else txtApacheStatus.Invoke((MethodInvoker)delegate(){this.txtApacheStatus.Text = "Stopped";});
+        		Thread.Sleep(1000);
+        	}
+        	txtStatus.Text = "Apache ended.";
+        	blApacheThreadRun = false;
+        }
+        
+        private void BtnApacheStopClick(object sender, EventArgs e)
+        {
+        	if (processIsRunning("httpd"))
+        	{        		
+        		//runCmd(fileApache,"-k shutdown", folderApache);
+        		
+        		// Just to make sure process is stopped
+	            Process p = new Process();
+	            p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+	            p.StartInfo.FileName = "taskkill";
+	            p.StartInfo.Arguments = @"/im httpd.exe -f";
+	            p.Start();
+        		
+        		txtStatus.Text = "Apache stopped.";
+        		gbWebserver.Enabled = true;
+        	}
+        	else txtStatus.Text = "Apache is not currently running.";
+        	
+        	gbApache.Enabled = true;
+        }
+    	
+        #endregion
+    
+        
+        private void configPHP()
+        {
+       		string strTemplate = Path.Combine(folderConfig,@"php.ini");
+            string strOut = Path.Combine(folderFCGI,"php.ini");
+            string strOut2 = Path.Combine(folderPHPts,"php.ini");
+        
+			ArrayList alReplace = new ArrayList();
+			alReplace.Add(new string[]{";%INCLUDE_PATH%", "include_path=\".;"+folderFCGI+"\\pear\""});
+			alReplace.Add(new string[]{"%EXTDIR%", Path.Combine(folderFCGI, "ext")});
+			File.WriteAllText(strOut, replaceText(File.ReadAllText(strTemplate),alReplace));
+			
+			alReplace.Clear();
+			alReplace.Add(new string[]{";%INCLUDE_PATH%", "include_path=\".;"+folderPHPts+"\\pear\""});
+			alReplace.Add(new string[]{"%EXTDIR%", Path.Combine(folderPHPts, "ext")});
+			File.WriteAllText(strOut2, replaceText(File.ReadAllText(strTemplate),alReplace));
+    		Environment.SetEnvironmentVariable("PHP_FCGI_MAX_REQUESTS",numFCGIRequests.Value.ToString());
+        }
+        
+        void EditPhpxmlToolStripMenuItemClick(object sender, EventArgs e)
         {
         	simpleOpen(@"notepad", Path.Combine(folderFCGI,@"phpunit.xml"));
         }

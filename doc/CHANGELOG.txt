@@ -1,6 +1,14 @@
+FusionLeaf Stack v0.5.0 (2012-12-10)
+------------------------------------
+* PHP v5.4.6 - new version
+* MySQL v5.5.28 - new version
+* Nginx v1.2.5 - new version
+* php_xcache.dll v3.0.0 - new version
+* Apache httpd v2.2.22 - added
+
 FusionLeaf Stack v0.4.9 (2012-09-08)
 ------------------------------------
-* MySQL 5.5.27 - added the "test" database
+* MySQL v5.5.27 - added the "test" database
 
 FusionLeaf Stack v0.4.8 (2012-09-06)
 ------------------------------------
@@ -18,12 +26,10 @@ FusionLeaf Stack v0.4.6 (2012-08-27)
 
 FusionLeaf Stack v0.4.5 (2012-08-22)
 ------------------------------------
-* FusionLeaf Studio.exe - no change
 * FusionLeaf CMS - updated the code
 * PHP v5.4.6 - new version (no update to php_apc.dll, php_memcache.dll, php_xcache.dll)
-* MySQL 5.5.27 - new version
-* Nginx 1.2.3 - new version
-* Memcached - no change
+* MySQL v5.5.27 - new version
+* Nginx v1.2.3 - new version
 
 -----Changelog.txt was not maintained-----
 
@@ -32,8 +38,8 @@ FusionLeaf Studio v1.0.4.0 (2012-08-04)
 * FusionLeaf Studio.exe - no change
 * FusionLeaf CMS - added the CMS code
 * PHP v5.4.4 - disabled xCache
-* MySQL 5.5.25 - no change
-* Nginx 1.2.1 - no change
+* MySQL v5.5.25 - no change
+* Nginx v1.2.1 - no change
 * Memcached - add msvcr71.dll to the folder
 
 FusionLeaf Studio v1.0.3.0 (2012-07-02)
@@ -42,14 +48,14 @@ FusionLeaf Studio v1.0.3.0 (2012-07-02)
 * PHP v5.4.4 - added php_apc.dll, php_memcache.dll, php_pdo_mysql.dll, php_xcache.dll
 * MySQL 5.5.25 - no change
 * Nginx 1.2.1 - no change
-* Memcached - Code by Danga, Compiled by Abhinavsingh (2008-09-24)
+* Memcached v1.2.6 - Code by Danga, Compiled by Abhinavsingh (2008-09-24)
 
 FusionLeaf Studio v1.0.2.0 (2012-06-20)
 ---------------------------------------
 * FusionLeaf Studio.exe - v1.0.2.0 (2012-06-20)
 * PHP v5.4.4 - VC9 x86 Non Thread Safe (2012-06-13)
-* MySQL 5.5.25 - Community Server (2012-05-30)
-* Nginx 1.2.1 - Stable (2012-06-05)
+* MySQL v5.5.25 - Community Server (2012-05-30)
+* Nginx v1.2.1 - Stable (2012-06-05)
 
 Stack Application Update Process:
 ---------------------------------

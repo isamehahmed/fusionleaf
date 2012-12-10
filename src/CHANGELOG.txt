@@ -1,3 +1,9 @@
+FusionLeaf Studio v1.0.7.0 (2012-12-10)
+---------------------------------------
+* added Apache support
+* updated the thread termination process
+* organized all the code into regions
+
 FusionLeaf Studio v1.0.6.0 (2012-09-11)
 ---------------------------------------
 * added PHPUnit options to easy testing

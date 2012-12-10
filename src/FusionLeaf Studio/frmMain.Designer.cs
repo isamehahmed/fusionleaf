@@ -1,4 +1,4 @@
-﻿namespace WAMPer
+﻿namespace FLS
 {
     partial class frmMain
     {
@@ -61,8 +61,9 @@
         	this.installToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
         	this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
         	this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-        	this.editPhpunitxmlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.editPhpxmlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.runTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.readDocumentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.fusionLeafToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.addCMSToLocalhostFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.deleteCMSFromLocalhostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,7 +80,7 @@
         	this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.ssStatus = new System.Windows.Forms.StatusStrip();
         	this.txtStatus = new System.Windows.Forms.ToolStripStatusLabel();
-        	this.tabPage2 = new System.Windows.Forms.TabPage();
+        	this.tabAdvanced = new System.Windows.Forms.TabPage();
         	this.groupBox2 = new System.Windows.Forms.GroupBox();
         	this.numMemcachedPort = new System.Windows.Forms.NumericUpDown();
         	this.label9 = new System.Windows.Forms.Label();
@@ -114,19 +115,42 @@
         	this.btnNginxReopen = new System.Windows.Forms.Button();
         	this.btnNginxStop = new System.Windows.Forms.Button();
         	this.btnNginxReload = new System.Windows.Forms.Button();
-        	this.tabPage1 = new System.Windows.Forms.TabPage();
+        	this.btnSave = new System.Windows.Forms.Button();
+        	this.tabBasic = new System.Windows.Forms.TabPage();
+        	this.gbWebserver = new System.Windows.Forms.GroupBox();
+        	this.radApache = new System.Windows.Forms.RadioButton();
+        	this.radNginx = new System.Windows.Forms.RadioButton();
         	this.btnTest = new System.Windows.Forms.Button();
         	this.label1 = new System.Windows.Forms.Label();
         	this.btnStart = new System.Windows.Forms.Button();
         	this.tabControl = new System.Windows.Forms.TabControl();
-        	this.tabPage3 = new System.Windows.Forms.TabPage();
+        	this.tabApache = new System.Windows.Forms.TabPage();
+        	this.gbApache = new System.Windows.Forms.GroupBox();
+        	this.label10 = new System.Windows.Forms.Label();
+        	this.label12 = new System.Windows.Forms.Label();
+        	this.label13 = new System.Windows.Forms.Label();
+        	this.label14 = new System.Windows.Forms.Label();
+        	this.label15 = new System.Windows.Forms.Label();
+        	this.txtServerRoot = new System.Windows.Forms.TextBox();
+        	this.label16 = new System.Windows.Forms.Label();
+        	this.txtSourceRoot = new System.Windows.Forms.TextBox();
+        	this.label17 = new System.Windows.Forms.Label();
+        	this.numApachePortSSL = new System.Windows.Forms.NumericUpDown();
+        	this.txtDomainName = new System.Windows.Forms.TextBox();
+        	this.numApachePort = new System.Windows.Forms.NumericUpDown();
+        	this.txtServerName = new System.Windows.Forms.TextBox();
+        	this.txtServerAdmin = new System.Windows.Forms.TextBox();
+        	this.txtApacheStatus = new System.Windows.Forms.Label();
+        	this.label19 = new System.Windows.Forms.Label();
+        	this.btnApacheStop = new System.Windows.Forms.Button();
+        	this.btnApacheStart = new System.Windows.Forms.Button();
+        	this.tabLog = new System.Windows.Forms.TabPage();
         	this.rtxLog = new System.Windows.Forms.RichTextBox();
         	this.tTip = new System.Windows.Forms.ToolTip(this.components);
-        	this.readDocumentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.msTop.SuspendLayout();
         	this.cmsTaskbar.SuspendLayout();
         	this.ssStatus.SuspendLayout();
-        	this.tabPage2.SuspendLayout();
+        	this.tabAdvanced.SuspendLayout();
         	this.groupBox2.SuspendLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numMemcachedPort)).BeginInit();
         	this.groupBox4.SuspendLayout();
@@ -137,9 +161,14 @@
         	((System.ComponentModel.ISupportInitialize)(this.numFCGIThreads)).BeginInit();
         	this.groupBox1.SuspendLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numNginxPort)).BeginInit();
-        	this.tabPage1.SuspendLayout();
+        	this.tabBasic.SuspendLayout();
+        	this.gbWebserver.SuspendLayout();
         	this.tabControl.SuspendLayout();
-        	this.tabPage3.SuspendLayout();
+        	this.tabApache.SuspendLayout();
+        	this.gbApache.SuspendLayout();
+        	((System.ComponentModel.ISupportInitialize)(this.numApachePortSSL)).BeginInit();
+        	((System.ComponentModel.ISupportInitialize)(this.numApachePort)).BeginInit();
+        	this.tabLog.SuspendLayout();
         	this.SuspendLayout();
         	// 
         	// chbHide
@@ -375,7 +404,7 @@
         	        	        	this.installToolStripMenuItem1,
         	        	        	this.removeToolStripMenuItem1,
         	        	        	this.toolStripSeparator1,
-        	        	        	this.editPhpunitxmlToolStripMenuItem,
+        	        	        	this.editPhpxmlToolStripMenuItem,
         	        	        	this.runTestsToolStripMenuItem,
         	        	        	this.readDocumentationToolStripMenuItem});
         	this.pHPUnitToolStripMenuItem.Name = "pHPUnitToolStripMenuItem";
@@ -401,12 +430,12 @@
         	this.toolStripSeparator1.Name = "toolStripSeparator1";
         	this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
         	// 
-        	// editPhpunitxmlToolStripMenuItem
+        	// editPhpxmlToolStripMenuItem
         	// 
-        	this.editPhpunitxmlToolStripMenuItem.Name = "editPhpunitxmlToolStripMenuItem";
-        	this.editPhpunitxmlToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-        	this.editPhpunitxmlToolStripMenuItem.Text = "Edit phpunit.xml";
-        	this.editPhpunitxmlToolStripMenuItem.Click += new System.EventHandler(this.EditPhpunitxmlToolStripMenuItemClick);
+        	this.editPhpxmlToolStripMenuItem.Name = "editPhpxmlToolStripMenuItem";
+        	this.editPhpxmlToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+        	this.editPhpxmlToolStripMenuItem.Text = "Edit phpunit.xml";
+        	this.editPhpxmlToolStripMenuItem.Click += new System.EventHandler(this.EditPhpxmlToolStripMenuItemClick);
         	// 
         	// runTestsToolStripMenuItem
         	// 
@@ -414,6 +443,13 @@
         	this.runTestsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
         	this.runTestsToolStripMenuItem.Text = "Run Tests";
         	this.runTestsToolStripMenuItem.Click += new System.EventHandler(this.RunTestsToolStripMenuItemClick);
+        	// 
+        	// readDocumentationToolStripMenuItem
+        	// 
+        	this.readDocumentationToolStripMenuItem.Name = "readDocumentationToolStripMenuItem";
+        	this.readDocumentationToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+        	this.readDocumentationToolStripMenuItem.Text = "Read Documentation";
+        	this.readDocumentationToolStripMenuItem.Click += new System.EventHandler(this.ReadDocumentationToolStripMenuItemClick);
         	// 
         	// fusionLeafToolStripMenuItem
         	// 
@@ -543,19 +579,19 @@
         	this.txtStatus.Text = "Welcome!";
         	this.txtStatus.TextChanged += new System.EventHandler(this.TxtStatusTextChanged);
         	// 
-        	// tabPage2
+        	// tabAdvanced
         	// 
-        	this.tabPage2.Controls.Add(this.groupBox2);
-        	this.tabPage2.Controls.Add(this.groupBox4);
-        	this.tabPage2.Controls.Add(this.groupBox3);
-        	this.tabPage2.Controls.Add(this.groupBox1);
-        	this.tabPage2.Location = new System.Drawing.Point(4, 22);
-        	this.tabPage2.Name = "tabPage2";
-        	this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-        	this.tabPage2.Size = new System.Drawing.Size(448, 237);
-        	this.tabPage2.TabIndex = 1;
-        	this.tabPage2.Text = "Advanced";
-        	this.tabPage2.UseVisualStyleBackColor = true;
+        	this.tabAdvanced.Controls.Add(this.groupBox2);
+        	this.tabAdvanced.Controls.Add(this.groupBox4);
+        	this.tabAdvanced.Controls.Add(this.groupBox3);
+        	this.tabAdvanced.Controls.Add(this.groupBox1);
+        	this.tabAdvanced.Location = new System.Drawing.Point(4, 22);
+        	this.tabAdvanced.Name = "tabAdvanced";
+        	this.tabAdvanced.Padding = new System.Windows.Forms.Padding(3);
+        	this.tabAdvanced.Size = new System.Drawing.Size(448, 237);
+        	this.tabAdvanced.TabIndex = 1;
+        	this.tabAdvanced.Text = "Advanced";
+        	this.tabAdvanced.UseVisualStyleBackColor = true;
         	// 
         	// groupBox2
         	// 
@@ -981,22 +1017,69 @@
         	this.btnNginxReload.UseVisualStyleBackColor = true;
         	this.btnNginxReload.Click += new System.EventHandler(this.BtnNginxReloadClick);
         	// 
-        	// tabPage1
+        	// btnSave
         	// 
-        	this.tabPage1.Controls.Add(this.btnTest);
-        	this.tabPage1.Controls.Add(this.label1);
-        	this.tabPage1.Controls.Add(this.btnStart);
-        	this.tabPage1.Location = new System.Drawing.Point(4, 22);
-        	this.tabPage1.Name = "tabPage1";
-        	this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-        	this.tabPage1.Size = new System.Drawing.Size(448, 237);
-        	this.tabPage1.TabIndex = 0;
-        	this.tabPage1.Text = "Basic";
-        	this.tabPage1.UseVisualStyleBackColor = true;
+        	this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+        	this.btnSave.Location = new System.Drawing.Point(337, 292);
+        	this.btnSave.Name = "btnSave";
+        	this.btnSave.Size = new System.Drawing.Size(131, 23);
+        	this.btnSave.TabIndex = 9;
+        	this.btnSave.Text = "Save Configuration";
+        	this.btnSave.UseVisualStyleBackColor = true;
+        	this.btnSave.Click += new System.EventHandler(this.BtnSaveClick);
+        	// 
+        	// tabBasic
+        	// 
+        	this.tabBasic.Controls.Add(this.gbWebserver);
+        	this.tabBasic.Controls.Add(this.btnTest);
+        	this.tabBasic.Controls.Add(this.label1);
+        	this.tabBasic.Controls.Add(this.btnStart);
+        	this.tabBasic.Location = new System.Drawing.Point(4, 22);
+        	this.tabBasic.Name = "tabBasic";
+        	this.tabBasic.Padding = new System.Windows.Forms.Padding(3);
+        	this.tabBasic.Size = new System.Drawing.Size(448, 237);
+        	this.tabBasic.TabIndex = 0;
+        	this.tabBasic.Text = "Basic";
+        	this.tabBasic.UseVisualStyleBackColor = true;
+        	// 
+        	// gbWebserver
+        	// 
+        	this.gbWebserver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+        	this.gbWebserver.Controls.Add(this.radApache);
+        	this.gbWebserver.Controls.Add(this.radNginx);
+        	this.gbWebserver.Location = new System.Drawing.Point(309, 182);
+        	this.gbWebserver.Name = "gbWebserver";
+        	this.gbWebserver.Size = new System.Drawing.Size(133, 49);
+        	this.gbWebserver.TabIndex = 12;
+        	this.gbWebserver.TabStop = false;
+        	this.gbWebserver.Text = "Web Server";
+        	// 
+        	// radApache
+        	// 
+        	this.radApache.AutoSize = true;
+        	this.radApache.Location = new System.Drawing.Point(64, 19);
+        	this.radApache.Name = "radApache";
+        	this.radApache.Size = new System.Drawing.Size(62, 17);
+        	this.radApache.TabIndex = 11;
+        	this.radApache.Text = "Apache";
+        	this.radApache.UseVisualStyleBackColor = true;
+        	// 
+        	// radNginx
+        	// 
+        	this.radNginx.AutoSize = true;
+        	this.radNginx.Checked = true;
+        	this.radNginx.Location = new System.Drawing.Point(6, 19);
+        	this.radNginx.Name = "radNginx";
+        	this.radNginx.Size = new System.Drawing.Size(52, 17);
+        	this.radNginx.TabIndex = 10;
+        	this.radNginx.TabStop = true;
+        	this.radNginx.Text = "Nginx";
+        	this.radNginx.UseVisualStyleBackColor = true;
         	// 
         	// btnTest
         	// 
-        	this.btnTest.Location = new System.Drawing.Point(367, 208);
+        	this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+        	this.btnTest.Location = new System.Drawing.Point(87, 208);
         	this.btnTest.Name = "btnTest";
         	this.btnTest.Size = new System.Drawing.Size(75, 23);
         	this.btnTest.TabIndex = 3;
@@ -1029,25 +1112,248 @@
         	this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
         	        	        	| System.Windows.Forms.AnchorStyles.Left) 
         	        	        	| System.Windows.Forms.AnchorStyles.Right)));
-        	this.tabControl.Controls.Add(this.tabPage1);
-        	this.tabControl.Controls.Add(this.tabPage2);
-        	this.tabControl.Controls.Add(this.tabPage3);
+        	this.tabControl.Controls.Add(this.tabBasic);
+        	this.tabControl.Controls.Add(this.tabAdvanced);
+        	this.tabControl.Controls.Add(this.tabApache);
+        	this.tabControl.Controls.Add(this.tabLog);
         	this.tabControl.Location = new System.Drawing.Point(12, 27);
         	this.tabControl.Name = "tabControl";
         	this.tabControl.SelectedIndex = 0;
         	this.tabControl.Size = new System.Drawing.Size(456, 263);
         	this.tabControl.TabIndex = 6;
         	// 
-        	// tabPage3
+        	// tabApache
         	// 
-        	this.tabPage3.Controls.Add(this.rtxLog);
-        	this.tabPage3.Location = new System.Drawing.Point(4, 22);
-        	this.tabPage3.Name = "tabPage3";
-        	this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-        	this.tabPage3.Size = new System.Drawing.Size(448, 237);
-        	this.tabPage3.TabIndex = 2;
-        	this.tabPage3.Text = "Log";
-        	this.tabPage3.UseVisualStyleBackColor = true;
+        	this.tabApache.Controls.Add(this.gbApache);
+        	this.tabApache.Controls.Add(this.txtApacheStatus);
+        	this.tabApache.Controls.Add(this.label19);
+        	this.tabApache.Controls.Add(this.btnApacheStop);
+        	this.tabApache.Controls.Add(this.btnApacheStart);
+        	this.tabApache.Location = new System.Drawing.Point(4, 22);
+        	this.tabApache.Name = "tabApache";
+        	this.tabApache.Padding = new System.Windows.Forms.Padding(3);
+        	this.tabApache.Size = new System.Drawing.Size(448, 237);
+        	this.tabApache.TabIndex = 3;
+        	this.tabApache.Text = "Apache";
+        	this.tabApache.UseVisualStyleBackColor = true;
+        	// 
+        	// gbApache
+        	// 
+        	this.gbApache.Controls.Add(this.label10);
+        	this.gbApache.Controls.Add(this.label12);
+        	this.gbApache.Controls.Add(this.label13);
+        	this.gbApache.Controls.Add(this.label14);
+        	this.gbApache.Controls.Add(this.label15);
+        	this.gbApache.Controls.Add(this.txtServerRoot);
+        	this.gbApache.Controls.Add(this.label16);
+        	this.gbApache.Controls.Add(this.txtSourceRoot);
+        	this.gbApache.Controls.Add(this.label17);
+        	this.gbApache.Controls.Add(this.numApachePortSSL);
+        	this.gbApache.Controls.Add(this.txtDomainName);
+        	this.gbApache.Controls.Add(this.numApachePort);
+        	this.gbApache.Controls.Add(this.txtServerName);
+        	this.gbApache.Controls.Add(this.txtServerAdmin);
+        	this.gbApache.Location = new System.Drawing.Point(10, 6);
+        	this.gbApache.Name = "gbApache";
+        	this.gbApache.Size = new System.Drawing.Size(432, 196);
+        	this.gbApache.TabIndex = 25;
+        	this.gbApache.TabStop = false;
+        	this.gbApache.Text = "Apache";
+        	// 
+        	// label10
+        	// 
+        	this.label10.AutoSize = true;
+        	this.label10.Location = new System.Drawing.Point(15, 17);
+        	this.label10.Name = "label10";
+        	this.label10.Size = new System.Drawing.Size(77, 13);
+        	this.label10.TabIndex = 0;
+        	this.label10.Text = "Domain Name:";
+        	// 
+        	// label12
+        	// 
+        	this.label12.AutoSize = true;
+        	this.label12.Location = new System.Drawing.Point(20, 43);
+        	this.label12.Name = "label12";
+        	this.label12.Size = new System.Drawing.Size(72, 13);
+        	this.label12.TabIndex = 1;
+        	this.label12.Text = "Server Name:";
+        	// 
+        	// label13
+        	// 
+        	this.label13.AutoSize = true;
+        	this.label13.Location = new System.Drawing.Point(19, 69);
+        	this.label13.Name = "label13";
+        	this.label13.Size = new System.Drawing.Size(73, 13);
+        	this.label13.TabIndex = 2;
+        	this.label13.Text = "Server Admin:";
+        	// 
+        	// label14
+        	// 
+        	this.label14.AutoSize = true;
+        	this.label14.Location = new System.Drawing.Point(29, 94);
+        	this.label14.Name = "label14";
+        	this.label14.Size = new System.Drawing.Size(63, 13);
+        	this.label14.TabIndex = 3;
+        	this.label14.Text = "Server Port:";
+        	// 
+        	// label15
+        	// 
+        	this.label15.AutoSize = true;
+        	this.label15.Location = new System.Drawing.Point(6, 120);
+        	this.label15.Name = "label15";
+        	this.label15.Size = new System.Drawing.Size(86, 13);
+        	this.label15.TabIndex = 4;
+        	this.label15.Text = "Server SSL Port:";
+        	// 
+        	// txtServerRoot
+        	// 
+        	this.txtServerRoot.Location = new System.Drawing.Point(98, 144);
+        	this.txtServerRoot.Name = "txtServerRoot";
+        	this.txtServerRoot.Size = new System.Drawing.Size(328, 20);
+        	this.txtServerRoot.TabIndex = 20;
+        	// 
+        	// label16
+        	// 
+        	this.label16.AutoSize = true;
+        	this.label16.Location = new System.Drawing.Point(25, 147);
+        	this.label16.Name = "label16";
+        	this.label16.Size = new System.Drawing.Size(67, 13);
+        	this.label16.TabIndex = 5;
+        	this.label16.Text = "Server Root:";
+        	// 
+        	// txtSourceRoot
+        	// 
+        	this.txtSourceRoot.Location = new System.Drawing.Point(98, 170);
+        	this.txtSourceRoot.Name = "txtSourceRoot";
+        	this.txtSourceRoot.Size = new System.Drawing.Size(328, 20);
+        	this.txtSourceRoot.TabIndex = 19;
+        	this.txtSourceRoot.Text = "conf/original/";
+        	// 
+        	// label17
+        	// 
+        	this.label17.AutoSize = true;
+        	this.label17.Location = new System.Drawing.Point(22, 173);
+        	this.label17.Name = "label17";
+        	this.label17.Size = new System.Drawing.Size(70, 13);
+        	this.label17.TabIndex = 6;
+        	this.label17.Text = "Source Root:";
+        	// 
+        	// numApachePortSSL
+        	// 
+        	this.numApachePortSSL.Location = new System.Drawing.Point(98, 118);
+        	this.numApachePortSSL.Maximum = new decimal(new int[] {
+        	        	        	65535,
+        	        	        	0,
+        	        	        	0,
+        	        	        	0});
+        	this.numApachePortSSL.Minimum = new decimal(new int[] {
+        	        	        	1,
+        	        	        	0,
+        	        	        	0,
+        	        	        	0});
+        	this.numApachePortSSL.Name = "numApachePortSSL";
+        	this.numApachePortSSL.Size = new System.Drawing.Size(328, 20);
+        	this.numApachePortSSL.TabIndex = 18;
+        	this.numApachePortSSL.Value = new decimal(new int[] {
+        	        	        	443,
+        	        	        	0,
+        	        	        	0,
+        	        	        	0});
+        	// 
+        	// txtDomainName
+        	// 
+        	this.txtDomainName.Location = new System.Drawing.Point(98, 14);
+        	this.txtDomainName.Name = "txtDomainName";
+        	this.txtDomainName.Size = new System.Drawing.Size(328, 20);
+        	this.txtDomainName.TabIndex = 7;
+        	this.txtDomainName.Text = "localhost";
+        	// 
+        	// numApachePort
+        	// 
+        	this.numApachePort.Location = new System.Drawing.Point(98, 92);
+        	this.numApachePort.Maximum = new decimal(new int[] {
+        	        	        	65535,
+        	        	        	0,
+        	        	        	0,
+        	        	        	0});
+        	this.numApachePort.Minimum = new decimal(new int[] {
+        	        	        	1,
+        	        	        	0,
+        	        	        	0,
+        	        	        	0});
+        	this.numApachePort.Name = "numApachePort";
+        	this.numApachePort.Size = new System.Drawing.Size(328, 20);
+        	this.numApachePort.TabIndex = 17;
+        	this.numApachePort.Value = new decimal(new int[] {
+        	        	        	80,
+        	        	        	0,
+        	        	        	0,
+        	        	        	0});
+        	// 
+        	// txtServerName
+        	// 
+        	this.txtServerName.Location = new System.Drawing.Point(98, 40);
+        	this.txtServerName.Name = "txtServerName";
+        	this.txtServerName.Size = new System.Drawing.Size(328, 20);
+        	this.txtServerName.TabIndex = 9;
+        	this.txtServerName.Text = "localhost";
+        	// 
+        	// txtServerAdmin
+        	// 
+        	this.txtServerAdmin.Location = new System.Drawing.Point(98, 66);
+        	this.txtServerAdmin.Name = "txtServerAdmin";
+        	this.txtServerAdmin.Size = new System.Drawing.Size(328, 20);
+        	this.txtServerAdmin.TabIndex = 10;
+        	this.txtServerAdmin.Text = "root@localhost";
+        	// 
+        	// txtApacheStatus
+        	// 
+        	this.txtApacheStatus.AutoSize = true;
+        	this.txtApacheStatus.Location = new System.Drawing.Point(206, 213);
+        	this.txtApacheStatus.Name = "txtApacheStatus";
+        	this.txtApacheStatus.Size = new System.Drawing.Size(47, 13);
+        	this.txtApacheStatus.TabIndex = 24;
+        	this.txtApacheStatus.Text = "Stopped";
+        	// 
+        	// label19
+        	// 
+        	this.label19.AutoSize = true;
+        	this.label19.Location = new System.Drawing.Point(170, 213);
+        	this.label19.Name = "label19";
+        	this.label19.Size = new System.Drawing.Size(40, 13);
+        	this.label19.TabIndex = 23;
+        	this.label19.Text = "Status:";
+        	// 
+        	// btnApacheStop
+        	// 
+        	this.btnApacheStop.Location = new System.Drawing.Point(89, 208);
+        	this.btnApacheStop.Name = "btnApacheStop";
+        	this.btnApacheStop.Size = new System.Drawing.Size(75, 23);
+        	this.btnApacheStop.TabIndex = 22;
+        	this.btnApacheStop.Text = "Stop";
+        	this.btnApacheStop.UseVisualStyleBackColor = true;
+        	this.btnApacheStop.Click += new System.EventHandler(this.BtnApacheStopClick);
+        	// 
+        	// btnApacheStart
+        	// 
+        	this.btnApacheStart.Location = new System.Drawing.Point(8, 208);
+        	this.btnApacheStart.Name = "btnApacheStart";
+        	this.btnApacheStart.Size = new System.Drawing.Size(75, 23);
+        	this.btnApacheStart.TabIndex = 21;
+        	this.btnApacheStart.Text = "Start";
+        	this.btnApacheStart.UseVisualStyleBackColor = true;
+        	this.btnApacheStart.Click += new System.EventHandler(this.BtnApacheStartClick);
+        	// 
+        	// tabLog
+        	// 
+        	this.tabLog.Controls.Add(this.rtxLog);
+        	this.tabLog.Location = new System.Drawing.Point(4, 22);
+        	this.tabLog.Name = "tabLog";
+        	this.tabLog.Padding = new System.Windows.Forms.Padding(3);
+        	this.tabLog.Size = new System.Drawing.Size(448, 237);
+        	this.tabLog.TabIndex = 2;
+        	this.tabLog.Text = "Log";
+        	this.tabLog.UseVisualStyleBackColor = true;
         	// 
         	// rtxLog
         	// 
@@ -1061,19 +1367,13 @@
         	this.rtxLog.TabIndex = 0;
         	this.rtxLog.Text = "";
         	// 
-        	// readDocumentationToolStripMenuItem
-        	// 
-        	this.readDocumentationToolStripMenuItem.Name = "readDocumentationToolStripMenuItem";
-        	this.readDocumentationToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-        	this.readDocumentationToolStripMenuItem.Text = "Read Documentation";
-        	this.readDocumentationToolStripMenuItem.Click += new System.EventHandler(this.ReadDocumentationToolStripMenuItemClick);
-        	// 
         	// frmMain
         	// 
         	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         	this.ClientSize = new System.Drawing.Size(480, 338);
         	this.ContextMenuStrip = this.cmsTaskbar;
+        	this.Controls.Add(this.btnSave);
         	this.Controls.Add(this.ssStatus);
         	this.Controls.Add(this.msTop);
         	this.Controls.Add(this.chbHide);
@@ -1090,7 +1390,7 @@
         	this.cmsTaskbar.ResumeLayout(false);
         	this.ssStatus.ResumeLayout(false);
         	this.ssStatus.PerformLayout();
-        	this.tabPage2.ResumeLayout(false);
+        	this.tabAdvanced.ResumeLayout(false);
         	this.groupBox2.ResumeLayout(false);
         	this.groupBox2.PerformLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numMemcachedPort)).EndInit();
@@ -1105,16 +1405,48 @@
         	this.groupBox1.ResumeLayout(false);
         	this.groupBox1.PerformLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numNginxPort)).EndInit();
-        	this.tabPage1.ResumeLayout(false);
+        	this.tabBasic.ResumeLayout(false);
+        	this.gbWebserver.ResumeLayout(false);
+        	this.gbWebserver.PerformLayout();
         	this.tabControl.ResumeLayout(false);
-        	this.tabPage3.ResumeLayout(false);
+        	this.tabApache.ResumeLayout(false);
+        	this.tabApache.PerformLayout();
+        	this.gbApache.ResumeLayout(false);
+        	this.gbApache.PerformLayout();
+        	((System.ComponentModel.ISupportInitialize)(this.numApachePortSSL)).EndInit();
+        	((System.ComponentModel.ISupportInitialize)(this.numApachePort)).EndInit();
+        	this.tabLog.ResumeLayout(false);
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
         private System.Windows.Forms.ToolStripMenuItem readDocumentationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem runTestsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editPhpunitxmlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editPhpxmlToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.GroupBox gbApache;
+        private System.Windows.Forms.GroupBox gbWebserver;
+        private System.Windows.Forms.RadioButton radApache;
+        private System.Windows.Forms.RadioButton radNginx;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label txtApacheStatus;
+        private System.Windows.Forms.Button btnApacheStart;
+        private System.Windows.Forms.Button btnApacheStop;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox txtDomainName;
+        private System.Windows.Forms.TextBox txtServerName;
+        private System.Windows.Forms.TextBox txtServerAdmin;
+        private System.Windows.Forms.NumericUpDown numApachePort;
+        private System.Windows.Forms.NumericUpDown numApachePortSSL;
+        private System.Windows.Forms.TextBox txtSourceRoot;
+        private System.Windows.Forms.TextBox txtServerRoot;
+        private System.Windows.Forms.TabPage tabApache;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ToolStripMenuItem restoreLatestDatabaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteCMSFromLocalhostToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addCMSToLocalhostFolderToolStripMenuItem;
@@ -1156,7 +1488,7 @@
         private System.Windows.Forms.NumericUpDown numFCGIRequests;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.RichTextBox rtxLog;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabLog;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label txtMySQLStatus;
         private System.Windows.Forms.Button btnMySQLStart;
@@ -1178,8 +1510,8 @@
         private System.Windows.Forms.StatusStrip ssStatus;
         private System.Windows.Forms.Button btnNginxStart;
         private System.Windows.Forms.Button btnNginxStop;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabAdvanced;
+        private System.Windows.Forms.TabPage tabBasic;
         private System.Windows.Forms.TabControl tabControl;
 
         #endregion
