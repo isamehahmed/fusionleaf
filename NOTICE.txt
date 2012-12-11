@@ -24,3 +24,6 @@ The PHP Group (http://pear.php.net).
 
 This product includes software developed by
 Sebastian Bergmann (http://www.phpunit.de).
+
+This product includes software developed by
+The Apache Software Foundation (http://httpd.apache.org).
