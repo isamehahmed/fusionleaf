@@ -251,9 +251,9 @@ namespace FLS
             versionToolStripMenuItem.Text = "Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             
             // This is just used so the developer can specify the root path without moving the compiled EXE every time
-            strHomeDir = @"C:\Users\jspurrier\Downloads\(FusionLeaf)\FusionLeaf_Stack_v0.5.0.1 SurfStack";
+            strHomeDir = @"C:\Users\jspurrier\Downloads\(FusionLeaf)\FusionLeaf_Stack_v0.5.1";
             
-            if (strHomeDir==null) strHomeDir = Directory.GetCurrentDirectory();
+            if (!Directory.Exists(strHomeDir)) strHomeDir = Directory.GetCurrentDirectory();
             folderNginx = Path.Combine(strHomeDir,@"app\nginx");
             fileNginx = Path.Combine(folderNginx,"nginx.exe");
             folderFCGI = Path.Combine(strHomeDir,@"app\phpnts");
