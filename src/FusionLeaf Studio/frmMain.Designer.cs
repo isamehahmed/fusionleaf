@@ -34,25 +34,38 @@
         	this.msTop = new System.Windows.Forms.MenuStrip();
         	this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.theseOverwriteTheConfigurationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.apacheToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
         	this.databaseConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.webServerConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.pHPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.apacheToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
         	this.tsmMySQL = new System.Windows.Forms.ToolStripMenuItem();
+        	this.mariaDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.tsmWeb = new System.Windows.Forms.ToolStripMenuItem();
+        	this.pHPNTSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.tsmPHP = new System.Windows.Forms.ToolStripMenuItem();
         	this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.indexphpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.openAdminerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
         	this.editIndexphpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.exploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.apacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.mariaDBToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+        	this.memcachedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.databaseFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.webServerFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.pHPFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.memcachedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.pHPTSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
         	this.sessionsAndPHPLogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.webRootwwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.scriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.adminerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.installAdminerToLocalhostFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.removeAdminerFromLocalhostFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.pHPToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
         	this.pEARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.installToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,13 +101,6 @@
         	this.label11 = new System.Windows.Forms.Label();
         	this.btnMemcachedStop = new System.Windows.Forms.Button();
         	this.btnMemcachedStart = new System.Windows.Forms.Button();
-        	this.groupBox4 = new System.Windows.Forms.GroupBox();
-        	this.numMySQLPort = new System.Windows.Forms.NumericUpDown();
-        	this.label7 = new System.Windows.Forms.Label();
-        	this.txtMySQLStatus = new System.Windows.Forms.Label();
-        	this.label5 = new System.Windows.Forms.Label();
-        	this.btnMySQLStop = new System.Windows.Forms.Button();
-        	this.btnMySQLStart = new System.Windows.Forms.Button();
         	this.groupBox3 = new System.Windows.Forms.GroupBox();
         	this.numFCGIPort = new System.Windows.Forms.NumericUpDown();
         	this.label6 = new System.Windows.Forms.Label();
@@ -115,8 +121,18 @@
         	this.btnNginxReopen = new System.Windows.Forms.Button();
         	this.btnNginxStop = new System.Windows.Forms.Button();
         	this.btnNginxReload = new System.Windows.Forms.Button();
+        	this.gbMySQL = new System.Windows.Forms.GroupBox();
+        	this.numMySQLPort = new System.Windows.Forms.NumericUpDown();
+        	this.label7 = new System.Windows.Forms.Label();
+        	this.txtMySQLStatus = new System.Windows.Forms.Label();
+        	this.label5 = new System.Windows.Forms.Label();
+        	this.btnMySQLStop = new System.Windows.Forms.Button();
+        	this.btnMySQLStart = new System.Windows.Forms.Button();
         	this.btnSave = new System.Windows.Forms.Button();
         	this.tabBasic = new System.Windows.Forms.TabPage();
+        	this.gbDatabase = new System.Windows.Forms.GroupBox();
+        	this.radMariaDB = new System.Windows.Forms.RadioButton();
+        	this.radMySQL = new System.Windows.Forms.RadioButton();
         	this.gbWebserver = new System.Windows.Forms.GroupBox();
         	this.radApache = new System.Windows.Forms.RadioButton();
         	this.radNginx = new System.Windows.Forms.RadioButton();
@@ -153,15 +169,16 @@
         	this.tabAdvanced.SuspendLayout();
         	this.groupBox2.SuspendLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numMemcachedPort)).BeginInit();
-        	this.groupBox4.SuspendLayout();
-        	((System.ComponentModel.ISupportInitialize)(this.numMySQLPort)).BeginInit();
         	this.groupBox3.SuspendLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numFCGIPort)).BeginInit();
         	((System.ComponentModel.ISupportInitialize)(this.numFCGIRequests)).BeginInit();
         	((System.ComponentModel.ISupportInitialize)(this.numFCGIThreads)).BeginInit();
         	this.groupBox1.SuspendLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numNginxPort)).BeginInit();
+        	this.gbMySQL.SuspendLayout();
+        	((System.ComponentModel.ISupportInitialize)(this.numMySQLPort)).BeginInit();
         	this.tabBasic.SuspendLayout();
+        	this.gbDatabase.SuspendLayout();
         	this.gbWebserver.SuspendLayout();
         	this.tabControl.SuspendLayout();
         	this.tabApache.SuspendLayout();
@@ -203,6 +220,7 @@
         	// 
         	this.templatesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
         	        	        	this.theseOverwriteTheConfigurationsToolStripMenuItem,
+        	        	        	this.apacheToolStripMenuItem2,
         	        	        	this.databaseConfigToolStripMenuItem,
         	        	        	this.webServerConfigToolStripMenuItem,
         	        	        	this.pHPToolStripMenuItem});
@@ -219,33 +237,43 @@
         	this.theseOverwriteTheConfigurationsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
         	this.theseOverwriteTheConfigurationsToolStripMenuItem.Text = "Startup Configurations";
         	// 
+        	// apacheToolStripMenuItem2
+        	// 
+        	this.apacheToolStripMenuItem2.Name = "apacheToolStripMenuItem2";
+        	this.apacheToolStripMenuItem2.Size = new System.Drawing.Size(194, 22);
+        	this.apacheToolStripMenuItem2.Text = "Apache";
+        	this.apacheToolStripMenuItem2.Click += new System.EventHandler(this.ApacheToolStripMenuItem2Click);
+        	// 
         	// databaseConfigToolStripMenuItem
         	// 
         	this.databaseConfigToolStripMenuItem.Name = "databaseConfigToolStripMenuItem";
         	this.databaseConfigToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-        	this.databaseConfigToolStripMenuItem.Text = "Database";
+        	this.databaseConfigToolStripMenuItem.Text = "MySQL/MariaDB";
         	this.databaseConfigToolStripMenuItem.Click += new System.EventHandler(this.DatabaseConfigToolStripMenuItemClick);
         	// 
         	// webServerConfigToolStripMenuItem
         	// 
         	this.webServerConfigToolStripMenuItem.Name = "webServerConfigToolStripMenuItem";
         	this.webServerConfigToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-        	this.webServerConfigToolStripMenuItem.Text = "Web Server";
+        	this.webServerConfigToolStripMenuItem.Text = "Nginx";
         	this.webServerConfigToolStripMenuItem.Click += new System.EventHandler(this.WebServerConfigToolStripMenuItemClick);
         	// 
         	// pHPToolStripMenuItem
         	// 
         	this.pHPToolStripMenuItem.Name = "pHPToolStripMenuItem";
         	this.pHPToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-        	this.pHPToolStripMenuItem.Text = "PHP";
+        	this.pHPToolStripMenuItem.Text = "PHP (NTS and TS)";
         	this.pHPToolStripMenuItem.Click += new System.EventHandler(this.PHPToolStripMenuItemClick);
         	// 
         	// editToolStripMenuItem
         	// 
         	this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
         	        	        	this.theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem,
+        	        	        	this.apacheToolStripMenuItem1,
         	        	        	this.tsmMySQL,
+        	        	        	this.mariaDBToolStripMenuItem,
         	        	        	this.tsmWeb,
+        	        	        	this.pHPNTSToolStripMenuItem,
         	        	        	this.tsmPHP});
         	this.editToolStripMenuItem.Name = "editToolStripMenuItem";
         	this.editToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -258,35 +286,58 @@
         	this.theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
         	this.theseAreOverwrittenByTemplatesWhenStartIsClickedToolStripMenuItem.Text = "Running Configurations";
         	// 
+        	// apacheToolStripMenuItem1
+        	// 
+        	this.apacheToolStripMenuItem1.Name = "apacheToolStripMenuItem1";
+        	this.apacheToolStripMenuItem1.Size = new System.Drawing.Size(201, 22);
+        	this.apacheToolStripMenuItem1.Text = "Apache";
+        	this.apacheToolStripMenuItem1.Click += new System.EventHandler(this.ApacheToolStripMenuItem1Click);
+        	// 
         	// tsmMySQL
         	// 
         	this.tsmMySQL.Name = "tsmMySQL";
         	this.tsmMySQL.Size = new System.Drawing.Size(201, 22);
-        	this.tsmMySQL.Text = "Database";
+        	this.tsmMySQL.Text = "MySQL";
         	this.tsmMySQL.Click += new System.EventHandler(this.tsmMySQL_Click);
+        	// 
+        	// mariaDBToolStripMenuItem
+        	// 
+        	this.mariaDBToolStripMenuItem.Name = "mariaDBToolStripMenuItem";
+        	this.mariaDBToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+        	this.mariaDBToolStripMenuItem.Text = "MariaDB";
+        	this.mariaDBToolStripMenuItem.Click += new System.EventHandler(this.MariaDBToolStripMenuItemClick);
         	// 
         	// tsmWeb
         	// 
         	this.tsmWeb.Name = "tsmWeb";
         	this.tsmWeb.Size = new System.Drawing.Size(201, 22);
-        	this.tsmWeb.Text = "Web Server";
+        	this.tsmWeb.Text = "Nginx";
         	this.tsmWeb.Click += new System.EventHandler(this.tsmWeb_Click);
+        	// 
+        	// pHPNTSToolStripMenuItem
+        	// 
+        	this.pHPNTSToolStripMenuItem.Name = "pHPNTSToolStripMenuItem";
+        	this.pHPNTSToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+        	this.pHPNTSToolStripMenuItem.Text = "PHP NTS (Nginx)";
+        	this.pHPNTSToolStripMenuItem.Click += new System.EventHandler(this.PHPNTSToolStripMenuItemClick);
         	// 
         	// tsmPHP
         	// 
         	this.tsmPHP.Name = "tsmPHP";
         	this.tsmPHP.Size = new System.Drawing.Size(201, 22);
-        	this.tsmPHP.Text = "PHP";
+        	this.tsmPHP.Text = "PHP TS (Apache)";
         	this.tsmPHP.Click += new System.EventHandler(this.tsmPHP_Click);
         	// 
         	// viewToolStripMenuItem
         	// 
         	this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.openAdminerToolStripMenuItem,
         	        	        	this.indexphpToolStripMenuItem,
+        	        	        	this.toolStripSeparator3,
         	        	        	this.editIndexphpToolStripMenuItem});
         	this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-        	this.viewToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-        	this.viewToolStripMenuItem.Text = "Browser";
+        	this.viewToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+        	this.viewToolStripMenuItem.Text = "Browse";
         	// 
         	// indexphpToolStripMenuItem
         	// 
@@ -294,6 +345,18 @@
         	this.indexphpToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
         	this.indexphpToolStripMenuItem.Text = "http://localhost";
         	this.indexphpToolStripMenuItem.Click += new System.EventHandler(this.indexphpToolStripMenuItem_Click);
+        	// 
+        	// openAdminerToolStripMenuItem
+        	// 
+        	this.openAdminerToolStripMenuItem.Name = "openAdminerToolStripMenuItem";
+        	this.openAdminerToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+        	this.openAdminerToolStripMenuItem.Text = "Adminer";
+        	this.openAdminerToolStripMenuItem.Click += new System.EventHandler(this.OpenAdminerToolStripMenuItemClick);
+        	// 
+        	// toolStripSeparator3
+        	// 
+        	this.toolStripSeparator3.Name = "toolStripSeparator3";
+        	this.toolStripSeparator3.Size = new System.Drawing.Size(154, 6);
         	// 
         	// editIndexphpToolStripMenuItem
         	// 
@@ -305,36 +368,33 @@
         	// exploreToolStripMenuItem
         	// 
         	this.exploreToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.apacheToolStripMenuItem,
+        	        	        	this.mariaDBToolStripMenuItem1,
+        	        	        	this.memcachedToolStripMenuItem,
         	        	        	this.databaseFolderToolStripMenuItem,
         	        	        	this.webServerFolderToolStripMenuItem,
         	        	        	this.pHPFolderToolStripMenuItem,
-        	        	        	this.memcachedToolStripMenuItem,
+        	        	        	this.pHPTSToolStripMenuItem,
+        	        	        	this.toolStripSeparator2,
         	        	        	this.sessionsAndPHPLogsToolStripMenuItem,
         	        	        	this.webRootwwwToolStripMenuItem});
         	this.exploreToolStripMenuItem.Name = "exploreToolStripMenuItem";
         	this.exploreToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
         	this.exploreToolStripMenuItem.Text = "Open Folder";
         	// 
-        	// databaseFolderToolStripMenuItem
+        	// apacheToolStripMenuItem
         	// 
-        	this.databaseFolderToolStripMenuItem.Name = "databaseFolderToolStripMenuItem";
-        	this.databaseFolderToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-        	this.databaseFolderToolStripMenuItem.Text = "Database";
-        	this.databaseFolderToolStripMenuItem.Click += new System.EventHandler(this.databaseFolderToolStripMenuItem_Click);
+        	this.apacheToolStripMenuItem.Name = "apacheToolStripMenuItem";
+        	this.apacheToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+        	this.apacheToolStripMenuItem.Text = "Apache";
+        	this.apacheToolStripMenuItem.Click += new System.EventHandler(this.ApacheToolStripMenuItemClick);
         	// 
-        	// webServerFolderToolStripMenuItem
+        	// mariaDBToolStripMenuItem1
         	// 
-        	this.webServerFolderToolStripMenuItem.Name = "webServerFolderToolStripMenuItem";
-        	this.webServerFolderToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-        	this.webServerFolderToolStripMenuItem.Text = "Web Server";
-        	this.webServerFolderToolStripMenuItem.Click += new System.EventHandler(this.webServerFolderToolStripMenuItem_Click);
-        	// 
-        	// pHPFolderToolStripMenuItem
-        	// 
-        	this.pHPFolderToolStripMenuItem.Name = "pHPFolderToolStripMenuItem";
-        	this.pHPFolderToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-        	this.pHPFolderToolStripMenuItem.Text = "PHP";
-        	this.pHPFolderToolStripMenuItem.Click += new System.EventHandler(this.pHPFolderToolStripMenuItem_Click);
+        	this.mariaDBToolStripMenuItem1.Name = "mariaDBToolStripMenuItem1";
+        	this.mariaDBToolStripMenuItem1.Size = new System.Drawing.Size(186, 22);
+        	this.mariaDBToolStripMenuItem1.Text = "MariaDB";
+        	this.mariaDBToolStripMenuItem1.Click += new System.EventHandler(this.MariaDBToolStripMenuItem1Click);
         	// 
         	// memcachedToolStripMenuItem
         	// 
@@ -342,6 +402,39 @@
         	this.memcachedToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
         	this.memcachedToolStripMenuItem.Text = "Memcached";
         	this.memcachedToolStripMenuItem.Click += new System.EventHandler(this.MemcachedToolStripMenuItemClick);
+        	// 
+        	// databaseFolderToolStripMenuItem
+        	// 
+        	this.databaseFolderToolStripMenuItem.Name = "databaseFolderToolStripMenuItem";
+        	this.databaseFolderToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+        	this.databaseFolderToolStripMenuItem.Text = "MySQL";
+        	this.databaseFolderToolStripMenuItem.Click += new System.EventHandler(this.databaseFolderToolStripMenuItem_Click);
+        	// 
+        	// webServerFolderToolStripMenuItem
+        	// 
+        	this.webServerFolderToolStripMenuItem.Name = "webServerFolderToolStripMenuItem";
+        	this.webServerFolderToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+        	this.webServerFolderToolStripMenuItem.Text = "Nginx";
+        	this.webServerFolderToolStripMenuItem.Click += new System.EventHandler(this.webServerFolderToolStripMenuItem_Click);
+        	// 
+        	// pHPFolderToolStripMenuItem
+        	// 
+        	this.pHPFolderToolStripMenuItem.Name = "pHPFolderToolStripMenuItem";
+        	this.pHPFolderToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+        	this.pHPFolderToolStripMenuItem.Text = "PHP NTS (Nginx)";
+        	this.pHPFolderToolStripMenuItem.Click += new System.EventHandler(this.pHPFolderToolStripMenuItem_Click);
+        	// 
+        	// pHPTSToolStripMenuItem
+        	// 
+        	this.pHPTSToolStripMenuItem.Name = "pHPTSToolStripMenuItem";
+        	this.pHPTSToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+        	this.pHPTSToolStripMenuItem.Text = "PHP TS (Apache)";
+        	this.pHPTSToolStripMenuItem.Click += new System.EventHandler(this.PHPTSToolStripMenuItemClick);
+        	// 
+        	// toolStripSeparator2
+        	// 
+        	this.toolStripSeparator2.Name = "toolStripSeparator2";
+        	this.toolStripSeparator2.Size = new System.Drawing.Size(183, 6);
         	// 
         	// sessionsAndPHPLogsToolStripMenuItem
         	// 
@@ -360,11 +453,35 @@
         	// scriptsToolStripMenuItem
         	// 
         	this.scriptsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        	        	        	this.pHPToolStripMenuItem1,
-        	        	        	this.fusionLeafToolStripMenuItem});
+        	        	        	this.adminerToolStripMenuItem,
+        	        	        	this.fusionLeafToolStripMenuItem,
+        	        	        	this.pHPToolStripMenuItem1});
         	this.scriptsToolStripMenuItem.Name = "scriptsToolStripMenuItem";
         	this.scriptsToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
         	this.scriptsToolStripMenuItem.Text = "Automation";
+        	// 
+        	// adminerToolStripMenuItem
+        	// 
+        	this.adminerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.installAdminerToLocalhostFolderToolStripMenuItem,
+        	        	        	this.removeAdminerFromLocalhostFolderToolStripMenuItem});
+        	this.adminerToolStripMenuItem.Name = "adminerToolStripMenuItem";
+        	this.adminerToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+        	this.adminerToolStripMenuItem.Text = "Adminer";
+        	// 
+        	// installAdminerToLocalhostFolderToolStripMenuItem
+        	// 
+        	this.installAdminerToLocalhostFolderToolStripMenuItem.Name = "installAdminerToLocalhostFolderToolStripMenuItem";
+        	this.installAdminerToLocalhostFolderToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+        	this.installAdminerToLocalhostFolderToolStripMenuItem.Text = "Install Adminer to Localhost Folder";
+        	this.installAdminerToLocalhostFolderToolStripMenuItem.Click += new System.EventHandler(this.InstallAdminerToLocalhostFolderToolStripMenuItemClick);
+        	// 
+        	// removeAdminerFromLocalhostFolderToolStripMenuItem
+        	// 
+        	this.removeAdminerFromLocalhostFolderToolStripMenuItem.Name = "removeAdminerFromLocalhostFolderToolStripMenuItem";
+        	this.removeAdminerFromLocalhostFolderToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+        	this.removeAdminerFromLocalhostFolderToolStripMenuItem.Text = "Remove Adminer from Localhost Folder";
+        	this.removeAdminerFromLocalhostFolderToolStripMenuItem.Click += new System.EventHandler(this.RemoveAdminerFromLocalhostFolderToolStripMenuItemClick);
         	// 
         	// pHPToolStripMenuItem1
         	// 
@@ -372,7 +489,7 @@
         	        	        	this.pEARToolStripMenuItem,
         	        	        	this.pHPUnitToolStripMenuItem});
         	this.pHPToolStripMenuItem1.Name = "pHPToolStripMenuItem1";
-        	this.pHPToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+        	this.pHPToolStripMenuItem1.Size = new System.Drawing.Size(131, 22);
         	this.pHPToolStripMenuItem1.Text = "PHP";
         	// 
         	// pEARToolStripMenuItem
@@ -381,7 +498,7 @@
         	        	        	this.installToolStripMenuItem,
         	        	        	this.removeToolStripMenuItem});
         	this.pEARToolStripMenuItem.Name = "pEARToolStripMenuItem";
-        	this.pEARToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.pEARToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
         	this.pEARToolStripMenuItem.Text = "PEAR";
         	// 
         	// installToolStripMenuItem
@@ -408,7 +525,7 @@
         	        	        	this.runTestsToolStripMenuItem,
         	        	        	this.readDocumentationToolStripMenuItem});
         	this.pHPUnitToolStripMenuItem.Name = "pHPUnitToolStripMenuItem";
-        	this.pHPUnitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.pHPUnitToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
         	this.pHPUnitToolStripMenuItem.Text = "PHPUnit";
         	// 
         	// installToolStripMenuItem1
@@ -458,7 +575,7 @@
         	        	        	this.deleteCMSFromLocalhostToolStripMenuItem,
         	        	        	this.restoreLatestDatabaseToolStripMenuItem});
         	this.fusionLeafToolStripMenuItem.Name = "fusionLeafToolStripMenuItem";
-        	this.fusionLeafToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        	this.fusionLeafToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
         	this.fusionLeafToolStripMenuItem.Text = "FusionLeaf";
         	// 
         	// addCMSToLocalhostFolderToolStripMenuItem
@@ -582,9 +699,9 @@
         	// tabAdvanced
         	// 
         	this.tabAdvanced.Controls.Add(this.groupBox2);
-        	this.tabAdvanced.Controls.Add(this.groupBox4);
         	this.tabAdvanced.Controls.Add(this.groupBox3);
         	this.tabAdvanced.Controls.Add(this.groupBox1);
+        	this.tabAdvanced.Controls.Add(this.gbMySQL);
         	this.tabAdvanced.Location = new System.Drawing.Point(4, 22);
         	this.tabAdvanced.Name = "tabAdvanced";
         	this.tabAdvanced.Padding = new System.Windows.Forms.Padding(3);
@@ -676,90 +793,6 @@
         	this.btnMemcachedStart.Text = "Start";
         	this.btnMemcachedStart.UseVisualStyleBackColor = true;
         	this.btnMemcachedStart.Click += new System.EventHandler(this.BtnMemcachedStartClick);
-        	// 
-        	// groupBox4
-        	// 
-        	this.groupBox4.Controls.Add(this.numMySQLPort);
-        	this.groupBox4.Controls.Add(this.label7);
-        	this.groupBox4.Controls.Add(this.txtMySQLStatus);
-        	this.groupBox4.Controls.Add(this.label5);
-        	this.groupBox4.Controls.Add(this.btnMySQLStop);
-        	this.groupBox4.Controls.Add(this.btnMySQLStart);
-        	this.groupBox4.Location = new System.Drawing.Point(181, 104);
-        	this.groupBox4.Name = "groupBox4";
-        	this.groupBox4.Size = new System.Drawing.Size(123, 126);
-        	this.groupBox4.TabIndex = 7;
-        	this.groupBox4.TabStop = false;
-        	this.groupBox4.Text = "MySQL";
-        	// 
-        	// numMySQLPort
-        	// 
-        	this.numMySQLPort.Location = new System.Drawing.Point(42, 80);
-        	this.numMySQLPort.Maximum = new decimal(new int[] {
-        	        	        	65535,
-        	        	        	0,
-        	        	        	0,
-        	        	        	0});
-        	this.numMySQLPort.Minimum = new decimal(new int[] {
-        	        	        	1,
-        	        	        	0,
-        	        	        	0,
-        	        	        	0});
-        	this.numMySQLPort.Name = "numMySQLPort";
-        	this.numMySQLPort.Size = new System.Drawing.Size(75, 20);
-        	this.numMySQLPort.TabIndex = 14;
-        	this.numMySQLPort.Value = new decimal(new int[] {
-        	        	        	3306,
-        	        	        	0,
-        	        	        	0,
-        	        	        	0});
-        	// 
-        	// label7
-        	// 
-        	this.label7.AutoSize = true;
-        	this.label7.Location = new System.Drawing.Point(7, 82);
-        	this.label7.Name = "label7";
-        	this.label7.Size = new System.Drawing.Size(29, 13);
-        	this.label7.TabIndex = 10;
-        	this.label7.Text = "Port:";
-        	// 
-        	// txtMySQLStatus
-        	// 
-        	this.txtMySQLStatus.AutoSize = true;
-        	this.txtMySQLStatus.Location = new System.Drawing.Point(44, 103);
-        	this.txtMySQLStatus.Name = "txtMySQLStatus";
-        	this.txtMySQLStatus.Size = new System.Drawing.Size(47, 13);
-        	this.txtMySQLStatus.TabIndex = 7;
-        	this.txtMySQLStatus.Text = "Stopped";
-        	// 
-        	// label5
-        	// 
-        	this.label5.AutoSize = true;
-        	this.label5.Location = new System.Drawing.Point(7, 103);
-        	this.label5.Name = "label5";
-        	this.label5.Size = new System.Drawing.Size(40, 13);
-        	this.label5.TabIndex = 6;
-        	this.label5.Text = "Status:";
-        	// 
-        	// btnMySQLStop
-        	// 
-        	this.btnMySQLStop.Location = new System.Drawing.Point(7, 49);
-        	this.btnMySQLStop.Name = "btnMySQLStop";
-        	this.btnMySQLStop.Size = new System.Drawing.Size(75, 23);
-        	this.btnMySQLStop.TabIndex = 1;
-        	this.btnMySQLStop.Text = "Stop";
-        	this.btnMySQLStop.UseVisualStyleBackColor = true;
-        	this.btnMySQLStop.Click += new System.EventHandler(this.BtnMySQLStopClick);
-        	// 
-        	// btnMySQLStart
-        	// 
-        	this.btnMySQLStart.Location = new System.Drawing.Point(7, 20);
-        	this.btnMySQLStart.Name = "btnMySQLStart";
-        	this.btnMySQLStart.Size = new System.Drawing.Size(75, 23);
-        	this.btnMySQLStart.TabIndex = 0;
-        	this.btnMySQLStart.Text = "Start";
-        	this.btnMySQLStart.UseVisualStyleBackColor = true;
-        	this.btnMySQLStart.Click += new System.EventHandler(this.BtnMySQLStartClick);
         	// 
         	// groupBox3
         	// 
@@ -1017,6 +1050,90 @@
         	this.btnNginxReload.UseVisualStyleBackColor = true;
         	this.btnNginxReload.Click += new System.EventHandler(this.BtnNginxReloadClick);
         	// 
+        	// gbMySQL
+        	// 
+        	this.gbMySQL.Controls.Add(this.numMySQLPort);
+        	this.gbMySQL.Controls.Add(this.label7);
+        	this.gbMySQL.Controls.Add(this.txtMySQLStatus);
+        	this.gbMySQL.Controls.Add(this.label5);
+        	this.gbMySQL.Controls.Add(this.btnMySQLStop);
+        	this.gbMySQL.Controls.Add(this.btnMySQLStart);
+        	this.gbMySQL.Location = new System.Drawing.Point(181, 104);
+        	this.gbMySQL.Name = "gbMySQL";
+        	this.gbMySQL.Size = new System.Drawing.Size(123, 126);
+        	this.gbMySQL.TabIndex = 7;
+        	this.gbMySQL.TabStop = false;
+        	this.gbMySQL.Text = "MySQL";
+        	// 
+        	// numMySQLPort
+        	// 
+        	this.numMySQLPort.Location = new System.Drawing.Point(42, 80);
+        	this.numMySQLPort.Maximum = new decimal(new int[] {
+        	        	        	65535,
+        	        	        	0,
+        	        	        	0,
+        	        	        	0});
+        	this.numMySQLPort.Minimum = new decimal(new int[] {
+        	        	        	1,
+        	        	        	0,
+        	        	        	0,
+        	        	        	0});
+        	this.numMySQLPort.Name = "numMySQLPort";
+        	this.numMySQLPort.Size = new System.Drawing.Size(75, 20);
+        	this.numMySQLPort.TabIndex = 14;
+        	this.numMySQLPort.Value = new decimal(new int[] {
+        	        	        	3306,
+        	        	        	0,
+        	        	        	0,
+        	        	        	0});
+        	// 
+        	// label7
+        	// 
+        	this.label7.AutoSize = true;
+        	this.label7.Location = new System.Drawing.Point(7, 82);
+        	this.label7.Name = "label7";
+        	this.label7.Size = new System.Drawing.Size(29, 13);
+        	this.label7.TabIndex = 10;
+        	this.label7.Text = "Port:";
+        	// 
+        	// txtMySQLStatus
+        	// 
+        	this.txtMySQLStatus.AutoSize = true;
+        	this.txtMySQLStatus.Location = new System.Drawing.Point(44, 103);
+        	this.txtMySQLStatus.Name = "txtMySQLStatus";
+        	this.txtMySQLStatus.Size = new System.Drawing.Size(47, 13);
+        	this.txtMySQLStatus.TabIndex = 7;
+        	this.txtMySQLStatus.Text = "Stopped";
+        	// 
+        	// label5
+        	// 
+        	this.label5.AutoSize = true;
+        	this.label5.Location = new System.Drawing.Point(7, 103);
+        	this.label5.Name = "label5";
+        	this.label5.Size = new System.Drawing.Size(40, 13);
+        	this.label5.TabIndex = 6;
+        	this.label5.Text = "Status:";
+        	// 
+        	// btnMySQLStop
+        	// 
+        	this.btnMySQLStop.Location = new System.Drawing.Point(7, 49);
+        	this.btnMySQLStop.Name = "btnMySQLStop";
+        	this.btnMySQLStop.Size = new System.Drawing.Size(75, 23);
+        	this.btnMySQLStop.TabIndex = 1;
+        	this.btnMySQLStop.Text = "Stop";
+        	this.btnMySQLStop.UseVisualStyleBackColor = true;
+        	this.btnMySQLStop.Click += new System.EventHandler(this.BtnMySQLStopClick);
+        	// 
+        	// btnMySQLStart
+        	// 
+        	this.btnMySQLStart.Location = new System.Drawing.Point(7, 20);
+        	this.btnMySQLStart.Name = "btnMySQLStart";
+        	this.btnMySQLStart.Size = new System.Drawing.Size(75, 23);
+        	this.btnMySQLStart.TabIndex = 0;
+        	this.btnMySQLStart.Text = "Start";
+        	this.btnMySQLStart.UseVisualStyleBackColor = true;
+        	this.btnMySQLStart.Click += new System.EventHandler(this.BtnMySQLStartClick);
+        	// 
         	// btnSave
         	// 
         	this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1030,6 +1147,7 @@
         	// 
         	// tabBasic
         	// 
+        	this.tabBasic.Controls.Add(this.gbDatabase);
         	this.tabBasic.Controls.Add(this.gbWebserver);
         	this.tabBasic.Controls.Add(this.btnTest);
         	this.tabBasic.Controls.Add(this.label1);
@@ -1041,6 +1159,42 @@
         	this.tabBasic.TabIndex = 0;
         	this.tabBasic.Text = "Basic";
         	this.tabBasic.UseVisualStyleBackColor = true;
+        	// 
+        	// gbDatabase
+        	// 
+        	this.gbDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+        	this.gbDatabase.Controls.Add(this.radMariaDB);
+        	this.gbDatabase.Controls.Add(this.radMySQL);
+        	this.gbDatabase.Location = new System.Drawing.Point(170, 182);
+        	this.gbDatabase.Name = "gbDatabase";
+        	this.gbDatabase.Size = new System.Drawing.Size(133, 49);
+        	this.gbDatabase.TabIndex = 13;
+        	this.gbDatabase.TabStop = false;
+        	this.gbDatabase.Text = "Database";
+        	// 
+        	// radMariaDB
+        	// 
+        	this.radMariaDB.AutoSize = true;
+        	this.radMariaDB.Location = new System.Drawing.Point(64, 19);
+        	this.radMariaDB.Name = "radMariaDB";
+        	this.radMariaDB.Size = new System.Drawing.Size(66, 17);
+        	this.radMariaDB.TabIndex = 11;
+        	this.radMariaDB.Text = "MariaDB";
+        	this.radMariaDB.UseVisualStyleBackColor = true;
+        	this.radMariaDB.CheckedChanged += new System.EventHandler(this.RadMariaDBCheckedChanged);
+        	// 
+        	// radMySQL
+        	// 
+        	this.radMySQL.AutoSize = true;
+        	this.radMySQL.Checked = true;
+        	this.radMySQL.Location = new System.Drawing.Point(6, 19);
+        	this.radMySQL.Name = "radMySQL";
+        	this.radMySQL.Size = new System.Drawing.Size(60, 17);
+        	this.radMySQL.TabIndex = 10;
+        	this.radMySQL.TabStop = true;
+        	this.radMySQL.Text = "MySQL";
+        	this.radMySQL.UseVisualStyleBackColor = true;
+        	this.radMySQL.CheckedChanged += new System.EventHandler(this.RadMySQLCheckedChanged);
         	// 
         	// gbWebserver
         	// 
@@ -1092,7 +1246,7 @@
         	// 
         	this.label1.Location = new System.Drawing.Point(6, 3);
         	this.label1.Name = "label1";
-        	this.label1.Size = new System.Drawing.Size(436, 202);
+        	this.label1.Size = new System.Drawing.Size(436, 176);
         	this.label1.TabIndex = 2;
         	this.label1.Text = resources.GetString("label1.Text");
         	// 
@@ -1394,9 +1548,6 @@
         	this.groupBox2.ResumeLayout(false);
         	this.groupBox2.PerformLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numMemcachedPort)).EndInit();
-        	this.groupBox4.ResumeLayout(false);
-        	this.groupBox4.PerformLayout();
-        	((System.ComponentModel.ISupportInitialize)(this.numMySQLPort)).EndInit();
         	this.groupBox3.ResumeLayout(false);
         	this.groupBox3.PerformLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numFCGIPort)).EndInit();
@@ -1405,7 +1556,12 @@
         	this.groupBox1.ResumeLayout(false);
         	this.groupBox1.PerformLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numNginxPort)).EndInit();
+        	this.gbMySQL.ResumeLayout(false);
+        	this.gbMySQL.PerformLayout();
+        	((System.ComponentModel.ISupportInitialize)(this.numMySQLPort)).EndInit();
         	this.tabBasic.ResumeLayout(false);
+        	this.gbDatabase.ResumeLayout(false);
+        	this.gbDatabase.PerformLayout();
         	this.gbWebserver.ResumeLayout(false);
         	this.gbWebserver.PerformLayout();
         	this.tabControl.ResumeLayout(false);
@@ -1419,6 +1575,22 @@
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem apacheToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem apacheToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem pHPTSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem apacheToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mariaDBToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem mariaDBToolStripMenuItem;
+        private System.Windows.Forms.RadioButton radMySQL;
+        private System.Windows.Forms.RadioButton radMariaDB;
+        private System.Windows.Forms.GroupBox gbDatabase;
+        private System.Windows.Forms.ToolStripMenuItem openAdminerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeAdminerFromLocalhostFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem installAdminerToLocalhostFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem adminerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pHPNTSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem readDocumentationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem runTestsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editPhpxmlToolStripMenuItem;
@@ -1493,7 +1665,7 @@
         private System.Windows.Forms.Label txtMySQLStatus;
         private System.Windows.Forms.Button btnMySQLStart;
         private System.Windows.Forms.Button btnMySQLStop;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox gbMySQL;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label txtFCGIStatus;
         private System.Windows.Forms.Button btnFCGIStop;

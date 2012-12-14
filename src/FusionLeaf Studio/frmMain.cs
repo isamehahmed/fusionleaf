@@ -221,6 +221,8 @@ namespace FLS
     	string folderFCGI;
     	string fileMySQL;
     	string folderMySQL;
+    	string folderMySQLAlways;
+    	string strDBName;
     	string fileMemcached;
     	string folderMemcached;
     	string folderPear;
@@ -232,7 +234,12 @@ namespace FLS
     	string folderAwk;
     	string fileAwk;
     	string folderPHPts;
-    	//string filePHPts;
+    	
+    	string folderAdminer;
+    	
+    	string folderLocalhost;
+    	
+    	string folderMariaDB;
     	
     	// Carriage Return
     	string CR = Environment.NewLine;
@@ -244,7 +251,7 @@ namespace FLS
             versionToolStripMenuItem.Text = "Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             
             // This is just used so the developer can specify the root path without moving the compiled EXE every time
-            //strHomeDir = @"C:\Users\jspurrier\Downloads\(FusionLeaf)\Apache Build\FusionLeaf_Stack_v0.5.0 Test2";
+            strHomeDir = @"C:\Users\jspurrier\Downloads\(FusionLeaf)\FusionLeaf_Stack_v0.5.0.1 SurfStack";
             
             if (strHomeDir==null) strHomeDir = Directory.GetCurrentDirectory();
             folderNginx = Path.Combine(strHomeDir,@"app\nginx");
@@ -252,7 +259,9 @@ namespace FLS
             folderFCGI = Path.Combine(strHomeDir,@"app\phpnts");
             fileFCGI = Path.Combine(folderFCGI,"php-cgi.exe");
             folderMySQL =  Path.Combine(strHomeDir,@"app\MySQL");
+            folderMySQLAlways =  Path.Combine(strHomeDir,@"app\MySQL");
             fileMySQL =  Path.Combine(folderMySQL,@"bin\mysqld.exe");
+            strDBName = "MySQL";
             folderMemcached =  Path.Combine(strHomeDir,@"app\memcached");
             fileMemcached =  Path.Combine(folderMemcached,"memcached.exe");
             folderPear =  Path.Combine(strHomeDir,@"app\pear");
@@ -268,6 +277,12 @@ namespace FLS
             
             folderPHPts = Path.Combine(strHomeDir,@"app\phpts");
             
+            folderAdminer = Path.Combine(strHomeDir,@"app\adminer");
+            
+            folderLocalhost = Path.Combine(strHomeDir,@"webroot\localhost");
+            
+            folderMariaDB =  Path.Combine(strHomeDir,@"app\mariadb");
+            
             this.MinimumSize = this.Size;            
         }
     	
@@ -278,6 +293,8 @@ namespace FLS
             ini.IniWriteValue("Global","HideWindows",chbHide.Checked.ToString());
             ini.IniWriteValue("Global","Apache",radApache.Checked.ToString());
             ini.IniWriteValue("Global","Nginx",radNginx.Checked.ToString());
+            ini.IniWriteValue("Global","MariaDB",radMariaDB.Checked.ToString());
+            ini.IniWriteValue("Global","MySQL",radMySQL.Checked.ToString());
             
             ini.IniWriteValue("Nginx","Port",numNginxPort.Value.ToString());
             ini.IniWriteValue("MySQL","Port",numMySQLPort.Value.ToString());
@@ -302,6 +319,8 @@ namespace FLS
             chbHide.Checked = Convert.ToBoolean(ini.IniReadValue("Global","HideWindows"));
             radApache.Checked = Convert.ToBoolean(ini.IniReadValue("Global","Apache"));
             radNginx.Checked = Convert.ToBoolean(ini.IniReadValue("Global","Nginx"));
+            radMariaDB.Checked = Convert.ToBoolean(ini.IniReadValue("Global","MariaDB"));
+            radMySQL.Checked = Convert.ToBoolean(ini.IniReadValue("Global","MySQL"));
             
             numNginxPort.Value = Convert.ToDecimal(ini.IniReadValue("Nginx","Port"));
             numMySQLPort.Value = Convert.ToDecimal(ini.IniReadValue("MySQL","Port"));
@@ -731,15 +750,20 @@ namespace FLS
         
 		private void tsmMySQL_Click(object sender, EventArgs e)
         {
-        	simpleOpen(@"notepad", Path.Combine(folderMySQL,"my.ini"));
+        	simpleOpen(@"notepad", Path.Combine(folderMySQLAlways,"my.ini"));
         }
 
         private void tsmWeb_Click(object sender, EventArgs e)
         {
-        	simpleOpen(@"notepad", Path.Combine(folderFCGI,@"conf\nginx.conf"));
+        	simpleOpen(@"notepad", Path.Combine(folderNginx,@"conf\nginx.conf"));
         }
 
         private void tsmPHP_Click(object sender, EventArgs e)
+        {
+        	simpleOpen(@"notepad", Path.Combine(folderPHPts,"php.ini"));
+        }
+        
+        private void PHPNTSToolStripMenuItemClick(object sender, EventArgs e)
         {
         	simpleOpen(@"notepad", Path.Combine(folderFCGI,"php.ini"));
         }
@@ -751,7 +775,7 @@ namespace FLS
 
         private void databaseFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        	simpleOpen(folderMySQL);
+        	simpleOpen(folderMySQLAlways);
         }
 
         private void webServerFolderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -812,6 +836,42 @@ namespace FLS
         private void EditIndexphpToolStripMenuItemClick(object sender, EventArgs e)
         {
         	simpleOpen(@"notepad", Path.Combine(strHomeDir,@"webroot\localhost\index.php"));
+        }
+        
+        private void OpenAdminerToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	if (File.Exists(Path.Combine(folderLocalhost,"adminer.php"))) simpleOpen("http://localhost/adminer.php");
+        	else MessageBox.Show("Adminer not installed. Please do this first: click Automation -> Adminer -> Install","FLS: Program Missing");
+        }
+        
+        private void MariaDBToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(@"notepad", Path.Combine(folderMariaDB,@"my.ini"));
+        }
+        
+        private void MariaDBToolStripMenuItem1Click(object sender, EventArgs e)
+        {
+        	simpleOpen(folderMariaDB);
+        }
+        
+        private void ApacheToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(folderApache);
+        }
+        
+        private void PHPTSToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(folderPHPts);
+        }
+        
+        private void ApacheToolStripMenuItem1Click(object sender, EventArgs e)
+        {
+        	simpleOpen(@"notepad", Path.Combine(folderApache,@"conf\httpd.conf"));
+        }
+        
+        private void ApacheToolStripMenuItem2Click(object sender, EventArgs e)
+        {
+        	simpleOpen(@"notepad", Path.Combine(folderConfig,@"apache\original\httpd.conf.in"));
         }
         
         #endregion
@@ -1080,6 +1140,24 @@ namespace FLS
         	numFCGIPort.Enabled=blVal;
         }
         
+        private void configPHP()
+        {
+       		string strTemplate = Path.Combine(folderConfig,@"php.ini");
+            string strOut = Path.Combine(folderFCGI,"php.ini");
+            string strOut2 = Path.Combine(folderPHPts,"php.ini");
+        
+			ArrayList alReplace = new ArrayList();
+			alReplace.Add(new string[]{";%INCLUDE_PATH%", "include_path=\".;"+folderFCGI+"\\pear\""});
+			alReplace.Add(new string[]{"%EXTDIR%", Path.Combine(folderFCGI, "ext")});
+			File.WriteAllText(strOut, replaceText(File.ReadAllText(strTemplate),alReplace));
+			
+			alReplace.Clear();
+			alReplace.Add(new string[]{";%INCLUDE_PATH%", "include_path=\".;"+folderPHPts+"\\pear\""});
+			alReplace.Add(new string[]{"%EXTDIR%", Path.Combine(folderPHPts, "ext")});
+			File.WriteAllText(strOut2, replaceText(File.ReadAllText(strTemplate),alReplace));
+    		Environment.SetEnvironmentVariable("PHP_FCGI_MAX_REQUESTS",numFCGIRequests.Value.ToString());
+        }
+        
         #endregion
         
         #region MySQL
@@ -1102,7 +1180,7 @@ namespace FLS
 	        	else txtMySQLStatus.Invoke((MethodInvoker)delegate(){this.txtMySQLStatus.Text = "Stopped";});
     			Thread.Sleep(1000);
         	}
-        	txtStatus.Text = "MySQL ended.";
+        	txtStatus.Text = strDBName+" ended.";
         	blMySQLThreadRun = false;
         }
         
@@ -1112,6 +1190,7 @@ namespace FLS
         	if (!processIsRunning("mysqld"))
         	{
         		if (!testPort((int)numMySQLPort.Value)) return;
+        		gbDatabase.Enabled = false;
         		numMySQLPort.Enabled = false;
                 string strTemplate = Path.Combine(folderConfig,@"my.ini");
                 string strOut = Path.Combine(folderMySQL,"my.ini");
@@ -1124,7 +1203,7 @@ namespace FLS
         		string arguments = "--defaults-file=\"" + Path.Combine(folderMySQL,"my.ini") + "\"";
         		runCmd(fileMySQL,arguments, folderMySQL);
         		
-        		txtStatus.Text = "MySQL started on port " + numMySQLPort.Value + ".";
+        		txtStatus.Text = strDBName+" started on port " + numMySQLPort.Value + ".";
         		if (!blMySQLThreadRun)
         		{
         			blMySQLThreadRun = true;
@@ -1136,7 +1215,7 @@ namespace FLS
         		}
         		//else txtStatus.Text = "MySQL monitoring thread already started.";
         	}
-        	else txtStatus.Text = "MySQL is already running.";
+        	else txtStatus.Text = strDBName+" is already running.";
         }
         
         private void BtnMySQLStopClick(object sender, EventArgs e)
@@ -1144,11 +1223,12 @@ namespace FLS
         	if (processIsRunning("mysqld"))
         	{
         		runCmd("taskkill","/im mysqld.exe /f", "");
-        		txtStatus.Text = "MySQL stopped.";
+        		txtStatus.Text = strDBName+" stopped.";
         		//if (!blMySQLThreadRun) txtStatus.Text = "MySQL monitoring thread already stopped.";
         	}
-        	else txtStatus.Text = "MySQL is not currently running.";
+        	else txtStatus.Text = strDBName+" is not currently running.";
         	numMySQLPort.Enabled = true;
+        	gbDatabase.Enabled = true;
         }
         
         #endregion
@@ -1347,6 +1427,25 @@ namespace FLS
             p.Start();
         }
         
+        private void EditPhpxmlToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(@"notepad", Path.Combine(folderFCGI,@"phpunit.xml"));
+        }
+        
+        private void RunTestsToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	Process p = new Process();
+    	    p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.WorkingDirectory = folderFCGI;
+            p.StartInfo.Arguments = @"/K phpunit --verbose";
+            p.Start();
+        }
+        
+        private void ReadDocumentationToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	simpleOpen(@"http://www.phpunit.de/manual/3.7/en/writing-tests-for-phpunit.html");
+        }
+        
         private void AddCMSToLocalhostFolderToolStripMenuItemClick(object sender, EventArgs e)
         {
 			string strWebRoot = Path.Combine(strHomeDir,@"webroot");
@@ -1473,6 +1572,29 @@ echo $o->output();
 			File.WriteAllText(strIndexPath, strIndexTmp);
 			
 			MessageBox.Show("FusionLeaf saved and removed from the localhost folder.");
+        }
+        
+        private void InstallAdminerToLocalhostFolderToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	string[] strFiles = Directory.GetFiles(folderAdminer);
+        	foreach (string f in strFiles)
+        	{
+        		FileInfo fi = new FileInfo(f);
+        		File.Delete(Path.Combine(folderLocalhost, fi.Name));
+        		fi.CopyTo(Path.Combine(folderLocalhost, fi.Name));
+        	}
+        	txtStatus.Text = "Adminer installed to Localhost folder.";
+        }
+        
+        private void RemoveAdminerFromLocalhostFolderToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	string[] strFiles = Directory.GetFiles(folderAdminer);
+        	foreach (string f in strFiles)
+        	{
+        		FileInfo fi = new FileInfo(f);
+        		File.Delete(Path.Combine(folderLocalhost, fi.Name));
+        	}
+        	txtStatus.Text = "Adminer removed from Localhost folder.";
         }
         
         #endregion
@@ -1606,43 +1728,25 @@ echo $o->output();
         }
     	
         #endregion
-    
         
-        private void configPHP()
+        private void RadMariaDBCheckedChanged(object sender, EventArgs e)
         {
-       		string strTemplate = Path.Combine(folderConfig,@"php.ini");
-            string strOut = Path.Combine(folderFCGI,"php.ini");
-            string strOut2 = Path.Combine(folderPHPts,"php.ini");
-        
-			ArrayList alReplace = new ArrayList();
-			alReplace.Add(new string[]{";%INCLUDE_PATH%", "include_path=\".;"+folderFCGI+"\\pear\""});
-			alReplace.Add(new string[]{"%EXTDIR%", Path.Combine(folderFCGI, "ext")});
-			File.WriteAllText(strOut, replaceText(File.ReadAllText(strTemplate),alReplace));
-			
-			alReplace.Clear();
-			alReplace.Add(new string[]{";%INCLUDE_PATH%", "include_path=\".;"+folderPHPts+"\\pear\""});
-			alReplace.Add(new string[]{"%EXTDIR%", Path.Combine(folderPHPts, "ext")});
-			File.WriteAllText(strOut2, replaceText(File.ReadAllText(strTemplate),alReplace));
-    		Environment.SetEnvironmentVariable("PHP_FCGI_MAX_REQUESTS",numFCGIRequests.Value.ToString());
+        	if (radMariaDB.Checked)
+        	{
+        		gbMySQL.Text = "MariaDB";
+	            folderMySQL =  Path.Combine(strHomeDir,@"app\mariadb");
+            	fileMySQL =  Path.Combine(folderMySQL,@"bin\mysqld.exe");
+        	}
         }
         
-        void EditPhpxmlToolStripMenuItemClick(object sender, EventArgs e)
+        private void RadMySQLCheckedChanged(object sender, EventArgs e)
         {
-        	simpleOpen(@"notepad", Path.Combine(folderFCGI,@"phpunit.xml"));
+        	if (radMySQL.Checked)
+        	{
+        		gbMySQL.Text = "MySQL";
+            	folderMySQL =  Path.Combine(strHomeDir,@"app\MySQL");
+            	fileMySQL =  Path.Combine(folderMySQL,@"bin\mysqld.exe");
+        	}
         }
-        
-        void RunTestsToolStripMenuItemClick(object sender, EventArgs e)
-        {
-        	Process p = new Process();
-    	    p.StartInfo.FileName = "cmd.exe";
-            p.StartInfo.WorkingDirectory = folderFCGI;
-            p.StartInfo.Arguments = @"/K phpunit --verbose";
-            p.Start();
-        }
-        
-        void ReadDocumentationToolStripMenuItemClick(object sender, EventArgs e)
-        {
-        	simpleOpen(@"http://www.phpunit.de/manual/3.7/en/writing-tests-for-phpunit.html");
-        }
-    }
+	}
 }

@@ -2297,13 +2297,10 @@
     <value>348, 17</value>
   </metadata>
   <data name="label1.Text" xml:space="preserve">
-    <value>FusionLeaf Studio is the management tool for FusionLeaf Stack, a preconfigured distribution of Nginx, PHP,  MySQL, and Memcached. The Basic and Advanced tabs can be used to control and monitor the services required for the FusionLeaf CMS.
+    <value>FusionLeaf Studio is the management tool for FusionLeaf Stack, a preconfigured distribution of web components. Use the Start button below to quickly start all the default applications. The Advanced and Apache tabs can be used to control and monitor the services individually.
 
-Use the button below to quickly start and stop the following components:
-Ngnix - Web Server
-FastCGI (PHP) - Gateway Interface
-MySQL - Database
-Memcached - Caching System
+Components:
+Ngnix (Web Server), Apache (Web Server), PHP (FastCGI), Adminer (Database Management Tool), MySQL (Database), Memcached (Caching System)
 
 Use the Edit menu above to edit the startup configurations, but don't replace any of the %VARIABLES%. The variables will be replaced when the Start button is clicked. You can view the running configurations through the View menu.</value>
   </data>

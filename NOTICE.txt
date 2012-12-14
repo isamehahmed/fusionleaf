@@ -30,3 +30,6 @@ The Apache Software Foundation (http://httpd.apache.org).
 
 This product includes software developed by
 Jakub Vrana (http://www.adminer.org).
+
+This product includes software developed by
+MariaDB Foundation (http://mariadb.org).
