@@ -241,6 +241,9 @@ namespace FLS
     	
     	string folderMariaDB;
     	
+    	int threadSleep = 300;
+    	int threadSleepExit = 10;
+    	
     	// Carriage Return
     	string CR = Environment.NewLine;
     	
@@ -397,8 +400,8 @@ namespace FLS
         
         private void startAll()
         {
-            BtnMySQLStartClick(null, null);
-            
+            BtnMemcachedStartClick(null, null);
+        	BtnMySQLStartClick(null, null);
             if (radNginx.Checked)
             {
             	BtnFCGIStartClick(null, null);
@@ -408,7 +411,6 @@ namespace FLS
             {
             	BtnApacheStartClick(null, null);
             }
-            BtnMemcachedStartClick(null, null);
         }
         
         private void stopAll()
@@ -656,12 +658,13 @@ namespace FLS
         {
         	while(blNginxThreadRun || blFCGIThreadRun || blMySQLThreadRun || blMemcachedThreadRun || blApacheThreadRun)
         	{
-        		Thread.Sleep(1000);
+        		Thread.Sleep(threadSleepExit);
         	}
-        	txtStatus.Text = "FusionLeaf Studio stopped.";
+        	
+        	if (!blClosing) txtStatus.Text = "FusionLeaf Studio stopped.";
         	blStopThreadRun = false;
         }
-        
+        bool blClosing = false;
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {        	
         	/*
@@ -671,6 +674,8 @@ namespace FLS
         	{
         		blResult = true;
         	}else blResult = closeProgram();*/
+        	
+        	blClosing = true;
         	
         	if (e.CloseReason== CloseReason.UserClosing) e.Cancel = !closeProgram();
         	else if (e.CloseReason==CloseReason.TaskManagerClosing
@@ -701,7 +706,9 @@ namespace FLS
             		this.Hide();
             		while (blNginxThreadRun || blFCGIThreadRun || blMySQLThreadRun || blMemcachedThreadRun || blApacheThreadRun)
             		{
-            			Thread.Sleep(100);
+            			Thread.Sleep(threadSleepExit);
+            			
+            			// This is required so the whole application doesn't freeze
             			Application.DoEvents();
             		}
             		return true;
@@ -927,7 +934,7 @@ namespace FLS
         }
         
         public void monitorNginx()
-        {
+        {        	
         	bool blLoop = true;
         	while(blNginxRunning || blLoop)
         	{
@@ -938,7 +945,7 @@ namespace FLS
 	        		blLoop = false;
 	        	}
 	        	else txtNginxStatus.Invoke((MethodInvoker)delegate(){this.txtNginxStatus.Text = "Stopped";});
-        		Thread.Sleep(1000);
+        		Thread.Sleep(threadSleep);
         	}
         	txtStatus.Text = "Nginx ended.";
         	blNginxThreadRun = false;
@@ -1078,7 +1085,7 @@ namespace FLS
 		        		}
 	        		}
 	        	}
-	        	Thread.Sleep(1000);
+	        	Thread.Sleep(threadSleep);
 	        		
         	}
         	txtStatus.Text = "FastCGI threads ended.";
@@ -1178,7 +1185,7 @@ namespace FLS
 	        		blLoop = false;
 	        	}
 	        	else txtMySQLStatus.Invoke((MethodInvoker)delegate(){this.txtMySQLStatus.Text = "Stopped";});
-    			Thread.Sleep(1000);
+    			Thread.Sleep(threadSleep);
         	}
         	txtStatus.Text = strDBName+" ended.";
         	blMySQLThreadRun = false;
@@ -1251,7 +1258,7 @@ namespace FLS
 	        		blLoop = false;
 	        	}
 	        	else txtMemcachedStatus.Invoke((MethodInvoker)delegate(){this.txtMemcachedStatus.Text = "Stopped";});
-        		Thread.Sleep(1000);
+        		Thread.Sleep(threadSleep);
         	}
         	txtStatus.Text = "Memcached ended.";
         	blMemcachedThreadRun = false;
@@ -1700,7 +1707,7 @@ echo $o->output();
 	        		blLoop = false;
 	        	}
 	        	else txtApacheStatus.Invoke((MethodInvoker)delegate(){this.txtApacheStatus.Text = "Stopped";});
-        		Thread.Sleep(1000);
+        		Thread.Sleep(threadSleep);
         	}
         	txtStatus.Text = "Apache ended.";
         	blApacheThreadRun = false;
