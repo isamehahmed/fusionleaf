@@ -40,9 +40,8 @@ function final_action()
 			else $site_n = $_SERVER['HTTP_HOST'];
 		}
 
-
-		// Remove any periods
-		$site_n = str_replace('.','',$site_n);
+		// Remove any periods or dashes
+		$site_n = str_replace(array('.','-'),'',$site_n);
 
 		// If the database name is too long (SQL usernames are limited to 16 chars), take a substring
 		if (strlen($site_n)>=12) $db_name = substr($site_n,0,11);
