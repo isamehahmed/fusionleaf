@@ -254,7 +254,7 @@ namespace FLS
             versionToolStripMenuItem.Text = "Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             
             // This is just used so the developer can specify the root path without moving the compiled EXE every time
-            strHomeDir = @"C:\Users\jspurrier\Downloads\(FusionLeaf)\FusionLeaf_Stack_v0.5.1";
+            strHomeDir = @"C:\Users\Coil\Downloads\(FusionLeaf)\FusionLeaf_Stack_v0.5.2";
             
             if (!Directory.Exists(strHomeDir)) strHomeDir = Directory.GetCurrentDirectory();
             folderNginx = Path.Combine(strHomeDir,@"app\nginx");
@@ -661,7 +661,12 @@ namespace FLS
         		Thread.Sleep(threadSleepExit);
         	}
         	
-        	if (!blClosing) txtStatus.Text = "FusionLeaf Studio stopped.";
+        	// This throws an "Error creating window handle" message so put in a try/catch
+        	try{
+        		if (!blClosing) txtStatus.Text = "FusionLeaf Studio stopped.";
+        	}
+        	catch{}
+        	
         	blStopThreadRun = false;
         }
         bool blClosing = false;
@@ -1666,6 +1671,9 @@ echo $o->output();
     			alReplace.Add(new string[]{"#%SSLDLL%", "LoadFile \""+ strSSLDLL +"\""});
     			alReplace.Add(new string[]{strGuessRoot, strRealRoot});
     			alReplace.Add(new string[]{"AllowOverride None", "AllowOverride All"});
+    			alReplace.Add(new string[]{"#%ERRDOC404%", "ErrorDocument 404 \"404 not found\""});
+    			alReplace.Add(new string[]{"#%ERRDOC403%", "ErrorDocument 403 \"403 forbidden\""});
+    			alReplace.Add(new string[]{"Options Indexes FollowSymLinks", "Options FollowSymLinks"});
     			alReplace.Add(new string[]{"DirectoryIndex index.html", "DirectoryIndex index.php index.html"});
     			alReplace.Add(new string[]{"#%PHPADDTYPE%", "AddType application/x-httpd-php .php"});
     			alReplace.Add(new string[]{"#%PHPDIR%", "PHPIniDir \""+ folderPHPts.Replace('\\','/') +"\""});

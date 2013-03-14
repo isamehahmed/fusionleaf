@@ -1,5 +1,5 @@
 FusionLeaf Studio
-Copyright 2012 PC Precision LLC
+Copyright 2013 PC Precision LLC
 
 This is the source for the FusionLeaf Studio.exe application.
 C# .NET 2.0

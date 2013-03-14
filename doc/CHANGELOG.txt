@@ -1,3 +1,7 @@
+FusionLeaf Stack v0.5.2 (2013-03-13)
+------------------------------------
+* FusionLeaf Studio.exe - fixed a close bug, set Apache to disable directory browsing by default
+
 FusionLeaf Stack v0.5.1 (2012-12-14)
 ------------------------------------
 * Adminer v3.6.1 - added
